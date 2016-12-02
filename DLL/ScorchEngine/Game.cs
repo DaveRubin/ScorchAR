@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using ScorchEngine.Data;
 using ScorchEngine.GameObjects;
@@ -12,6 +13,7 @@ namespace ScorchEngine
     public class Game
     {
         public event Action<int> TurnStarted;
+        public event Action<Stack<TurnAction>, Action> ActionsExecuted;
 
         private int m_currentTurn;
         private readonly GameConfig r_gameConfig;
@@ -22,10 +24,7 @@ namespace ScorchEngine
 
         public bool IsFull
         {
-            get
-            {
-                return m_players.Count == r_gameConfig.MaxPlayers;
-            }
+            get { return m_players.Count == r_gameConfig.MaxPlayers; }
         }
 
         /// <summary>
@@ -35,7 +34,7 @@ namespace ScorchEngine
         {
             r_gameConfig = config;
             m_players = new List<Player>();
-            m_gravity = new Coordinate(0,-1,0);
+            m_gravity = new Coordinate(0, -1, 0);
             Console.WriteLine("game created");
         }
 
@@ -64,9 +63,10 @@ namespace ScorchEngine
         /// </summary>
         private void StartGame()
         {
+            m_currentTurn = 0;
             GenerateTerrain();
             PositionPlayers();
-            StartTurn();
+            NextTurn();
         }
 
 
@@ -106,12 +106,25 @@ namespace ScorchEngine
         /// </summary>
         private void ExecuteActions()
         {
+            Stack<TurnAction> actionsClone = new Stack<TurnAction>(m_turnActionsStack);
             while (m_turnActionsStack.Count > 0)
             {
                 TurnAction action = m_turnActionsStack.Pop();
                 //create path and get collisions with terrain
                 //for each collision damage the terrain
                 //find all tanks effected and damage them
+            }
+
+            // if someone is listening for action executions,
+            // then let it know that actions were executed, and send NextTurn as callback to be called by the listenr
+            if (ActionsExecuted != null)
+            {
+                ActionsExecuted(actionsClone, NextTurn);
+            }
+            else
+            {
+                //if no one listens (meaning no external use for game) skip to next Turn
+                NextTurn();
             }
         }
 
@@ -131,7 +144,7 @@ namespace ScorchEngine
         /// <summary>
         /// Tell all players that a turn has been started
         /// </summary>
-        private void StartTurn()
+        private void NextTurn()
         {
             if (TurnStarted != null)
             {
