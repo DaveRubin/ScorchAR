@@ -1,0 +1,5 @@
+/Users/david/School/final project/Tanks/ScorchAREngine/ScorchEngine/obj/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/Users/david/School/final project/Tanks/ScorchAREngine/ScorchEngine/bin/Debug/ScorchEngine.dll.mdb
+/Users/david/School/final project/Tanks/ScorchAREngine/ScorchEngine/bin/Debug/ScorchEngine.dll
+/Users/david/School/final project/Tanks/ScorchAREngine/ScorchEngine/obj/Debug/ScorchEngine.dll
+/Users/david/School/final project/Tanks/ScorchAREngine/ScorchEngine/obj/Debug/ScorchEngine.dll.mdb

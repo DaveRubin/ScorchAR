@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using ScortchEngine.Utils;
+using ScorchEngine.Geometry;
 
-namespace ScortchEngine
+namespace ScorchEngine
 {
 	/// <summary>
 	/// The tank class represents a tank object in the game
 	/// </summary>
-	class Tank
+	public class Tank
 	{
 		public TankStyle Type{ get; private set;}
 		public Player Owner{ get; private set;}
