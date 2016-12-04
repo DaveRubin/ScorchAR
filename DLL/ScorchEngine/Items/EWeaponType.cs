@@ -1,6 +1,6 @@
-﻿namespace ScorchEngine.Data
+﻿namespace ScorchEngine.Items
 {
-    public enum WeaponType
+    public enum EWeaponType
     {
         Regular,
         BabyMissile,

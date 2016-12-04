@@ -1,7 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using ScorchEngine.Data;
+using System.IO;
+using System.Timers;
+using ScorchEngine.Config;
 using ScorchEngine.GameObjects;
 using ScorchEngine.Geometry;
 
@@ -13,6 +14,7 @@ namespace ScorchEngine
     public class Game
     {
         public event Action<int> TurnStarted;
+        public event Action MatchEnded;
         public event Action<Stack<TurnAction>, Action> ActionsExecuted;
 
         private int m_currentTurn;
@@ -20,7 +22,8 @@ namespace ScorchEngine
         private List<Player> m_players;
         private Stack<TurnAction> m_turnActionsStack;
         private Terrain m_terrain;
-        private Coordinate m_gravity;
+        private Coordinate m_environmentForces;
+        private Timer m_turnTimer;
 
         public bool IsFull
         {
@@ -34,7 +37,7 @@ namespace ScorchEngine
         {
             r_gameConfig = config;
             m_players = new List<Player>();
-            m_gravity = new Coordinate(0, -1, 0);
+            m_environmentForces = new Coordinate(0, -1, 0);
             Console.WriteLine("game created");
         }
 
@@ -64,9 +67,35 @@ namespace ScorchEngine
         private void StartGame()
         {
             m_currentTurn = 0;
+            m_turnTimer = new Timer(r_gameConfig.TurnDuration);
+            m_turnTimer.Elapsed += OnTurnTimerElapsed;
             GenerateTerrain();
             PositionPlayers();
             NextTurn();
+        }
+
+        /// <summary>
+        /// When turn timer is done, stop the timer and end turn
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTurnTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            m_turnTimer.Stop();
+            EndTurn();
+        }
+
+        /// <summary>
+        /// When turn has ended , lock all players actions and execute all actions
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        private void EndTurn()
+        {
+            foreach (Player player in m_players)
+            {
+                player.TurnEnded();
+            }
+            ExecuteActions();
         }
 
 
@@ -97,7 +126,7 @@ namespace ScorchEngine
             m_turnActionsStack.Push(playersAction);
             if (m_turnActionsStack.Count == m_players.Count)
             {
-                ExecuteActions();
+                EndTurn();
             }
         }
 
@@ -146,18 +175,71 @@ namespace ScorchEngine
         /// </summary>
         private void NextTurn()
         {
-            if (TurnStarted != null)
+            Console.WriteLine("NextTurn");
+            if (CheckMatchEnd())
             {
-                TurnStarted(m_currentTurn);
+                EndMatch();
             }
+            else
+            {
+                if (TurnStarted != null)
+                {
+                    TurnStarted(m_currentTurn);
+                }
 
-            //enable all tanks
+                // Start turn timer again
+                m_turnTimer.Start();
+
+                //enable all tanks
+                foreach (Player player in m_players)
+                {
+                    player.TurnStarted();
+                }
+
+                m_currentTurn++;
+            }
+        }
+
+        private void EndMatch()
+        {
+            if (MatchEnded != null)
+            {
+                MatchEnded();
+            }
+        }
+
+        /// <summary>
+        /// Check following conditions to see if match has ended
+        /// - if turns reached max
+        /// - if no players or just 1 player is alive
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckMatchEnd()
+        {
+            bool result =
+                m_currentTurn == r_gameConfig.MaxTurns ||
+                PlayersAlive() < 2;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Return the number of players with live tanks
+        /// </summary>
+        /// <returns></returns>
+        private int PlayersAlive()
+        {
+            int aliveCount = 0;
+
             foreach (Player player in m_players)
             {
-                player.StartTurn();
+                if (player.Tank.Alive)
+                {
+                    aliveCount++;
+                }
             }
 
-            m_currentTurn++;
+            return aliveCount;
         }
     }
 }

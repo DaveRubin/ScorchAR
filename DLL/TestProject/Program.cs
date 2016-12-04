@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ScorchEngine;
-using ScorchEngine.Data;
+using ScorchEngine.Config;
 
 namespace TestProject
 {

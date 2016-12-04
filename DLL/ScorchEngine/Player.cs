@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using ScorchEngine.Data;
+using ScorchEngine.Config;
+using ScorchEngine.Items;
 
 namespace ScorchEngine
 {
@@ -32,9 +33,14 @@ namespace ScorchEngine
 	        return p;
 	    }
 
-	    public void StartTurn()
+	    public void TurnStarted()
 	    {
 	        active = true;
+	    }
+
+	    public void TurnEnded()
+	    {
+	        active = false;
 	    }
 	}
 }
