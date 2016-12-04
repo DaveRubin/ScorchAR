@@ -1,4 +1,7 @@
-﻿namespace ScorchEngine.GameObjects
+﻿using ScorchEngine.Geometry;
+using ScorchEngine.Items;
+
+namespace ScorchEngine.GameObjects
 {
     public class Terrain
     {
@@ -16,6 +19,27 @@
         public float GetHeightAt(float x, float z)
         {
             return 0;
+        }
+
+        /// <summary>
+        /// Return the future collisionPoint point of the terrain object with given path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public Coordinate GetCollisionPoint(ProjectilePath path)
+        {
+            //TODO - implement when terrain object is done
+            return new Coordinate();
+        }
+
+        /// <summary>
+        /// Set Damage to given terrain according to hitting weapon
+        /// </summary>
+        /// <param name="collisionPoint"></param>
+        /// <param name="weapon"></param>
+        public void DoDamange(Coordinate collisionPoint, EWeaponType weapon)
+        {
+            //TODO - needs implementations
         }
     }
 }

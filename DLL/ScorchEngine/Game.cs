@@ -5,6 +5,7 @@ using System.Timers;
 using ScorchEngine.Config;
 using ScorchEngine.GameObjects;
 using ScorchEngine.Geometry;
+using ScorchEngine.Items;
 
 namespace ScorchEngine
 {
@@ -24,6 +25,30 @@ namespace ScorchEngine
         private Terrain m_terrain;
         private Coordinate m_environmentForces;
         private Timer m_turnTimer;
+
+        /// <summary>
+        /// TODO - wrap dictionaries inside weapons static class
+        /// </summary>
+        private Dictionary<EWeaponType, float> AreaOfEffectMap = new Dictionary<EWeaponType, float>()
+        {
+            {EWeaponType.Regular, 1},
+            {EWeaponType.BabyMissile, 1},
+            {EWeaponType.Missile, 1},
+            {EWeaponType.BabyNuke, 1},
+            {EWeaponType.Nuke, 1},
+            {EWeaponType.Mirv, 1},
+            {EWeaponType.SuperMirv, 1}
+        };
+        private Dictionary<EWeaponType, int> DamageMap = new Dictionary<EWeaponType, int>()
+        {
+            {EWeaponType.Regular, 1},
+            {EWeaponType.BabyMissile, 1},
+            {EWeaponType.Missile, 1},
+            {EWeaponType.BabyNuke, 1},
+            {EWeaponType.Nuke, 1},
+            {EWeaponType.Mirv, 1},
+            {EWeaponType.SuperMirv, 1}
+        };
 
         public bool IsFull
         {
@@ -140,8 +165,12 @@ namespace ScorchEngine
             {
                 TurnAction action = m_turnActionsStack.Pop();
                 //create path and get collisions with terrain
+                ProjectilePath path = new ProjectilePath(action.Player.Tank.Position,action.Force);
+                Coordinate collisionPoint = m_terrain.GetCollisionPoint(path);
                 //for each collision damage the terrain
+                m_terrain.DoDamange(collisionPoint, action.Weapon);
                 //find all tanks effected and damage them
+                TestTanksCollisionAt(collisionPoint,action.Weapon);
             }
 
             // if someone is listening for action executions,
@@ -154,6 +183,25 @@ namespace ScorchEngine
             {
                 //if no one listens (meaning no external use for game) skip to next Turn
                 NextTurn();
+            }
+        }
+
+        /// <summary>
+        /// Iterate through all tanks and check if in area of effect for the given weapon
+        /// </summary>
+        /// <param name="collisionPoint"></param>
+        /// <param name="weapon"></param>
+        private void TestTanksCollisionAt(Coordinate collisionPoint, EWeaponType weapon)
+        {
+            float aoe = AreaOfEffectMap[weapon];
+            foreach (Player player in m_players)
+            {
+                Coordinate tankPos = player.Tank.Position;
+                float distance = Coordinate.Distance(tankPos, collisionPoint);
+                if (distance < aoe)
+                {
+                    player.Tank.Damage(weapon,DamageMap[weapon]);
+                }
             }
         }
 

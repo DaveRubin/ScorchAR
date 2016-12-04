@@ -12,6 +12,11 @@ namespace ScorchEngine.Geometry
 		    Y = y;
 		    Z = z;
 		}
+
+	    public static float Distance(Coordinate p2, Coordinate p1)
+	    {
+	        return 0;
+	    }
 	}
 }
 

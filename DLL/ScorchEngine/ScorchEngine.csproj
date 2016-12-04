@@ -43,6 +43,7 @@
     <Compile Include="Config\GameConfig.cs" />
     <Compile Include="Config\TurnAction.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Geometry\ProjectilePath.cs" />
     <Compile Include="Geometry\Terrain.cs" />
     <Compile Include="Items\StoreItem.cs" />
     <Compile Include="Items\EWeaponType.cs" />

@@ -1,4 +1,5 @@
 using ScorchEngine.Geometry;
+using ScorchEngine.Items;
 
 namespace ScorchEngine
 {
@@ -21,6 +22,17 @@ namespace ScorchEngine
 			BaseAngle = new Coordinate();
 			BarrelAngle = new Coordinate();
 		}
+
+	    /// <summary>
+	    /// Take Damage from projectile hit
+	    /// </summary>
+	    /// <param name="weapon"></param>
+	    /// <param name="damage"></param>
+	    public void Damage(EWeaponType weapon, int damage)
+	    {
+	        Health -= damage;
+	        //Needs to calculate additional damage or specific weapons
+	    }
 	}
 
 }
