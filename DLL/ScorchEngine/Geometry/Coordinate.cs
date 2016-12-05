@@ -6,7 +6,12 @@ namespace ScorchEngine.Geometry
 		public float Y;
 		public float Z;
 
-		public Coordinate(float x = 0,float y = 0,float z = 0)
+	    public Coordinate()
+	    {
+	        X = Y = Z = 0;
+	    }
+
+		public Coordinate(float x,float y ,float z )
 		{
 		    X = x;
 		    Y = y;

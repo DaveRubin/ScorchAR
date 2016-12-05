@@ -8,3 +8,13 @@
 /Users/david/School/final project/Tanks/DLL/ScorchEngine/bin/Debug/ScorchEngine.dll
 /Users/david/School/final project/Tanks/DLL/ScorchEngine/obj/Debug/ScorchEngine.dll
 /Users/david/School/final project/Tanks/DLL/ScorchEngine/obj/Debug/ScorchEngine.dll.mdb
+/Users/david/School/final project/Tanks/Unity/bin/Debug/Assets/Engine/ScorchEngine.dll.mdb
+/Users/david/School/final project/Tanks/Unity/bin/Debug/Assets/Engine/ScorchEngine.dll
+/Users/david/School/final project/Tanks/DLL/bin/Debug/ScorchEngine.dll.mdb
+/Users/david/School/final project/Tanks/DLL/bin/Debug/ScorchEngine.dll
+/Users/david/School/final project/Tanks/DLL/ScorchEngine/.../bin/Debug/ScorchEngine.dll.mdb
+/Users/david/School/final project/Tanks/DLL/ScorchEngine/.../bin/Debug/ScorchEngine.dll
+/Users/david/School/final project/Tanks/bin/Debug/ScorchEngine.dll.mdb
+/Users/david/School/final project/Tanks/bin/Debug/ScorchEngine.dll
+/Users/david/School/final project/Tanks/Unity/Assets/Engine/Debug/ScorchEngine.dll.mdb
+/Users/david/School/final project/Tanks/Unity/Assets/Engine/Debug/ScorchEngine.dll

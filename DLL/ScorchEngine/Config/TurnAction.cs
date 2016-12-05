@@ -10,7 +10,7 @@ namespace ScorchEngine.Config
         public readonly bool Tracer;
         public readonly Player Player;
 
-        private TurnAction(Player executingPlayer,Coordinate force, EWeaponType weapon, bool tracer = false)
+        private TurnAction(Player executingPlayer,Coordinate force, EWeaponType weapon, bool tracer)
         {
             Player = executingPlayer;
             Force = force;

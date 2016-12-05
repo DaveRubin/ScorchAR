@@ -54,6 +54,11 @@ namespace ScorchEngine
             get { return m_players.Count == r_gameConfig.MaxPlayers; }
         }
 
+        public Terrain Terrain
+        {
+            get { return m_terrain; }
+        }
+
         /// <summary>
         /// Game c'tor
         /// </summary>
@@ -62,6 +67,7 @@ namespace ScorchEngine
             r_gameConfig = config;
             m_players = new List<Player>();
             m_environmentForces = new Coordinate(0, -1, 0);
+            GenerateTerrain();
             Console.WriteLine("game created");
         }
 
