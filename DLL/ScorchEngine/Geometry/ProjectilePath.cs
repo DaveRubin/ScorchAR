@@ -31,6 +31,7 @@ namespace ScorchEngine.Geometry
             //ther will be no peak for arch when no Y force is present
             if (startYForce <= 0)
             {
+                //x
                 result = -1;
             }
             else
@@ -39,6 +40,7 @@ namespace ScorchEngine.Geometry
                 float forceReductionPerTick = startYForce / tmpForce;
                 result = startYForce / forceReductionPerTick;
             }
+
             return result;
         }
     }

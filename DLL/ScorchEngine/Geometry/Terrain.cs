@@ -5,13 +5,19 @@ namespace ScorchEngine.GameObjects
 {
     public class Terrain
     {
-        public Terrain()
-        {
+        private float[,] height;
+        public readonly int SizeX;
+        public readonly int SizeZ;
 
+        public Terrain(int sizeX,int sizeZ)
+        {
+            height = new float[sizeX,sizeZ];
+            SizeX = sizeX;
+            SizeZ = sizeZ;
         }
 
         /// <summary>
-        /// Needs to get the height at a given position
+        /// Needs to get the interpolated height at a given position
         /// </summary>
         /// <param name="x"></param>
         /// <param name="z"></param>

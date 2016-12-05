@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Timers;
 using ScorchEngine.Config;
 using ScorchEngine.GameObjects;
@@ -129,7 +128,7 @@ namespace ScorchEngine
         /// </summary>
         private void GenerateTerrain()
         {
-            m_terrain = new Terrain();
+            m_terrain = new Terrain(r_gameConfig.Size[0],r_gameConfig.Size[1]);
         }
 
         private void PositionPlayers()
