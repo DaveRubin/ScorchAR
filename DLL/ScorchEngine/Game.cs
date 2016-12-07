@@ -15,6 +15,7 @@ namespace ScorchEngine
     {
         public event Action<int> TurnStarted;
         public event Action MatchEnded;
+        public event Action<string> debugLog;
         public event Action<Stack<TurnAction>, Action> ActionsExecuted;
 
         private int m_currentTurn;
@@ -68,7 +69,6 @@ namespace ScorchEngine
             m_players = new List<Player>();
             m_environmentForces = new Coordinate(0, -1, 0);
             GenerateTerrain();
-            Console.WriteLine("game created");
         }
 
         /// <summary>
@@ -84,6 +84,7 @@ namespace ScorchEngine
             }
 
             m_players.Add(player);
+            debugLog("playerAdd" + player.Name);
 
             if (m_players.Count == r_gameConfig.MaxPlayers)
             {
@@ -141,6 +142,7 @@ namespace ScorchEngine
         {
             foreach (Player player in m_players)
             {
+                debugLog((player == null).ToString());
                 player.Tank.Position = GetPosition();
                 player.Ready += OnPlayerActionReady;
             }

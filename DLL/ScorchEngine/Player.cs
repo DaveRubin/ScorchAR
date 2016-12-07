@@ -26,6 +26,11 @@ namespace ScorchEngine
 	        Name = name;
 	    }
 
+	    public void SetTank(Tank tank)
+	    {
+	        this.tank = tank;
+	    }
+
 	    public static Player CreateMockPlayer()
 	    {
 	        Player p = new Player("Player"+Count);
