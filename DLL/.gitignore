@@ -1,3 +1,5 @@
-﻿#RiderC#
+#RiderC#
 .idea/
 *.*.iml
+ScorchEngine/obj/*
+TestProject/obj/*
