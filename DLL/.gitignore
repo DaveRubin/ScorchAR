@@ -3,3 +3,5 @@
 *.*.iml
 ScorchEngine/obj/*
 TestProject/obj/*
+ScorchEngine/.../*
+TestProject/.../*
