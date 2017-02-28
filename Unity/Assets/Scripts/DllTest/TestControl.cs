@@ -15,6 +15,7 @@ public class TestControl : MonoBehaviour {
 // Use this for initialization
     void Awake() {
         cubePrefab = Resources.Load<GameObject>("Prefabs/Cube");
+
         GameConfig conf = new GameConfig();
         conf.Size = new int[]{ 50, 50 };
         conf.MaxPlayers = 1;
