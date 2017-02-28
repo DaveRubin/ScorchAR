@@ -60,6 +60,11 @@ namespace ScorchEngine
             get { return m_terrain; }
         }
 
+        public Coordinate GetEnvironmetForces()
+        {
+            return m_environmentForces;
+        }
+
         /// <summary>
         /// Game c'tor
         /// </summary>
