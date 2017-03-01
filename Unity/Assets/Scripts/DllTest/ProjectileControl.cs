@@ -7,10 +7,18 @@ namespace DllTest {
         Vector3 force = Vector3.zero;
         static GameObject explosionPrefab;
 
+        SphereCollider hitTest;
         void Awake() {
+            hitTest = GetComponent<SphereCollider>();
             if (explosionPrefab == null) {
                 explosionPrefab = Resources.Load<GameObject>("Prefabs/Explosion");
             }
+        }
+
+        void OnCollisionEnter(Collision collision) {
+            // Check if collided with cube
+            //Debug.LogFormat("Collided with {0} ",collision.gameObject.name);
+            Explode();
         }
 
         /// <summary>
@@ -22,16 +30,13 @@ namespace DllTest {
             transform.localPosition += (force * t);
 
             //set rotation
-            transform.localRotation = Quaternion.LookRotation(force);
+            if (force != Vector3.zero)
+                transform.localRotation = Quaternion.LookRotation(force);
 
             // check if hit tank
             // check if hit ground
             if (transform.position.y < 0) {
-                Debug.Log("Bam!");
-                GameObject.Destroy(this.gameObject);
-
-                GameObject explosion = GameObject.Instantiate(explosionPrefab);
-                explosion.transform.position = transform.position;
+                Explode();
             }
             // check if passed its life
         }
@@ -42,6 +47,15 @@ namespace DllTest {
         /// <param name="force"></param>
         public void SetForce(Vector3 force) {
             this.force = force;
+        }
+
+        public void Explode() {
+            //Debug.Log("Bam!");
+            GameObject.Destroy(this.gameObject);
+
+            GameObject explosion = GameObject.Instantiate(explosionPrefab);
+            explosion.transform.position = transform.position;
+            explosion.GetComponent<Explosion>().Set(3);
         }
     }
 }

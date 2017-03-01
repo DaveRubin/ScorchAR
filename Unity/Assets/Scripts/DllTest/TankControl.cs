@@ -56,15 +56,23 @@ public class TankControl : MonoBehaviour {
         body.localPosition = pos;
     }
 
-    public void onLeftRightChanged(float arg0) {
+    /// <summary>
+    /// horizontal aim
+    /// </summary>
+    /// <param name="angle"></param>
+    public void onLeftRightChanged(float angle) {
         Vector3 yRotation = Sides.localRotation.eulerAngles;
-        yRotation.y = arg0;
+        yRotation.y = angle;
         Sides.localRotation = Quaternion.Euler(yRotation);
     }
 
-    public void onUpDownChanged(float arg0) {
+    /// <summary>
+    /// vertical aim
+    /// </summary>
+    /// <param name="angle"></param>
+    public void onUpDownChanged(float angle) {
         Vector3 zRotation = UpDwn.localRotation.eulerAngles;
-        zRotation.z = arg0;
+        zRotation.z = angle;
         UpDwn.localRotation = Quaternion.Euler(zRotation);
     }
 
@@ -79,14 +87,12 @@ public class TankControl : MonoBehaviour {
         float angle = UpDwn.eulerAngles.z + addition;
         float fy = Mathf.Sin(angle*Mathf.Deg2Rad)*force;
         float fxMain = Mathf.Cos(angle*Mathf.Deg2Rad)*force;
-        //Debug.LogFormat("one {0} {1} {2}",angle,fxMain,fy);
 
-        //seperate xForce and Zforce
+        //separate xForce and Zforce
         float addition2 = 0;
         float angle2 = Sides.eulerAngles.y + addition2;
         float fz = Mathf.Sin(angle2*Mathf.Deg2Rad)*fxMain;
         float fx = Mathf.Cos(angle2*Mathf.Deg2Rad)*fxMain;
-        Debug.LogFormat("two {0} {1} {2} {3}",angle2,fx,fy,fz);
 
         bullet.transform.position = BarrelsEnd.position;
         bullet.GetComponent<ProjectileControl>().SetForce(new Vector3(fx,fy,-fz));
