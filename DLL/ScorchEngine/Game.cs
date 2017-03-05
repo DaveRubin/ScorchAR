@@ -39,6 +39,7 @@ namespace ScorchEngine
             {EWeaponType.Mirv, 1},
             {EWeaponType.SuperMirv, 1}
         };
+
         private Dictionary<EWeaponType, int> DamageMap = new Dictionary<EWeaponType, int>()
         {
             {EWeaponType.Regular, 1},
