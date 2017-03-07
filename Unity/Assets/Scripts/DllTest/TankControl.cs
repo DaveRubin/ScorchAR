@@ -9,6 +9,7 @@ public class TankControl : MonoBehaviour {
     Transform UpDwn;
     Transform BarrelsEnd;
     public float force;
+    public bool active = true;
 
     void Awake() {
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile");

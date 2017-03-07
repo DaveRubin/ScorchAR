@@ -26,7 +26,7 @@ namespace DllTest {
         /// </summary>
         void Update() {
             float t = Time.deltaTime * 8;
-            force.y += TestControl.game.GetEnvironmetForces().Y * t;
+            force.y += TestControl.Game.GetEnvironmetForces().Y * t;
             transform.localPosition += (force * t);
 
             //set rotation
