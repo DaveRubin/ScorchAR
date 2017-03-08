@@ -1,4 +1,5 @@
 ﻿using DllTest;
+using UI;
 using UnityEngine;
 
 public class TankControl : MonoBehaviour {
@@ -17,6 +18,7 @@ public class TankControl : MonoBehaviour {
         Sides = transform.FindChild("YAxis");
         UpDwn = transform.FindChild("YAxis/ZAxis");
         BarrelsEnd = transform.FindChild("YAxis/ZAxis/Barrel/Tip");
+
     }
 
 
@@ -58,6 +60,27 @@ public class TankControl : MonoBehaviour {
     }
 
     /// <summary>
+    /// Link tank to GUI
+    /// </summary>
+    /// <param name="Gui"></param>
+    public void LinkToGUI(CameraGUI Gui) {
+        Gui.OnForceChange += onForceChange;
+        Gui.OnXAngleChange += onLeftRightChanged;
+        Gui.OnYAngleChange += onUpDownChanged;
+        Gui.OnShoot += Shoot;
+        onForceChange(Gui.Force);
+        onLeftRightChanged(Gui.XAngle);
+        onUpDownChanged(Gui.YAngle);
+    }
+
+    public void UnlinkGUI(CameraGUI Gui) {
+        Gui.OnForceChange -= onForceChange;
+        Gui.OnXAngleChange -= onLeftRightChanged;
+        Gui.OnYAngleChange -= onUpDownChanged;
+        Gui.OnShoot -= Shoot;
+    }
+
+    /// <summary>
     /// horizontal aim
     /// </summary>
     /// <param name="angle"></param>
@@ -65,6 +88,15 @@ public class TankControl : MonoBehaviour {
         Vector3 yRotation = Sides.localRotation.eulerAngles;
         yRotation.y = angle;
         Sides.localRotation = Quaternion.Euler(yRotation);
+    }
+
+    /// <summary>
+    /// set force
+    /// </summary>
+    /// <param name="force"></param>
+    public void onForceChange(float force) {
+        this.force = force;
+        Debug.LogFormat("Force is {0}",force);
     }
 
     /// <summary>
@@ -81,21 +113,21 @@ public class TankControl : MonoBehaviour {
     /// Shoot projectile
     /// </summary>
     public void Shoot() {
-        // set up projectile type
-        // shoot it
-        GameObject bullet= GameObject.Instantiate(bulletPrefab);
+// set up projectile type
+// shoot it
+        GameObject bullet = GameObject.Instantiate(bulletPrefab);
         float addition = 0;
         float angle = UpDwn.eulerAngles.z + addition;
-        float fy = Mathf.Sin(angle*Mathf.Deg2Rad)*force;
-        float fxMain = Mathf.Cos(angle*Mathf.Deg2Rad)*force;
+        float fy = Mathf.Sin(angle * Mathf.Deg2Rad) * force;
+        float fxMain = Mathf.Cos(angle * Mathf.Deg2Rad) * force;
 
-        //separate xForce and Zforce
+//separate xForce and Zforce
         float addition2 = 0;
         float angle2 = Sides.eulerAngles.y + addition2;
-        float fz = Mathf.Sin(angle2*Mathf.Deg2Rad)*fxMain;
-        float fx = Mathf.Cos(angle2*Mathf.Deg2Rad)*fxMain;
+        float fz = Mathf.Sin(angle2 * Mathf.Deg2Rad) * fxMain;
+        float fx = Mathf.Cos(angle2 * Mathf.Deg2Rad) * fxMain;
 
         bullet.transform.position = BarrelsEnd.position;
-        bullet.GetComponent<ProjectileControl>().SetForce(new Vector3(fx,fy,-fz));
+        bullet.GetComponent<ProjectileControl>().SetForce(new Vector3(fx, fy, -fz));
     }
 }

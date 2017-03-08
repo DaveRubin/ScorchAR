@@ -10,26 +10,59 @@ namespace UI {
         private Slider sliderY;
         private Slider sliderX;
         private Slider sliderForce;
+        private Button fireButton;
 
         public event Action OnShoot;
         public event Action<float> OnXAngleChange;
         public event Action<float> OnYAngleChange;
         public event Action<float> OnForceChange;
 
-        void Awake() {
+        public float Force {
+            get {
+                if (sliderForce  == null)  return float.MinValue;
+                else return sliderForce.value;
+            }
+        }
+        public float XAngle {
+            get {
+                if (sliderX  == null)  return float.MinValue;
+                else return sliderX.value;
+            }
+        }
+        public float YAngle{
+            get {
+                if (sliderY == null)  return float.MinValue;
+                else return sliderY.value;
+            }
+        }
 
-            Button fireButton = GameObject.Find("FireButton").GetComponent<Button>();
-            sliderForce = GameObject.Find("SliderForce").GetComponent<Slider>();
-            sliderX = GameObject.Find("SliderX").GetComponent<Slider>();
-            sliderY = GameObject.Find("SliderY").GetComponent<Slider>();
-            textY = GameObject.Find("AnglesY").GetComponent<Text>();
-            textX = GameObject.Find("AnglesX").GetComponent<Text>();
-            textForce = GameObject.Find("Force").GetComponent<Text>();
+        void Awake() {
+            GetRelevantComponents();
+            RegisterEvents();
+            UpdateTexts();
+        }
+
+        /// <summary>
+        /// Get components from children
+        /// </summary>
+        private void GetRelevantComponents() {
+            fireButton = transform.Find("FireButton").GetComponent<Button>();
+            sliderForce = transform.Find("SliderForce").GetComponent<Slider>();
+            sliderX = transform.Find("SliderX").GetComponent<Slider>();
+            sliderY = transform.Find("SliderY").GetComponent<Slider>();
+            textY = transform.Find("AnglesY").GetComponent<Text>();
+            textX = transform.Find("AnglesX").GetComponent<Text>();
+            textForce = transform.Find("Force").GetComponent<Text>();
+        }
+
+        /// <summary>
+        /// register events to their handlers
+        /// </summary>
+        private void RegisterEvents() {
             sliderForce.onValueChanged.AddListener(OnForceSliderChange);
             sliderY.onValueChanged.AddListener(OnYChanged);
             sliderX.onValueChanged.AddListener(OnXChanged);
             fireButton.onClick.AddListener(OnFireClicked);
-            UpdateTexts();
         }
 
 
@@ -37,7 +70,6 @@ namespace UI {
             if (OnShoot != null) {
                 OnShoot();
             }
-            //tank.Shoot();
         }
 
         private void OnForceSliderChange(float value) {
@@ -45,7 +77,6 @@ namespace UI {
                 OnForceChange(value);
             }
             UpdateTexts();
-            //tank.force = arg0;
         }
 
         private void OnYChanged(float value) {
@@ -53,7 +84,6 @@ namespace UI {
                 OnYAngleChange(value);
             }
             UpdateTexts();
-            //tank.onUpDownChanged(arg0);
         }
 
         private void OnXChanged(float value) {
@@ -61,13 +91,18 @@ namespace UI {
                 OnXAngleChange(value);
             }
             UpdateTexts();
-            //tank.onLeftRightChanged(arg0);
         }
 
         private void UpdateTexts() {
-            textY.text = sliderY.value.ToString();
-            textX.text = sliderX.value.ToString();
-            textForce.text = sliderForce.value.ToString();
+            textY.text = YAngle.ToString();
+            textX.text = XAngle.ToString();
+            textForce.text = Force.ToString();
+        }
+
+        public void DispatchInitValues() {
+            if (OnXAngleChange != null) OnXAngleChange(XAngle);
+            if (OnYAngleChange != null) OnYAngleChange(YAngle);
+            if (OnForceChange != null) OnForceChange(Force);
         }
     }
 }
