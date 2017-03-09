@@ -4,15 +4,8 @@ using UnityEngine.UI;
 
 namespace UI {
     public class CameraGUI :MonoBehaviour {
-        private Text textY;
-        private Text textX;
-        private Text textForce;
-        private Slider sliderY;
-        private Slider sliderX;
-        private Slider sliderForce;
-        private Button fireButton;
 
-        public event Action OnShoot;
+        public event Action OnShootClicked;
         public event Action<float> OnXAngleChange;
         public event Action<float> OnYAngleChange;
         public event Action<float> OnForceChange;
@@ -36,6 +29,17 @@ namespace UI {
             }
         }
 
+        private Text textY;
+        private Text textX;
+        private Text textForce;
+
+        private Slider sliderY;
+        private Slider sliderX;
+        private Slider sliderForce;
+
+        private Button fireButton;
+
+
         void Awake() {
             GetRelevantComponents();
             RegisterEvents();
@@ -53,6 +57,7 @@ namespace UI {
             textY = transform.Find("AnglesY").GetComponent<Text>();
             textX = transform.Find("AnglesX").GetComponent<Text>();
             textForce = transform.Find("Force").GetComponent<Text>();
+            DispatchInitValues();
         }
 
         /// <summary>
@@ -67,8 +72,8 @@ namespace UI {
 
 
         private void OnFireClicked() {
-            if (OnShoot != null) {
-                OnShoot();
+            if (OnShootClicked != null) {
+                OnShootClicked();
             }
         }
 

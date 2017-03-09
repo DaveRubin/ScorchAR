@@ -67,7 +67,7 @@ public class TankControl : MonoBehaviour {
         Gui.OnForceChange += onForceChange;
         Gui.OnXAngleChange += onLeftRightChanged;
         Gui.OnYAngleChange += onUpDownChanged;
-        Gui.OnShoot += Shoot;
+        Gui.OnShootClicked += Shoot;
         onForceChange(Gui.Force);
         onLeftRightChanged(Gui.XAngle);
         onUpDownChanged(Gui.YAngle);
@@ -77,7 +77,7 @@ public class TankControl : MonoBehaviour {
         Gui.OnForceChange -= onForceChange;
         Gui.OnXAngleChange -= onLeftRightChanged;
         Gui.OnYAngleChange -= onUpDownChanged;
-        Gui.OnShoot -= Shoot;
+        Gui.OnShootClicked -= Shoot;
     }
 
     /// <summary>
