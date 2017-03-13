@@ -9,7 +9,7 @@ public class MenusScene : MonoBehaviour {
     private GameObject mainMenu;
     private GameObject settings;
     private GameObject lobby;
-    private EScreenType _current = EScreenType.MainMenu;
+    private EScreenType _current = EScreenType.Lobby;
     private Dictionary<EScreenType, GameObject> menusTypeMap;
     private static MenusScene instance;
 
@@ -38,7 +38,9 @@ public class MenusScene : MonoBehaviour {
                 {EScreenType.Lobby,transform.Find("Lobby").gameObject},
                 {EScreenType.Settings,transform.Find("Settings").gameObject},
             };
-            Current = EScreenType.MainMenu;
+            //Current = EScreenType.MainMenu;
+            Current = EScreenType.Lobby;
+            UpdateItemsVisibility();
         }
         else {
             throw new Exception("Menu Scene object is already exist");
