@@ -1,5 +1,5 @@
 namespace UI {
-    public enum MenuType {
+    public enum EScreenType {
         MainMenu,
         Lobby,
         Settings

@@ -9,11 +9,11 @@ public class MenusScene : MonoBehaviour {
     private GameObject mainMenu;
     private GameObject settings;
     private GameObject lobby;
-    private MenuType _current = MenuType.MainMenu;
-    private Dictionary<MenuType, GameObject> menusTypeMap;
+    private EScreenType _current = EScreenType.MainMenu;
+    private Dictionary<EScreenType, GameObject> menusTypeMap;
     private static MenusScene instance;
 
-    public MenuType Current {
+    public EScreenType Current {
         get {
             return _current;
         }
@@ -24,7 +24,7 @@ public class MenusScene : MonoBehaviour {
     }
 
     public static void BackToMain() {
-        instance.Current = MenuType.MainMenu;
+        instance.Current = EScreenType.MainMenu;
     }
 
     /// <summary>
@@ -33,20 +33,16 @@ public class MenusScene : MonoBehaviour {
     void Awake() {
         if (instance == null) {
             instance = this;
-            menusTypeMap = new Dictionary<MenuType, GameObject>() {
-                {MenuType.MainMenu,transform.Find("Main Menu").gameObject},
-                {MenuType.Lobby,transform.Find("Lobby").gameObject},
-                {MenuType.Settings,transform.Find("Settings").gameObject},
+            menusTypeMap = new Dictionary<EScreenType, GameObject>() {
+                {EScreenType.MainMenu,transform.Find("Main Menu").gameObject},
+                {EScreenType.Lobby,transform.Find("Lobby").gameObject},
+                {EScreenType.Settings,transform.Find("Settings").gameObject},
             };
-            Current = MenuType.MainMenu;
+            Current = EScreenType.MainMenu;
         }
         else {
             throw new Exception("Menu Scene object is already exist");
         }
-
-        DOVirtual.DelayedCall(2,()=>Current  = MenuType.Lobby);
-        DOVirtual.DelayedCall(3,()=>Current  = MenuType.Settings);
-        DOVirtual.DelayedCall(4,()=>Current  = MenuType.MainMenu);
     }
 
     /// <summary>
@@ -62,13 +58,13 @@ public class MenusScene : MonoBehaviour {
     /// Set the current menu item true and turn off all the others
     /// </summary>
     private void UpdateItemsVisibility() {
-        foreach (KeyValuePair<MenuType, GameObject> pair in menusTypeMap) {
+        foreach (KeyValuePair<EScreenType, GameObject> pair in menusTypeMap) {
             bool isCurrent = pair.Key == Current;
             pair.Value.SetActive(isCurrent);
         }
     }
 
-    public static void Goto(MenuType menu) {
+    public static void GoTo(EScreenType menu) {
         instance.Current = menu;
     }
 
