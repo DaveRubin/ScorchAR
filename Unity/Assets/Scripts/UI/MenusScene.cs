@@ -38,8 +38,7 @@ public class MenusScene : MonoBehaviour {
                 {EScreenType.Lobby,transform.Find("Lobby").gameObject},
                 {EScreenType.Settings,transform.Find("Settings").gameObject},
             };
-            //Current = EScreenType.MainMenu;
-            Current = EScreenType.Lobby;
+            Current = EScreenType.MainMenu;
             UpdateItemsVisibility();
         }
         else {
