@@ -17,11 +17,11 @@ namespace ScorchServer.Controllers
         private readonly UserRepository r_UserRepository = new UserRepository();
 
 
-        // GET: api/User
+      /*  // GET: api/User
         public IEnumerable<User> Get()
         {
-            return r_UserRepository.Users.AsQueryable().ToEnumerable();
-        }
+           // return r_UserRepository.Users.AsQueryable().ToEnumerable();
+        }*/
 
         // GET: api/User/dfsafds
         public User Get(string i_Id)
