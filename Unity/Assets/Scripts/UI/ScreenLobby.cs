@@ -25,7 +25,6 @@ namespace UI {
         /// <param name="games"></param>
         private void OnGamesFetched(List<GameInfo> games ) {
             Transform container= content.Find("Container");
-//            float current = content.rect.height/2;
             float current = 0;
             float height = -1;
 
@@ -38,15 +37,20 @@ namespace UI {
                 tmp.transform.localPosition = new Vector3(0, current);
                 current -= tmp.GetComponent<RectTransform>().rect.height;
                 tmp.GetComponent<LobbyItem>().Set(game);
+                tmp.GetComponent<LobbyItem>().OnClicked += OnGameSelected;
 
                 if (height == -1) {
-                    height = tmp.GetComponent<RectTransform>().rect.height*games.Count;
+                    height = tmp.GetComponent<RectTransform>().rect.height * games.Count;
                 }
             }
 
             content.sizeDelta = new Vector2(content.rect.width,height);
-            container.localPosition += new Vector3(0,current/-2);
+            container.localPosition += new Vector3(0,height/2);
 
+        }
+
+        public void OnGameSelected(GameInfo obj) {
+            Debug.LogFormat("Game {0} selected",obj.name);
         }
     }
 }
