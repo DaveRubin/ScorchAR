@@ -47,6 +47,8 @@
     <Compile Include="Geometry\Terrain.cs" />
     <Compile Include="Items\StoreItem.cs" />
     <Compile Include="Items\EWeaponType.cs" />
+    <Compile Include="Models\GameInfo.cs" />
+    <Compile Include="Models\PlayerInfo.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tanks\Tank.cs" />
@@ -58,6 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\GameInfo.cs.meta" />
+    <Content Include="Models\PlayerInfo.cs.meta" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
