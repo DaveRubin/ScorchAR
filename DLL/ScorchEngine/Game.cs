@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Timers;
 using ScorchEngine.Config;
 using ScorchEngine.GameObjects;
 using ScorchEngine.Geometry;
 using ScorchEngine.Items;
+using ScorchEngine.Server;
 
 namespace ScorchEngine
 {
@@ -18,6 +20,7 @@ namespace ScorchEngine
         public event Action MatchEnded;
         public event Action<string> debugLog;
         public event Action<Stack<TurnAction>, Action> ActionsExecuted;
+        public event Action<List<PlayerState>> OnStateUpdate;
 
         private int m_currentTurn;
         private readonly GameConfig r_gameConfig;
@@ -26,6 +29,8 @@ namespace ScorchEngine
         private Terrain m_terrain;
         private Coordinate m_environmentForces;
         private Timer m_turnTimer;
+
+        public Player self = Player.CreateMockPlayer();
 
         /// <summary>
         /// TODO - wrap dictionaries inside weapons static class
@@ -78,6 +83,43 @@ namespace ScorchEngine
             GenerateTerrain();
         }
 
+        public void StartListening()
+        {
+            debugLog?.Invoke("Starting to poll");
+            Timer t = new Timer();
+            t.Elapsed += Poll;
+            t.Interval = 300;
+            t.Start();
+        }
+
+        private void Poll(object sender, ElapsedEventArgs e)
+        {
+            ServerWrapper.GetState(list =>
+            {
+                ProcessPoll(list);
+                OnStateUpdate?.Invoke(list);
+            });
+        }
+
+        private void ProcessPoll(List<PlayerState> updatesList)
+        {
+            foreach (PlayerState state in updatesList)
+            {
+                if (state.ID != self.ID)
+                {
+                    foreach (Player mPlayer in m_players)
+                    {
+                        if (mPlayer.ID == state.ID)
+                        {
+                            mPlayer.Process(state);
+                            break;
+                        }
+                    }
+                }
+                //debugLog?.Invoke(state.ToString());
+            }
+        }
+
         /// <summary>
         /// Add player to game, when player count reached max m_players, start the game
         /// </summary>
@@ -91,7 +133,7 @@ namespace ScorchEngine
             }
 
             m_players.Add(player);
-            debugLog("playerAdd" + player.Name);
+            debugLog?.Invoke("playerAdd" + player.Name);
 
             if (m_players.Count == r_gameConfig.MaxPlayers)
             {
@@ -149,8 +191,8 @@ namespace ScorchEngine
         {
             foreach (Player player in m_players)
             {
-                debugLog((player == null).ToString());
-                player.Tank.Position = GetPosition();
+                debugLog?.Invoke((player == null).ToString());
+                player.ControlledTank.Position = GetPosition();
                 player.Ready += OnPlayerActionReady;
             }
         }
@@ -179,7 +221,7 @@ namespace ScorchEngine
             {
                 TurnAction action = m_turnActionsStack.Pop();
                 //create path and get collisions with terrain
-                ProjectilePath path = new ProjectilePath(action.Player.Tank.Position,action.Force);
+                ProjectilePath path = new ProjectilePath(action.Player.ControlledTank.Position,action.Force);
                 Coordinate collisionPoint = m_terrain.GetCollisionPoint(path);
                 //for each collision damage the terrain
                 m_terrain.DoDamange(collisionPoint, action.Weapon);
@@ -210,11 +252,11 @@ namespace ScorchEngine
             float aoe = AreaOfEffectMap[weapon];
             foreach (Player player in m_players)
             {
-                Coordinate tankPos = player.Tank.Position;
+                Coordinate tankPos = player.ControlledTank.Position;
                 float distance = Coordinate.Distance(tankPos, collisionPoint);
                 if (distance < aoe)
                 {
-                    player.Tank.Damage(weapon,DamageMap[weapon]);
+                    player.ControlledTank.Damage(weapon,DamageMap[weapon]);
                 }
             }
         }
@@ -249,7 +291,7 @@ namespace ScorchEngine
                     TurnStarted(m_currentTurn);
                 }
 
-                // Start turn timer again
+                // StartListening turn timer again
                 m_turnTimer.Start();
 
                 //enable all tanks
@@ -295,7 +337,7 @@ namespace ScorchEngine
 
             foreach (Player player in m_players)
             {
-                if (player.Tank.Alive)
+                if (player.ControlledTank.Alive)
                 {
                     aliveCount++;
                 }

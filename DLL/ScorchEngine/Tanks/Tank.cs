@@ -14,13 +14,15 @@ namespace ScorchEngine
 	    public bool Alive { get { return Health > 0; }}
 
 	    public Coordinate Position;
-		public Coordinate BaseAngle;
-		public Coordinate BarrelAngle;
+		public float AngleHorizontal;
+		public float AngleVertical;
+	    public float Force;
 
 		public Tank() {
 			Position = new Coordinate();
-			BaseAngle = new Coordinate();
-			BarrelAngle = new Coordinate();
+			AngleHorizontal = 0;
+			AngleVertical = 0;
+		    Force = 0;
 		}
 
 	    /// <summary>

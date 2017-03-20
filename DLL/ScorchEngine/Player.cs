@@ -2,17 +2,19 @@ using System;
 using System.Collections.Generic;
 using ScorchEngine.Config;
 using ScorchEngine.Items;
+using ScorchEngine.Server;
 
 namespace ScorchEngine
 {
-	
+
 	public class Player
 	{
 	    public event Action<Player> Ready;
+	    public event Action<Player> OnUpdate;
 
 	    public readonly string Name;
-	    public Tank Tank{ get { return tank; }}
-	    public int Money{ get { return money; }}
+	    public Tank ControlledTank{ get;private set;}
+	    public int Money{ get;private set;}
 
 	    protected int money;
 	    protected List<StoreItem> items;
@@ -20,6 +22,7 @@ namespace ScorchEngine
 	    private static int Count = 0;
 	    private Tank tank;
 	    private bool active;
+	    public int ID;
 
 	    public Player(string name)
 	    {
@@ -28,13 +31,14 @@ namespace ScorchEngine
 
 	    public void SetTank(Tank tank)
 	    {
-	        this.tank = tank;
+	        ControlledTank = tank;
 	    }
 
 	    public static Player CreateMockPlayer()
 	    {
 	        Player p = new Player("Player"+Count);
-	        Count++;
+	        p.ID = Count;
+	        p.ControlledTank = new Tank();
 	        return p;
 	    }
 
@@ -46,6 +50,19 @@ namespace ScorchEngine
 	    public void TurnEnded()
 	    {
 	        active = false;
+	    }
+
+
+	    /// <summary>
+	    /// When getting state from server, update it and
+	    /// </summary>
+	    /// <param name="state"></param>
+	    public void Process(PlayerState state)
+	    {
+	        ControlledTank.AngleHorizontal = state.AngleHorizontal;
+	        ControlledTank.AngleVertical= state.AngleVertical;
+	        ControlledTank.Force = state.Force;
+	        OnUpdate?.Invoke(this);
 	    }
 	}
 }

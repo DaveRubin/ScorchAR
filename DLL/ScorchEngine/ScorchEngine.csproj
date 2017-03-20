@@ -51,6 +51,8 @@
     <Compile Include="Models\PlayerInfo.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\PlayerState.cs" />
+    <Compile Include="Server\ServerWrapper.cs" />
     <Compile Include="Tanks\Tank.cs" />
     <Compile Include="Tanks\TankColor.cs" />
     <Compile Include="Tanks\TankModel.cs" />
@@ -60,10 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\GameInfo.cs.meta" />
-    <Content Include="Models\PlayerInfo.cs.meta" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
