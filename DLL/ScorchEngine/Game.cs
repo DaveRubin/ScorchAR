@@ -30,7 +30,7 @@ namespace ScorchEngine
         private Coordinate m_environmentForces;
         private Timer m_turnTimer;
 
-        public Player self = Player.CreateMockPlayer();
+        private Coordinate currentTankPosition = new Coordinate();// ONLY FOR DEBUG !
 
         /// <summary>
         /// TODO - wrap dictionaries inside weapons static class
@@ -83,16 +83,7 @@ namespace ScorchEngine
             GenerateTerrain();
         }
 
-        public void StartListening()
-        {
-            debugLog?.Invoke("Starting to poll");
-            Timer t = new Timer();
-            t.Elapsed += Poll;
-            t.Interval = 300;
-            t.Start();
-        }
-
-        private void Poll(object sender, ElapsedEventArgs e)
+        public void Poll()
         {
             ServerWrapper.GetState(list =>
             {
@@ -105,8 +96,8 @@ namespace ScorchEngine
         {
             foreach (PlayerState state in updatesList)
             {
-                if (state.ID != self.ID)
-                {
+//                if (state.ID != self.ID)
+//                {
                     foreach (Player mPlayer in m_players)
                     {
                         if (mPlayer.ID == state.ID)
@@ -115,7 +106,7 @@ namespace ScorchEngine
                             break;
                         }
                     }
-                }
+//                }
                 //debugLog?.Invoke(state.ToString());
             }
         }
@@ -269,8 +260,9 @@ namespace ScorchEngine
         private Coordinate GetPosition()
         {
             // X,Z selection logic
-            Coordinate coordinate = new Coordinate();
+            Coordinate coordinate = new Coordinate(currentTankPosition);
             coordinate.Y = m_terrain.GetHeightAt(coordinate.X, coordinate.Z);
+            currentTankPosition += new Coordinate(20,0,5);
             return coordinate;
         }
 

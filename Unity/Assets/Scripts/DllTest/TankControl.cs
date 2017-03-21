@@ -1,4 +1,6 @@
-﻿using DllTest;
+﻿using DG.Tweening;
+using DllTest;
+using ScorchEngine;
 using UI;
 using UnityEngine;
 
@@ -9,6 +11,7 @@ public class TankControl : MonoBehaviour {
     Transform Sides;
     Transform UpDwn;
     Transform BarrelsEnd;
+    Player player;
     public float force;
     public bool active = true;
 
@@ -18,7 +21,11 @@ public class TankControl : MonoBehaviour {
         Sides = transform.FindChild("YAxis");
         UpDwn = transform.FindChild("YAxis/ZAxis");
         BarrelsEnd = transform.FindChild("YAxis/ZAxis/Barrel/Tip");
+    }
 
+    public void SetPlayer(Player player) {
+        this.player = player;
+        player.OnUpdate += OnPLayerUpdate;
     }
 
 
@@ -68,9 +75,6 @@ public class TankControl : MonoBehaviour {
         Gui.OnXAngleChange += onLeftRightChanged;
         Gui.OnYAngleChange += onUpDownChanged;
         Gui.OnShootClicked += Shoot;
-        onForceChange(Gui.Force);
-        onLeftRightChanged(Gui.XAngle);
-        onUpDownChanged(Gui.YAngle);
     }
 
     public void UnlinkGUI(CameraGUI Gui) {
@@ -80,6 +84,13 @@ public class TankControl : MonoBehaviour {
         Gui.OnShootClicked -= Shoot;
     }
 
+
+    public void OnPLayerUpdate(Player updatedPlayer) {
+        onLeftRightChanged(updatedPlayer.ControlledTank.AngleHorizontal);
+        onUpDownChanged(updatedPlayer.ControlledTank.AngleVertical);
+        onForceChange(updatedPlayer.ControlledTank.Force);
+    }
+
     /// <summary>
     /// horizontal aim
     /// </summary>
@@ -87,7 +98,8 @@ public class TankControl : MonoBehaviour {
     public void onLeftRightChanged(float angle) {
         Vector3 yRotation = Sides.localRotation.eulerAngles;
         yRotation.y = angle;
-        Sides.localRotation = Quaternion.Euler(yRotation);
+        Sides.DORotate(yRotation,0.5f).SetEase(Ease.Linear);
+        //Sides.localRotation = Quaternion.Euler(yRotation);
     }
 
     /// <summary>
@@ -96,7 +108,6 @@ public class TankControl : MonoBehaviour {
     /// <param name="force"></param>
     public void onForceChange(float force) {
         this.force = force;
-        Debug.LogFormat("Force is {0}",force);
     }
 
     /// <summary>
@@ -106,7 +117,9 @@ public class TankControl : MonoBehaviour {
     public void onUpDownChanged(float angle) {
         Vector3 zRotation = UpDwn.localRotation.eulerAngles;
         zRotation.z = angle;
-        UpDwn.localRotation = Quaternion.Euler(zRotation);
+
+        UpDwn.DORotate(zRotation,0.5f).SetEase(Ease.Linear);
+        //UpDwn.localRotation = Quaternion.Euler(zRotation);
     }
 
     /// <summary>
@@ -130,4 +143,5 @@ public class TankControl : MonoBehaviour {
         bullet.transform.position = BarrelsEnd.position;
         bullet.GetComponent<ProjectileControl>().SetForce(new Vector3(fx, fy, -fz));
     }
+
 }

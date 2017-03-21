@@ -39,6 +39,7 @@ namespace ScorchEngine
 	        Player p = new Player("Player"+Count);
 	        p.ID = Count;
 	        p.ControlledTank = new Tank();
+	        Count++;
 	        return p;
 	    }
 

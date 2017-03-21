@@ -16,7 +16,7 @@ namespace ScorchEngine.Server
             List<PlayerState> list = new List<PlayerState>
             {
                 new PlayerState(){ID = 0,Force = debugCounter/0.1f,AngleHorizontal = debugCounter,AngleVertical = debugCounter},
-                new PlayerState(){ID = 1,Force = debugCounter/0.1f,AngleHorizontal = debugCounter,AngleVertical = debugCounter},
+                new PlayerState(){ID = 1,Force = -debugCounter/0.1f,AngleHorizontal = -debugCounter,AngleVertical = -debugCounter},
             };
 
             if (onComplete != null)

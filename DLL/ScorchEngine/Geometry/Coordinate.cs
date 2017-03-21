@@ -35,6 +35,13 @@ namespace ScorchEngine.Geometry {
             Z = z;
         }
 
+        public Coordinate(Coordinate coordinate)
+        {
+            X = coordinate.X;
+            Y = coordinate.Y;
+            Z = coordinate.Z;
+        }
+
         /// <summary>
         /// Calculates the distance between two coordinates
         /// </summary>
