@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class TankControl : MonoBehaviour {
 
+    public bool Local{get;private set;}
     GameObject bulletPrefab;
     Transform body;
     Transform Sides;
@@ -24,6 +25,7 @@ public class TankControl : MonoBehaviour {
     }
 
     public void SetPlayer(Player player) {
+        Local = false;
         this.player = player;
         player.OnUpdate += OnPLayerUpdate;
     }
@@ -71,6 +73,8 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     /// <param name="Gui"></param>
     public void LinkToGUI(CameraGUI Gui) {
+        player.OnUpdate -= OnPLayerUpdate;
+        Local = true;
         Gui.OnForceChange += onForceChange;
         Gui.OnXAngleChange += onLeftRightChanged;
         Gui.OnYAngleChange += onUpDownChanged;

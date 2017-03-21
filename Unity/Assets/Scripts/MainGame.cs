@@ -1,22 +1,35 @@
 using System.Collections.Generic;
+using Extensions;
 using ScorchEngine;
 using ScorchEngine.Config;
+using ScorchEngine.Server;
 using UI;
 using UnityEngine;
-using Extensions;
 
 public class MainGame : MonoBehaviour {
     GameObject cubePrefab;
     GameObject tankPrefab;
-    TankControl tank;
+    List<TankControl> tanks;
     public CameraGUI Gui;
     public static ScorchEngine.Game GameCore;
+    private int ID;
 
 // Use this for initialization
     void Awake() {
+
         cubePrefab = Resources.Load<GameObject>("Prefabs/Cube");
         tankPrefab = Resources.Load<GameObject>("Prefabs/Tank");
+        ServerWrapper.Login(Login);
 
+    }
+
+    /// <summary>
+    /// After login is called start game...
+    /// Needs error handling exc...
+    /// </summary>
+    /// <param name="id"></param>
+    public void Login(int id) {
+        ID = id;
         InitGame();
         InitializePlayers();
         CreateMockTerrain();
@@ -36,6 +49,7 @@ public class MainGame : MonoBehaviour {
     /// According to players given, create for each one a tank, position it and link add it to game
     /// </summary>
     public void InitializePlayers() {
+        tanks = new List<TankControl>();
         //Add players in game,
         //for each player create a tank, and initialize
         List<Player> players = new List<Player>() {
@@ -51,6 +65,7 @@ public class MainGame : MonoBehaviour {
             TankControl tankGO = GameObject.Instantiate(tankPrefab).GetComponent<TankControl>();
             tankGO.transform.position = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
             tankGO.SetPlayer(player);
+            tanks.Add(tankGO);
         }
 
         //tank = GameObject.Find("Tank").GetComponent<TankControl>();
@@ -88,10 +103,12 @@ public class MainGame : MonoBehaviour {
     /// </summary>
     public void InitializeGUI() {
         Gui = GameObject.Find("GUI").GetComponent<CameraGUI>();
-        //tank.LinkToGUI(Gui);
+        TankControl tc = tanks[ID];
+        tc.LinkToGUI(Gui);
     }
 
     public void OnTurnStarted(int playerIndex) {
         Debug.LogFormat("Player #{0} turn ",playerIndex);
     }
+
 }
