@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using ScorchEngine.Models;
+using ScorchEngine.Server;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Utils;
 
 namespace UI {
     public class ScreenLobby : ScreenBase {
@@ -22,8 +22,7 @@ namespace UI {
             buttonJoin = transform.Find("ButtonJoin").GetComponent<Button>();
             content = transform.Find("MainPanel/Left/Scroll View/Viewport/Content").GetComponent<RectTransform>();
             buttonJoin.onClick.AddListener(JoinRoom);
-            ServerWrapper.OnGamesFetched += OnGamesFetched;
-            ServerWrapper.GetGames();
+            ServerWrapper.GetGames(OnGamesFetched);
         }
 
         /// <summary>

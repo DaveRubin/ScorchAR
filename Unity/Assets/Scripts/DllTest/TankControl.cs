@@ -3,11 +3,11 @@ using DllTest;
 using ScorchEngine;
 using UI;
 using UnityEngine;
+using Utils;
 
 public class TankControl : MonoBehaviour {
 
     public bool Local{get;private set;}
-    GameObject bulletPrefab;
     Transform body;
     Transform Sides;
     Transform UpDwn;
@@ -17,7 +17,6 @@ public class TankControl : MonoBehaviour {
     public bool active = true;
 
     void Awake() {
-        bulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile");
         body = transform;
         Sides = transform.FindChild("YAxis");
         UpDwn = transform.FindChild("YAxis/ZAxis");
@@ -132,7 +131,7 @@ public class TankControl : MonoBehaviour {
     public void Shoot() {
 // set up projectile type
 // shoot it
-        GameObject bullet = GameObject.Instantiate(bulletPrefab);
+        GameObject bullet = PrefabManager.InstantiatePrefab("Projectile");
         float addition = 0;
         float angle = UpDwn.eulerAngles.z + addition;
         float fy = Mathf.Sin(angle * Mathf.Deg2Rad) * force;

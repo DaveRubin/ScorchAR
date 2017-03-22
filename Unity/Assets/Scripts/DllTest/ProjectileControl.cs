@@ -1,18 +1,15 @@
 using UnityEngine;
+using Utils;
 
 namespace DllTest {
 
     public class ProjectileControl : MonoBehaviour {
 
         Vector3 force = Vector3.zero;
-        static GameObject explosionPrefab;
 
         SphereCollider hitTest;
         void Awake() {
             hitTest = GetComponent<SphereCollider>();
-            if (explosionPrefab == null) {
-                explosionPrefab = Resources.Load<GameObject>("Prefabs/Explosion");
-            }
         }
 
         void OnCollisionEnter(Collision collision) {
@@ -50,10 +47,8 @@ namespace DllTest {
         }
 
         public void Explode() {
-            //Debug.Log("Bam!");
             GameObject.Destroy(this.gameObject);
-
-            GameObject explosion = GameObject.Instantiate(explosionPrefab);
+            GameObject explosion = PrefabManager.InstantiatePrefab("Explostion");
             explosion.transform.position = transform.position;
             explosion.GetComponent<Explosion>().Set(3);
         }

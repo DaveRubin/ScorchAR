@@ -5,22 +5,18 @@ using ScorchEngine.Config;
 using ScorchEngine.Server;
 using UI;
 using UnityEngine;
+using Utils;
 
 public class MainGame : MonoBehaviour {
-    GameObject cubePrefab;
-    GameObject tankPrefab;
     List<TankControl> tanks;
     public CameraGUI Gui;
     public static ScorchEngine.Game GameCore;
     private int ID;
 
-// Use this for initialization
     void Awake() {
-
-        cubePrefab = Resources.Load<GameObject>("Prefabs/Cube");
-        tankPrefab = Resources.Load<GameObject>("Prefabs/Tank");
-        ServerWrapper.Login(Login);
-
+        string GameID = "SomeGameUID";
+        PrefabManager.Init();
+        ServerWrapper.Login(GameID,Login);
     }
 
     /// <summary>
@@ -34,9 +30,7 @@ public class MainGame : MonoBehaviour {
         InitializePlayers();
         CreateMockTerrain();
         InitializeGUI();
-    }
-
-    void Start() {
+        //after all is set, start polling from server for changes
         InvokeRepeating("Poll",0,0.5f);
     }
 
@@ -62,7 +56,7 @@ public class MainGame : MonoBehaviour {
         }
 
         foreach (Player player in players) {
-            TankControl tankGO = GameObject.Instantiate(tankPrefab).GetComponent<TankControl>();
+            TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
             tankGO.transform.position = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
             tankGO.SetPlayer(player);
             tanks.Add(tankGO);
@@ -79,7 +73,7 @@ public class MainGame : MonoBehaviour {
     public void CreateMockTerrain() {
         for (int x = 0; x < GameCore.Terrain.SizeX; x++) {
             for (int z = 0; z < GameCore.Terrain.SizeZ; z++) {
-                GameObject go = GameObject.Instantiate(cubePrefab);
+                GameObject go = PrefabManager.InstantiatePrefab("Cube");
                 go.transform.localPosition = new Vector3(x, 0, z);
             }
         }
@@ -87,6 +81,7 @@ public class MainGame : MonoBehaviour {
 
     /// <summary>
     /// Create game object ,initialize config and other global vars
+    /// TODO - config should be fetched from server!
     /// </summary>
     public void InitGame() {
         GameConfig conf = new GameConfig();
