@@ -4,11 +4,11 @@ using ScorchEngine.Server;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Utils;
 
 namespace UI {
     public class ScreenLobby : ScreenBase {
 
-        GameObject lobbyItemPrefab;
         RectTransform content;
         List<LobbyItem> lobbyItems;
         LobbyItem currentGameSelected;
@@ -16,7 +16,6 @@ namespace UI {
         Button buttonJoin;
 
         void Awake() {
-            lobbyItemPrefab = Resources.Load<GameObject>("Prefabs/LobbyGameItem");
             selectedGameInfo =transform.Find("MainPanel/Right/Panel/Text").GetComponent<Text>();
             transform.Find("ButtonBack").GetComponent<Button>().onClick.AddListener(GoBack);
             buttonJoin = transform.Find("ButtonJoin").GetComponent<Button>();
@@ -36,7 +35,7 @@ namespace UI {
             lobbyItems = new List<LobbyItem>();
             foreach (GameInfo game in games) {
 
-                GameObject tmp = Instantiate(lobbyItemPrefab);
+                GameObject tmp = PrefabManager.InstantiatePrefab("LobbyGameItem");;
                 tmp.name = game.name;
                 tmp.transform.SetParent(container);
                 tmp.transform.localScale = Vector3.one;

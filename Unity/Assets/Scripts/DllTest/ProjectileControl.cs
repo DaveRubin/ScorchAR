@@ -48,7 +48,7 @@ namespace DllTest {
 
         public void Explode() {
             GameObject.Destroy(this.gameObject);
-            GameObject explosion = PrefabManager.InstantiatePrefab("Explostion");
+            GameObject explosion = PrefabManager.InstantiatePrefab("Explosion");
             explosion.transform.position = transform.position;
             explosion.GetComponent<Explosion>().Set(3);
         }

@@ -21,6 +21,7 @@ public class TankControl : MonoBehaviour {
         Sides = transform.FindChild("YAxis");
         UpDwn = transform.FindChild("YAxis/ZAxis");
         BarrelsEnd = transform.FindChild("YAxis/ZAxis/Barrel/Tip");
+        Debug.Log("Found everything");
     }
 
     public void SetPlayer(Player player) {
