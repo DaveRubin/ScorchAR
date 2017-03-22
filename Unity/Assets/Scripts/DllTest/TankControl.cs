@@ -27,6 +27,7 @@ public class TankControl : MonoBehaviour {
     public void SetPlayer(Player player) {
         Local = false;
         this.player = player;
+        Debug.LogFormat("Setting player id {0}",player.ID);
         player.OnUpdate += OnPLayerUpdate;
     }
 
@@ -102,8 +103,7 @@ public class TankControl : MonoBehaviour {
     public void onLeftRightChanged(float angle) {
         Vector3 yRotation = Sides.localRotation.eulerAngles;
         yRotation.y = angle;
-        Sides.DORotate(yRotation,0.5f).SetEase(Ease.Linear);
-        //Sides.localRotation = Quaternion.Euler(yRotation);
+        Sides.DOLocalRotate(yRotation,0.5f).SetEase(Ease.Linear);
     }
 
     /// <summary>
@@ -121,9 +121,7 @@ public class TankControl : MonoBehaviour {
     public void onUpDownChanged(float angle) {
         Vector3 zRotation = UpDwn.localRotation.eulerAngles;
         zRotation.z = angle;
-
-        UpDwn.DORotate(zRotation,0.5f).SetEase(Ease.Linear);
-        //UpDwn.localRotation = Quaternion.Euler(zRotation);
+        UpDwn.DOLocalRotate(zRotation,0.5f).SetEase(Ease.Linear);
     }
 
     /// <summary>

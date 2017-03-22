@@ -30,7 +30,7 @@ public class MainGame : MonoBehaviour {
         InitializePlayers();
         CreateMockTerrain();
         InitializeGUI();
-        
+
         //after all is set, start polling from server for changes
         InvokeRepeating("Poll",1,0.5f);
     }
@@ -56,7 +56,6 @@ public class MainGame : MonoBehaviour {
         }
 
         foreach (Player player in players) {
-            GameObject go = PrefabManager.InstantiatePrefab("Tank");
             TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
             tankGO.transform.position = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
             tankGO.SetPlayer(player);
