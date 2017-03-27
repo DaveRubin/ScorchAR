@@ -8,6 +8,7 @@ using System.Web.Http;
 namespace ScorchServer.Controllers
 {
     using ScorchEngine.Models;
+    using ScorchEngine.Server;
 
     using ScorchServer.Db;
 
@@ -16,32 +17,28 @@ namespace ScorchServer.Controllers
         private readonly GamesRepository r_GamesRepository = new GamesRepository();
 
 
-
-        // GET api/Games
+        [Route(ServerRoutes.GetGamesApiUrl)]
         public IEnumerable<GameInfo> Get()
         {
             return r_GamesRepository.Games.Values;
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        [Route(ServerRoutes.GetGameApiUrl)]
+        public GameInfo Get(string i_Id)
         {
-            return "value";
+            return r_GamesRepository.GetGame(i_Id);
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        // POST api/Games
+        public void Post([FromBody]GameInfo i_GameInfo)
         {
+            r_GamesRepository.AddGame(i_GameInfo);
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        [Route(ServerRoutes.AddPlayerToGameApiUrl)]
+        public void  AddPlayer(string i_Id, [FromBody]PlayerInfo i_PlayerInfo)
         {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+            r_GamesRepository.GetGame(i_Id).Players.Add(i_PlayerInfo);
         }
     }
 }

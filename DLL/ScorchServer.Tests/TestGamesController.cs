@@ -10,20 +10,27 @@ namespace ScorchServer.Tests
     using RestSharp;
 
     using ScorchEngine.Models;
+    using ScorchEngine.Server;
 
     [TestClass]
     public class TestGamesController
     {
+        ScorchServerClient client = new ScorchServerClient();
         [TestMethod]
         public void TestMethod1()
         {
-            RestClient client = new RestClient("http://scorchar.azurewebsites.net");
-            RestRequest request = new RestRequest("api/Games",Method.GET);
-            List<GameInfo> result = client.Execute<List<GameInfo>>(request).Data;
-            foreach (GameInfo gameInfo in result)
+            PlayerInfo playerInfo = new PlayerInfo { id = "AAAA", name = "Dushi" };
+            List<GameInfo> games = client.GetGames();
+            string gameId =games[0].ID;
+            client.AddPlayerToGame(gameId,playerInfo);
+            GameInfo gameInfo = client.GetGame(gameId);
+            Debug.WriteLine(gameInfo.MaxPlayers);
+            Debug.WriteLine(gameInfo.Players.Count);
+            foreach (PlayerInfo player in gameInfo.Players)
             {
-                Debug.WriteLine(gameInfo.ID);
+                Debug.WriteLine(player);
             }
+            
         }
     }
 }

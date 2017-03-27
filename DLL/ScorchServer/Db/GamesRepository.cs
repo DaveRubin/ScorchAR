@@ -16,24 +16,26 @@ namespace ScorchServer.Db
             Games = new Dictionary<string, GameInfo>();
             for (int i = 0; i < 6; i++)
             {
-                GameInfo gameInfo = new GameInfo();
-                gameInfo.MaxPlayers = new Random().Next(1, 4);
-                gameInfo.Name = "Games " + i;
-                gameInfo.ID = "id" + i;
-                Games.Add(gameInfo.ID,gameInfo);
+                GameInfo gameInfo = new GameInfo
+                                        {
+                                            MaxPlayers = new Random().Next(1, 4), 
+                                            Name = "Games " + i, 
+                                            ID = "id" + i
+                                        };
+                Games.Add(gameInfo.ID, gameInfo);
             }
         }
 
         public void AddGame(GameInfo i_GameInfo)
         {
-            Games.Add(i_GameInfo.ID,i_GameInfo);
+            Games.Add(i_GameInfo.ID, i_GameInfo);
         }
 
         public GameInfo GetGame(string i_Id)
         {
-            GameInfo result;
-            //TODO LOG
-            Games.TryGetValue(i_Id, out result);
+            // TODO LOG
+            GameInfo result = Games.ContainsKey(i_Id) ? Games[i_Id] : new GameInfo { ID = "YOU SHOULD NOT BE HERE" };
+
             return result;
         }
 
