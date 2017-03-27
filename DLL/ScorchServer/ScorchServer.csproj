@@ -160,7 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Db\GamesRepository.cs" />
     <Compile Include="Db\UserRepository.cs" />
     <Compile Include="Db\ScorchContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -188,6 +190,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ScorchEngine\ScorchEngine.csproj">
+      <Project>{91a91b86-8f42-48ec-af90-7e41a2298b1f}</Project>
+      <Name>ScorchEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
