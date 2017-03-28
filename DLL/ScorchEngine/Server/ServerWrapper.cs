@@ -63,7 +63,7 @@ namespace ScorchEngine.Server
                     PlayerInfo playerInfo = new PlayerInfo();
                     playerInfo.name = "Player "+i+ " "+ j;
                     playerInfo.id = "player" + j;
-                    gameInfo.Players.Add(playerInfo);
+                    gameInfo.AddPlayer(playerInfo);
                 }
                 games.Add(gameInfo);
             }

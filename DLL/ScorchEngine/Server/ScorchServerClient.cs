@@ -11,7 +11,8 @@ namespace ScorchEngine.Server
 
     public class ScorchServerClient
     {
-        private readonly RestClient client = new RestClient(ServerRoutes.ServerBaseUri);
+        private const bool DebugMode = false;
+        private readonly RestClient client = new RestClient((DebugMode ? ServerRoutes.LocalBaseUri :ServerRoutes.ServerBaseUri));
 
         public List<GameInfo> GetGames()
         {
@@ -19,19 +20,18 @@ namespace ScorchEngine.Server
             return client.Execute<List<GameInfo>>(request).Data;
         }
 
-        public void AddPlayerToGame(string i_GameId, PlayerInfo i_PlayerInfo)
+        public void AddPlayerToGame(string id, PlayerInfo playerInfo)
         {
-            RestRequest request = new RestRequest(ServerRoutes.AddPlayerToGameApiUrl, Method.POST);
+            RestRequest request = new RestRequest(ServerRoutes.AddPlayerToGameApiUrl.Replace("{id}",id), Method.POST);
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(i_PlayerInfo);
-            request.AddParameter("id", i_GameId);
+            request.AddJsonBody(playerInfo);
             client.Execute(request);
         }
 
-        public GameInfo GetGame(string i_GameId)
+        public GameInfo GetGame(string id)
         {
             RestRequest request = new RestRequest(ServerRoutes.GetGameApiUrl, Method.GET);
-            request.AddParameter("id", i_GameId);
+            request.AddParameter("id", id);
             return client.Execute<GameInfo>(request).Data;
         }
     }

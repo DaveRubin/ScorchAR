@@ -24,13 +24,10 @@ namespace ScorchServer.Tests
             string gameId =games[0].ID;
             client.AddPlayerToGame(gameId,playerInfo);
             GameInfo gameInfo = client.GetGame(gameId);
-            Debug.WriteLine(gameInfo.MaxPlayers);
-            Debug.WriteLine(gameInfo.Players.Count);
-            foreach (PlayerInfo player in gameInfo.Players)
+            foreach (PlayerInfo player in gameInfo.GetPlayers())
             {
                 Debug.WriteLine(player);
-            }
-            
+            }        
         }
     }
 }

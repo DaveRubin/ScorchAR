@@ -7,13 +7,13 @@ namespace ScorchServer.Db
 {
     using ScorchEngine.Models;
 
-    public class GamesRepository
+    public class GamesRepository : IGamesRepository
     {
-        public Dictionary<string, GameInfo> Games { get; }
+        private Dictionary<string, GameInfo> games;
 
         public GamesRepository()
         {
-            Games = new Dictionary<string, GameInfo>();
+            games = new Dictionary<string, GameInfo>();
             for (int i = 0; i < 6; i++)
             {
                 GameInfo gameInfo = new GameInfo
@@ -22,26 +22,40 @@ namespace ScorchServer.Db
                                             Name = "Games " + i, 
                                             ID = "id" + i
                                         };
-                Games.Add(gameInfo.ID, gameInfo);
+                games.Add(gameInfo.ID, gameInfo);
             }
         }
 
-        public void AddGame(GameInfo i_GameInfo)
+        public void AddGame(GameInfo gameInfo)
         {
-            Games.Add(i_GameInfo.ID, i_GameInfo);
+            games.Add(gameInfo.ID, gameInfo);
         }
 
-        public GameInfo GetGame(string i_Id)
+        public GameInfo GetGame(string id)
         {
             // TODO LOG
-            GameInfo result = Games.ContainsKey(i_Id) ? Games[i_Id] : new GameInfo { ID = "YOU SHOULD NOT BE HERE" };
+            GameInfo result = games.ContainsKey(id) ? games[id] : new GameInfo { ID = "YOU SHOULD NOT BE HERE" };
 
             return result;
         }
 
-        public void RemoveGame(string i_Id)
+        public void RemoveGame(string id)
         {
-            Games.Remove(i_Id);
+            games.Remove(id);
+        }
+
+        public IEnumerable<GameInfo> GetGames()
+        {
+            return games.Values;
+        }
+
+        public void Update(GameInfo game)
+        {
+            if (games.ContainsKey(game.ID))
+            {
+                games.Remove(game.ID);               
+            }
+            games.Add(game.ID, game);
         }
     }
 }
