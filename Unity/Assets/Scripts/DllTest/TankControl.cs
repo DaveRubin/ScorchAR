@@ -12,6 +12,7 @@ public class TankControl : MonoBehaviour {
     Transform Sides;
     Transform UpDwn;
     Transform BarrelsEnd;
+    Transform Barrel;
     Player player;
     public float force;
     public bool active = true;
@@ -20,6 +21,7 @@ public class TankControl : MonoBehaviour {
         body = transform;
         Sides = transform.FindChild("YAxis");
         UpDwn = transform.FindChild("YAxis/ZAxis");
+        Barrel = transform.FindChild("YAxis/ZAxis/Barrel");
         BarrelsEnd = transform.FindChild("YAxis/ZAxis/Barrel/Tip");
         Debug.Log("Found everything");
     }
@@ -143,7 +145,7 @@ public class TankControl : MonoBehaviour {
         float fx = Mathf.Cos(angle2 * Mathf.Deg2Rad) * fxMain;
 
         bullet.transform.position = BarrelsEnd.position;
-        bullet.GetComponent<ProjectileControl>().SetForce(new Vector3(fx, fy, -fz));
+        bullet.GetComponent<ProjectileControl>().SetForce(Barrel,new Vector3(fx, fy, -fz));
     }
 
 }

@@ -11,7 +11,7 @@ public class Explosion : MonoBehaviour {
         transform.position = Vector3.zero;
     }
 
-    public void Set(float damage,float lifeDuration = 3) {
+    public void SetDamage(float damage,float lifeDuration = 3) {
         maxLife = life = lifeDuration;
         force = damage;
     }
