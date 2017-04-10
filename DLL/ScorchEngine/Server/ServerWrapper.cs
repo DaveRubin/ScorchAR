@@ -55,16 +55,15 @@ namespace ScorchEngine.Server
             List<GameInfo> games = new List<GameInfo>();
             for (int i = 0; i < 6; i++) {
                 GameInfo gameInfo = new GameInfo();
-                gameInfo.maxPlayers = new Random().Next(1,4);
-                gameInfo.name = "Game "+ i;
+                gameInfo.MaxPlayers = new Random().Next(1,4);
+                gameInfo.Name = "Game "+ i;
                 gameInfo.ID = "id"+i;
-                gameInfo.players = new List<PlayerInfo>();
 
-                for (int j = 0; j < gameInfo.maxPlayers; j++) {
+                for (int j = 0; j < gameInfo.MaxPlayers; j++) {
                     PlayerInfo playerInfo = new PlayerInfo();
                     playerInfo.name = "Player "+i+ " "+ j;
                     playerInfo.id = "player" + j;
-                    gameInfo.players.Add(playerInfo);
+                    gameInfo.AddPlayer(playerInfo);
                 }
                 games.Add(gameInfo);
             }
