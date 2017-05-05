@@ -57,12 +57,12 @@ namespace ScorchEngine.Server
                 GameInfo gameInfo = new GameInfo();
                 gameInfo.MaxPlayers = new Random().Next(1,4);
                 gameInfo.Name = "Game "+ i;
-                gameInfo.ID = "id"+i;
+                gameInfo.Id = "id"+i;
 
                 for (int j = 0; j < gameInfo.MaxPlayers; j++) {
                     PlayerInfo playerInfo = new PlayerInfo();
-                    playerInfo.name = "Player "+i+ " "+ j;
-                    playerInfo.id = "player" + j;
+                    playerInfo.Name = "Player "+i+ " "+ j;
+                    playerInfo.Id = "player" + j;
                     gameInfo.AddPlayer(playerInfo);
                 }
                 games.Add(gameInfo);

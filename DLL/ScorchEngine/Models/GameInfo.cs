@@ -2,22 +2,29 @@ using System.Collections.Generic;
 
 namespace ScorchEngine.Models
 {
+    using System.Runtime.InteropServices.ComTypes;
+
     public class GameInfo
     {
         public string Name { get; set; }
 
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         public int MaxPlayers { get; set; }
 
-        private readonly List<PlayerInfo> players = new List<PlayerInfo>(); // should be a list of player
+        public List<PlayerInfo> Players { get; set; }
+
+        public GameInfo()
+        {
+            Players = new List<PlayerInfo>();
+        }
 
         public override string ToString()
         {
             return $@"Name:{Name}
-Id:{ID}
+Id:{Id}
 MaxPlayers:{MaxPlayers}
-NumberOfPlayers:{players.Count}";
+NumberOfPlayers:{Players.Count}";
         }
 
         public override bool Equals(object obj)
@@ -25,20 +32,20 @@ NumberOfPlayers:{players.Count}";
             if (obj == null || GetType() != obj.GetType()) return false;
 
             GameInfo gameInfo = (GameInfo)obj;
-            return ID == gameInfo.ID;
+            return Id == gameInfo.Id;
         }
 
         public override int GetHashCode()
         {
-            return ID.GetHashCode();
+            return Id.GetHashCode();
         }
 
         public bool AddPlayer(PlayerInfo playerInfo)
         {
             bool result = false;
-            if (players.Count < MaxPlayers)
+            if (Players.Count < MaxPlayers)
             {
-                players.Add(playerInfo);
+                Players.Add(playerInfo);
                 result = true;
             }
                return result;
@@ -46,12 +53,12 @@ NumberOfPlayers:{players.Count}";
 
         public void RemovePlayer(PlayerInfo playerInfo)
         {
-            players.Remove(playerInfo);
+            Players.Remove(playerInfo);
         }
 
         public IEnumerable<PlayerInfo> GetPlayers()
         {
-            return players.AsReadOnly();
+            return Players.AsReadOnly();
         }
     }
 }

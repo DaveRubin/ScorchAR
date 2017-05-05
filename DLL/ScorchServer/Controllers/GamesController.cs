@@ -17,12 +17,8 @@ namespace ScorchServer.Controllers
 
     public class GamesController : ApiController
     {
-        private readonly IGamesRepository gamesRepository;
+        private readonly GamesRepository gamesRepository = new GamesRepository();
 
-        public GamesController(IGamesRepository gamesRepository)
-        {
-            this.gamesRepository = gamesRepository;
-        }
 
         [Route(ServerRoutes.GetGamesApiUrl)]
         [HttpGet]
