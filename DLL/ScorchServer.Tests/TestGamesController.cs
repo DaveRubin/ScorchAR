@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ScorchServer.Tests
@@ -16,18 +17,19 @@ namespace ScorchServer.Tests
     public class TestGamesController
     {
         ScorchServerClient client = new ScorchServerClient();
+
         [TestMethod]
         public void TestMethod1()
         {
-            PlayerInfo playerInfo = new PlayerInfo { id = "AAAA", name = "Dushi" };
+            PlayerInfo playerInfo = new PlayerInfo { Id = "AAAA", Name = "Dushi" };
             List<GameInfo> games = client.GetGames();
-            string gameId =games[0].ID;
-            client.AddPlayerToGame(gameId,playerInfo);
+            string gameId = games[0].Id;
+            client.AddPlayerToGame(gameId, playerInfo);
             GameInfo gameInfo = client.GetGame(gameId);
-            foreach (PlayerInfo player in gameInfo.GetPlayers())
+            foreach (PlayerInfo player in gameInfo.Players)
             {
                 Debug.WriteLine(player);
-            }        
+            }
         }
     }
 }

@@ -96,7 +96,7 @@ namespace ScorchEngine
         {
             foreach (PlayerState state in updatesList)
             {
-//                if (state.ID != self.ID)
+//                if (state.Id != self.Id)
 //                {
                     foreach (Player mPlayer in m_players)
                     {

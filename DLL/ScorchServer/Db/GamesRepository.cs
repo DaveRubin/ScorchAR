@@ -9,32 +9,17 @@ namespace ScorchServer.Db
 
     public class GamesRepository : IGamesRepository
     {
-        private Dictionary<string, GameInfo> games;
-
-        public GamesRepository()
-        {
-            games = new Dictionary<string, GameInfo>();
-            for (int i = 0; i < 6; i++)
-            {
-                GameInfo gameInfo = new GameInfo
-                                        {
-                                            MaxPlayers = new Random().Next(1, 4), 
-                                            Name = "Games " + i, 
-                                            ID = "id" + i
-                                        };
-                games.Add(gameInfo.ID, gameInfo);
-            }
-        }
+        private Dictionary<string, GameInfo> games = GamesContext.Instance;
 
         public void AddGame(GameInfo gameInfo)
         {
-            games.Add(gameInfo.ID, gameInfo);
+            games.Add(gameInfo.Id, gameInfo);
         }
 
         public GameInfo GetGame(string id)
         {
             // TODO LOG
-            GameInfo result = games.ContainsKey(id) ? games[id] : new GameInfo { ID = "YOU SHOULD NOT BE HERE" };
+            GameInfo result = games.ContainsKey(id) ? games[id] : new GameInfo { Id = "YOU SHOULD NOT BE HERE" };
 
             return result;
         }
@@ -51,11 +36,11 @@ namespace ScorchServer.Db
 
         public void Update(GameInfo game)
         {
-            if (games.ContainsKey(game.ID))
+            if (games.ContainsKey(game.Id))
             {
-                games.Remove(game.ID);               
+                games.Remove(game.Id);               
             }
-            games.Add(game.ID, game);
+            games.Add(game.Id, game);
         }
     }
 }
