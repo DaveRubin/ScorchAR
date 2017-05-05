@@ -15,7 +15,7 @@ namespace ScorchEngine.Models
         public override string ToString()
         {
             return $@"Name:{Name}
-ID:{ID}
+Id:{ID}
 MaxPlayers:{MaxPlayers}
 NumberOfPlayers:{players.Count}";
         }

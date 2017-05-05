@@ -11,7 +11,7 @@ public class MainGame : MonoBehaviour {
     List<TankControl> tanks;
     public CameraGUI Gui;
     public static ScorchEngine.Game GameCore;
-    private int ID;
+    private int PlayerIndex;
 
     void Awake() {
         string GameID = "SomeGameUID";
@@ -23,9 +23,9 @@ public class MainGame : MonoBehaviour {
     /// After login is called start game...
     /// Needs error handling exc...
     /// </summary>
-    /// <param name="id"></param>
-    public void Login(int id) {
-        ID = id;
+    /// <param name="index"></param>
+    public void Login(int index) {
+        PlayerIndex = index;
         InitGame();
         InitializePlayers();
         CreateMockTerrain();
@@ -99,7 +99,7 @@ public class MainGame : MonoBehaviour {
     /// </summary>
     public void InitializeGUI() {
         Gui = GameObject.Find("GUI").GetComponent<CameraGUI>();
-        TankControl tc = tanks[ID];
+        TankControl tc = tanks[PlayerIndex];
         tc.LinkToGUI(Gui);
     }
 

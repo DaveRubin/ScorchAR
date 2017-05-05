@@ -12,12 +12,12 @@ namespace ScorchEngine.Server
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public static void GetState(Action<List<PlayerState>> i_OnComplete)
+        public static void GetState(PlayerState myState, Action<List<PlayerState>> i_OnComplete)
         {
             List<PlayerState> list = new List<PlayerState>
             {
-                new PlayerState(){ID = 0,Force = debugCounter/0.1f,AngleHorizontal = debugCounter,AngleVertical = debugCounter},
-                new PlayerState(){ID = 1,Force = -debugCounter/0.1f,AngleHorizontal = -debugCounter,AngleVertical = -debugCounter},
+                new PlayerState(){Id = 0,Force = debugCounter/0.1f,AngleHorizontal = debugCounter,AngleVertical = debugCounter},
+                new PlayerState(){Id = 1,Force = -debugCounter/0.1f,AngleHorizontal = -debugCounter,AngleVertical = -debugCounter},
             };
 
             i_OnComplete(list);
