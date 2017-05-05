@@ -83,24 +83,26 @@ namespace ScorchEngine
             GenerateTerrain();
         }
 
-        public void Poll()
+        public void Poll(PlayerState myState)
         {
-            ServerWrapper.GetState(list =>
-            {
-                ProcessPoll(list);
-                OnStateUpdate?.Invoke(list);
-            });
+             ServerWrapper.GetState(myState,OnPollResult);
+        }
+
+        private void OnPollResult(List<PlayerState> list)
+        {
+            ProcessPoll(list);
+            OnStateUpdate?.Invoke(list);
         }
 
         private void ProcessPoll(List<PlayerState> updatesList)
         {
             foreach (PlayerState state in updatesList)
             {
-//                if (state.ID != self.ID)
+//                if (state.Id != self.Id)
 //                {
                     foreach (Player mPlayer in m_players)
                     {
-                        if (mPlayer.ID == state.ID)
+                        if (mPlayer.ID == state.Id)
                         {
                             mPlayer.Process(state);
                             break;

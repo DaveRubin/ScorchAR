@@ -8,35 +8,46 @@ using UnityEngine;
 using Utils;
 
 public class MainGame : MonoBehaviour {
+    private TankControl MyTank {
+        get {
+            return tanks[PlayerIndex];
+        }
+    }
+
     List<TankControl> tanks;
     public CameraGUI Gui;
     public static ScorchEngine.Game GameCore;
-    private int ID;
+    private int PlayerIndex;
 
     void Awake() {
         string GameID = "SomeGameUID";
         PrefabManager.Init();
-        ServerWrapper.Login(GameID,Login);
+        ServerWrapper.Login(GameID, Login);
     }
 
     /// <summary>
     /// After login is called start game...
     /// Needs error handling exc...
     /// </summary>
-    /// <param name="id"></param>
-    public void Login(int id) {
-        ID = id;
+    /// <param name="index"></param>
+    public void Login(int index) {
+        PlayerIndex = index;
         InitGame();
         InitializePlayers();
         CreateMockTerrain();
         InitializeGUI();
 
-        //after all is set, start polling from server for changes
-        InvokeRepeating("Poll",1,0.5f);
+//after all is set, start polling from server for changes
+        InvokeRepeating("Poll", 1, 0.5f);
     }
 
     private void Poll() {
-        GameCore.Poll();
+        PlayerState pState = new PlayerState();
+        pState.Id = PlayerIndex;
+        pState.AngleHorizontal = MyTank.Player.ControlledTank.AngleHorizontal;
+        pState.Force = MyTank.Player.ControlledTank.Force;
+        pState.AngleVertical= MyTank.Player.ControlledTank.AngleVertical;
+        GameCore.Poll(pState);
     }
 
     /// <summary>
@@ -44,8 +55,8 @@ public class MainGame : MonoBehaviour {
     /// </summary>
     public void InitializePlayers() {
         tanks = new List<TankControl>();
-        //Add players in game,
-        //for each player create a tank, and initialize
+//Add players in game,
+//for each player create a tank, and initialize
         List<Player> players = new List<Player>() {
             Player.CreateMockPlayer(),
             Player.CreateMockPlayer()
@@ -63,8 +74,8 @@ public class MainGame : MonoBehaviour {
         }
         Debug.Log(tanks);
 
-        //tank = GameObject.Find("Tank").GetComponent<TankControl>();
-        //tank.SetPlayer(GameCore.self);
+//tank = GameObject.Find("Tank").GetComponent<TankControl>();
+//tank.SetPlayer(GameCore.self);
     }
 
     /// <summary>
@@ -99,12 +110,12 @@ public class MainGame : MonoBehaviour {
     /// </summary>
     public void InitializeGUI() {
         Gui = GameObject.Find("GUI").GetComponent<CameraGUI>();
-        TankControl tc = tanks[ID];
+        TankControl tc = tanks[PlayerIndex];
         tc.LinkToGUI(Gui);
     }
 
     public void OnTurnStarted(int playerIndex) {
-        Debug.LogFormat("Player #{0} turn ",playerIndex);
+        Debug.LogFormat("Player #{0} turn ", playerIndex);
     }
 
 }

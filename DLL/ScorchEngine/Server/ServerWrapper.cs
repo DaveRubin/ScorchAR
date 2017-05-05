@@ -12,12 +12,12 @@ namespace ScorchEngine.Server
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public static void GetState(Action<List<PlayerState>> i_OnComplete)
+        public static void GetState(PlayerState myState, Action<List<PlayerState>> i_OnComplete)
         {
             List<PlayerState> list = new List<PlayerState>
             {
-                new PlayerState(){ID = 0,Force = debugCounter/0.1f,AngleHorizontal = debugCounter,AngleVertical = debugCounter},
-                new PlayerState(){ID = 1,Force = -debugCounter/0.1f,AngleHorizontal = -debugCounter,AngleVertical = -debugCounter},
+                new PlayerState(){Id = 0,Force = debugCounter/0.1f,AngleHorizontal = debugCounter,AngleVertical = debugCounter},
+                new PlayerState(){Id = 1,Force = -debugCounter/0.1f,AngleHorizontal = -debugCounter,AngleVertical = -debugCounter},
             };
 
             i_OnComplete(list);
@@ -57,12 +57,12 @@ namespace ScorchEngine.Server
                 GameInfo gameInfo = new GameInfo();
                 gameInfo.MaxPlayers = new Random().Next(1,4);
                 gameInfo.Name = "Game "+ i;
-                gameInfo.ID = "id"+i;
+                gameInfo.Id = "id"+i;
 
                 for (int j = 0; j < gameInfo.MaxPlayers; j++) {
                     PlayerInfo playerInfo = new PlayerInfo();
-                    playerInfo.name = "Player "+i+ " "+ j;
-                    playerInfo.id = "player" + j;
+                    playerInfo.Name = "Player "+i+ " "+ j;
+                    playerInfo.Id = "player" + j;
                     gameInfo.AddPlayer(playerInfo);
                 }
                 games.Add(gameInfo);

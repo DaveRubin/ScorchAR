@@ -36,7 +36,7 @@ namespace UI {
             foreach (GameInfo game in games) {
 
                 GameObject tmp = PrefabManager.InstantiatePrefab("LobbyGameItem");;
-                tmp.name = game.name;
+                tmp.name = game.Name;
                 tmp.transform.SetParent(container);
                 tmp.transform.localScale = Vector3.one;
                 tmp.transform.localPosition = new Vector3(0, current);
@@ -57,7 +57,7 @@ namespace UI {
         }
 
         public void OnGameSelected(LobbyItem selectedLobbyItem) {
-            Debug.LogFormat("Game {0} selected", selectedLobbyItem.Info.name);
+            Debug.LogFormat("Game {0} selected", selectedLobbyItem.Info.Name);
             //deselect all
             foreach (LobbyItem item in lobbyItems) {
                 item.Selected = item==selectedLobbyItem;
@@ -70,10 +70,10 @@ namespace UI {
         public void UpdateSelectedGame() {
             GameInfo info = currentGameSelected.Info;
             string playersString  = string.Empty;
-            for (int i = 0; i < info.players.Count; i++) {
-                PlayerInfo i1 = info.players[i];
+            for (int i = 0; i < info.Players.Count; i++) {
+                PlayerInfo i1 = info.Players[i];
                 playersString += i1;
-                if (i != info.players.Count-1) {
+                if (i != info.Players.Count-1) {
                     playersString += ",";
                 }
             }
@@ -82,7 +82,7 @@ Max Players : {1}
 Players
 -------------
 {2}",
-            info.name,info.maxPlayers,playersString);
+            info.Name,info.MaxPlayers,playersString);
         }
 
         public void JoinRoom() {
