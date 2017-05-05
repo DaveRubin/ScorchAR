@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using DllTest;
 using ScorchEngine;
+using ScorchEngine.Server;
 using UI;
 using UnityEngine;
 using Utils;
@@ -13,7 +14,7 @@ public class TankControl : MonoBehaviour {
     Transform UpDwn;
     Transform BarrelsEnd;
     Transform Barrel;
-    Player player;
+    public Player Player {get;private set;}
     public float force;
     public bool active = true;
 
@@ -28,7 +29,7 @@ public class TankControl : MonoBehaviour {
 
     public void SetPlayer(Player player) {
         Local = false;
-        this.player = player;
+        this.Player = player;
         Debug.LogFormat("Setting player id {0}",player.ID);
         player.OnUpdate += OnPLayerUpdate;
     }
@@ -76,7 +77,7 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     /// <param name="Gui"></param>
     public void LinkToGUI(CameraGUI Gui) {
-        player.OnUpdate -= OnPLayerUpdate;
+        Player.OnUpdate -= OnPLayerUpdate;
         Local = true;
         Gui.OnForceChange += onForceChange;
         Gui.OnXAngleChange += onLeftRightChanged;
@@ -147,5 +148,7 @@ public class TankControl : MonoBehaviour {
         bullet.transform.position = BarrelsEnd.position;
         bullet.GetComponent<ProjectileControl>().SetForce(Barrel,new Vector3(fx, fy, -fz));
     }
+
+
 
 }

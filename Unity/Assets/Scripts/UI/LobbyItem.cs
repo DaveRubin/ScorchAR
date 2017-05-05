@@ -19,7 +19,7 @@ namespace UI {
             }
             set {
                 gameInfo = value;
-                gameName.text = gameInfo.name;
+                gameName.text = gameInfo.Name;
             }
         }
 
