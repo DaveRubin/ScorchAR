@@ -19,7 +19,7 @@ namespace ScorchEngine
         public static bool OFFLINE = false;
         public event Action<int> TurnStarted;
         public event Action MatchEnded;
-        public event Action<string> debugLog;
+        public static event Action<string> debugLog;
         public event Action<Stack<TurnAction>, Action> ActionsExecuted;
         public event Action<List<PlayerState>> OnStateUpdate;
 
@@ -128,7 +128,7 @@ namespace ScorchEngine
             }
         }
 
-        private void Log(string message)
+        public static void Log(string message)
         {
             debugLog?.Invoke(message);
         }

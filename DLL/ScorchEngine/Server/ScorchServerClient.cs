@@ -24,8 +24,10 @@ namespace ScorchEngine.Server
 
         public int AddPlayerToGame(string gameId, PlayerInfo playerInfo)
         {
+            Game.Log("AddPlayerToGame GAME ID "+gameId);
             RestRequest request = new RestRequest(ServerRoutes.AddPlayerToGameApiUrl.Replace("{id}", gameId), Method.POST);
             request.RequestFormat = DataFormat.Json;
+            Game.Log("GAME ID "+gameId);
             request.AddJsonBody(playerInfo);
             return client.Execute<int>(request).Data;
         }

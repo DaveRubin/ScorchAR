@@ -23,7 +23,10 @@ namespace ScorchEngine.Server
         /// <param name="i_Callback"></param>
         public static void Login(string gameId, PlayerInfo playerInfo,Action<int> i_Callback)
         {
-            i_Callback(client.AddPlayerToGame(gameId,playerInfo));
+            Game.Log("Login "+gameId);
+            int a = client.AddPlayerToGame(gameId, playerInfo);
+            Game.Log("Login after client... "+a);
+            i_Callback(a);
         }
 
 

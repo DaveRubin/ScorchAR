@@ -50,7 +50,7 @@ public class TestControl : MonoBehaviour {
         conf.Size = new int[]{ 50, 50 };
         conf.MaxPlayers = 1;
         GameCore = new Game(conf);
-        GameCore.debugLog += (string obj) => Debug.Log(obj);
+        //GameCore.debugLog += (string obj) => Debug.Log(obj);
         GameCore.TurnStarted += OnTurnStarted;
     }
 
