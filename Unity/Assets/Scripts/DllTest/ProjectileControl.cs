@@ -28,7 +28,7 @@ namespace DllTest {
         void Update() {
             // check if hit ground
             if (transform.position.y < 0) {
-                Debug.Log("Ground");
+                //Debug.Log("Ground");
                 Explode();
             }
             // check if passed its life

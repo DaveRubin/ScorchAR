@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ScorchEngine;
 using ScorchEngine.Models;
 using ScorchEngine.Server;
 using UnityEngine;
@@ -91,6 +92,7 @@ Players
         }
 
         public void JoinRoom() {
+            Game.debugLog += (string obj) => Debug.LogError(obj);
             PlayerInfo myInfo = new PlayerInfo();
             myInfo.Name = MainUser.Instance.Name;
             myInfo.Id = MainUser.Instance.Name;
