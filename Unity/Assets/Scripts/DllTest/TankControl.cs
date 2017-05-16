@@ -20,8 +20,6 @@ public class TankControl : MonoBehaviour {
 
     void Awake()
     {
-        ScorchEngine.Game.debugLog += s => Debug.LogError(s);
-        ServerWrapper.Test();
         body = transform;
         Sides = transform.FindChild("YAxis");
         UpDwn = transform.FindChild("YAxis/ZAxis");

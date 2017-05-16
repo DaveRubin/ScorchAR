@@ -13,7 +13,7 @@ namespace ScorchEngine.Server
     {
         private readonly RestClient client = new RestClient(DebugMode ? ServerRoutes.LocalBaseUri : ServerRoutes.ServerBaseUri);
 
-        private const bool DebugMode = true;
+        private const bool DebugMode = false;
 
         // private readonly RestClient client = new RestClient((DebugMode ? ServerRoutes.LocalBaseUri :ServerRoutes.ServerBaseUri));
         public List<GameInfo> GetGames()
@@ -24,7 +24,7 @@ namespace ScorchEngine.Server
 
         public int AddPlayerToGame(string gameId, PlayerInfo playerInfo)
         {
-            Game.Log("AddPlayerToGame GAME ID "+gameId);
+            Game.Log("AddPlayerToGame GAME ID "+ ServerRoutes.AddPlayerToGameApiUrl.Replace("{id}", gameId));
             RestRequest request = new RestRequest(ServerRoutes.AddPlayerToGameApiUrl.Replace("{id}", gameId), Method.POST);
             request.RequestFormat = DataFormat.Json;
             Game.Log("GAME ID "+gameId);

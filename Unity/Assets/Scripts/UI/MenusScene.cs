@@ -31,6 +31,10 @@ public class MenusScene : MonoBehaviour {
     /// Initialize
     /// </summary>
     void Awake() {
+        ScorchEngine.Game.debugLog += s => Debug.LogError(s);
+        //Debug.LogError("before Test()");
+        //ServerWrapper.Test();
+        //Debug.LogError("After Test()");
         _current = EScreenType.Lobby;
         if (instance == null) {
             instance = this;

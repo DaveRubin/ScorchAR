@@ -96,7 +96,7 @@ Players
             PlayerInfo myInfo = new PlayerInfo();
             myInfo.Name = MainUser.Instance.Name;
             myInfo.Id = MainUser.Instance.Name;
-            ServerWrapper.Login(currentGameSelected.Info.Name,myInfo,AfterLogin);
+            ServerWrapper.Login(currentGameSelected.Info.Id,myInfo,AfterLogin);
         }
 
         public void AfterLogin(int index) {
