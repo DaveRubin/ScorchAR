@@ -22,7 +22,6 @@ public class MainGame : MonoBehaviour {
 
     void Awake() {
         string GameID = "SomeGameUID";
-        PrefabManager.Init();
         ServerWrapper.Login(GameID, Login);
     }
 

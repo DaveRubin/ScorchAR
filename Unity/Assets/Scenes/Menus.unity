@@ -1504,7 +1504,7 @@ GameObject:
   - component: {fileID: 958474462}
   - component: {fileID: 958474461}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonSave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1649,7 +1649,7 @@ GameObject:
   - component: {fileID: 1061895157}
   - component: {fileID: 1061895156}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: InputName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -32,8 +32,6 @@ public class MainUser {
     /// <summary>
     /// Saves info to local memory
     /// </summary>
-    public void Save() {
-        PlayerPrefs.SetString(KEY,_name);
-    }
+    public void Save() { PlayerPrefs.SetString(KEY,_name);}
 
 }

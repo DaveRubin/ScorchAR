@@ -35,7 +35,7 @@ namespace UI {
             lobbyItems = new List<LobbyItem>();
             foreach (GameInfo game in games) {
 
-                GameObject tmp = PrefabManager.InstantiatePrefab("LobbyGameItem");;
+                GameObject tmp = PrefabManager.InstantiatePrefab("LobbyGameItem");
                 tmp.name = game.Name;
                 tmp.transform.SetParent(container);
                 tmp.transform.localScale = Vector3.one;
