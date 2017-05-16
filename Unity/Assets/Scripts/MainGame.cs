@@ -8,6 +8,7 @@ using UnityEngine;
 using Utils;
 
 public class MainGame : MonoBehaviour {
+
     private TankControl MyTank {
         get {
             return tanks[PlayerIndex];

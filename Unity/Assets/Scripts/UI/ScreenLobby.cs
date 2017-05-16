@@ -56,6 +56,10 @@ namespace UI {
 
         }
 
+        /// <summary>
+        /// When game is selected, update
+        /// </summary>
+        /// <param name="selectedLobbyItem"></param>
         public void OnGameSelected(LobbyItem selectedLobbyItem) {
             Debug.LogFormat("Game {0} selected", selectedLobbyItem.Info.Name);
             //deselect all
