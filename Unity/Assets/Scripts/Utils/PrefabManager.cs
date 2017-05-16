@@ -40,7 +40,6 @@ namespace Utils {
         /// <param name="prefabName"></param>
         /// <returns></returns>
         public static GameObject InstantiatePrefab(string prefabName) {
-            Debug.Log(prefabsMap[prefabName]);
             return GameObject.Instantiate(prefabsMap[prefabName]);
         }
 //
