@@ -17,11 +17,24 @@ namespace ScorchServer.Tests
     public class TestGamesController
     {
         ScorchServerClient client = new ScorchServerClient();
-        /*
+      
         [TestMethod]
         public void TestMethod1()
         {
             client.ResetGames();
+            //test1();
+        }
+
+        private void printStates(List<PlayerState> stateList)
+        {
+            foreach (PlayerState state in stateList)
+            {
+                Debug.WriteLine(state);
+            }
+        }
+
+        private void test1()
+        {
             PlayerInfo player1 = new PlayerInfo { Id = "AAAA", Name = "Dushi" };
             PlayerInfo player2 = new PlayerInfo { Id = "BBBB", Name = "Amidushi" };
             List<GameInfo> games = client.GetGames();
@@ -37,20 +50,20 @@ namespace ScorchServer.Tests
             }
 
             PlayerState p1State = new PlayerState
-                                      {
-                                          Id = p1Idx, 
-                                          AngleHorizontal = 0.1f, 
-                                          AngleVertical = 0.2f, 
-                                          Force = 100
-                                      };
+            {
+                Id = p1Idx,
+                AngleHorizontal = 0.1f,
+                AngleVertical = 0.2f,
+                Force = 100
+            };
 
             PlayerState p2State = new PlayerState
-                                      {
-                                          Id = p2Idx, 
-                                          AngleHorizontal = 0.2f, 
-                                          AngleVertical = 0.3f, 
-                                          Force = 200
-                                      };
+            {
+                Id = p2Idx,
+                AngleHorizontal = 0.2f,
+                AngleVertical = 0.3f,
+                Force = 200
+            };
 
             client.UpdatePlayerState(gameId, p1State);
 
@@ -63,27 +76,6 @@ namespace ScorchServer.Tests
 
             stateList = client.UpdatePlayerState(gameId, p2State);
             printStates(stateList);
-
-        }
-
-        private void printStates(List<PlayerState> stateList)
-        {
-            foreach (PlayerState state in stateList)
-            {
-                Debug.WriteLine(state);
-            }
-        }
-           */
-        [TestMethod]
-        public void TestMethod1()
-        {
-           // client.ResetGames();
-            List<GameInfo> games = client.GetGames();
-            foreach(GameInfo g in games)
-            {
-                Debug.WriteLine(g);
-            }
-
         }
      
     }
