@@ -46,5 +46,11 @@ namespace ScorchEngine.Server
             request.AddJsonBody(playerState);
             return client.Execute<List<PlayerState>>(request).Data;
         }
+
+        public void ResetGames()
+        {
+            RestRequest request = new RestRequest(ServerRoutes.ClearGamesUrl, Method.GET);
+            client.Execute(request);
+        }
     }
 }

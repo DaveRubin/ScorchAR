@@ -44,5 +44,10 @@ namespace ScorchServer.Db
                 games[game.Id].Update(game);               
             }
         }
+
+        public void Reset()
+        {
+            games = GamesContext.Reset();
+        }
     }
 }

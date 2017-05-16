@@ -41,5 +41,12 @@ namespace ScorchServer.Controllers
             gamesRepository.AddGame(gameInfo);
         }
 
+        [Route(ServerRoutes.ClearGamesUrl)]
+        [HttpGet]
+        public void Clear()
+        {
+            gamesRepository.Reset();
+        }
+
     }
 }
