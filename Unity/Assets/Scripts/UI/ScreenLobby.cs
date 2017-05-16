@@ -16,6 +16,7 @@ namespace UI {
         Button buttonJoin;
 
         void Awake() {
+            PrefabManager.Init();
             selectedGameInfo =transform.Find("MainPanel/Right/Panel/Text").GetComponent<Text>();
             transform.Find("ButtonBack").GetComponent<Button>().onClick.AddListener(GoBack);
             buttonJoin = transform.Find("ButtonJoin").GetComponent<Button>();
