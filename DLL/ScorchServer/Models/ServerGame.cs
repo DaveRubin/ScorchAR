@@ -19,6 +19,18 @@ namespace ScorchServer.Models
             Name = gameInfo.Name;
             MaxPlayers = gameInfo.MaxPlayers;
             PlayerStates = new List<ServerPlayerState>();
+            for (int i = 0; i < MaxPlayers; ++i)
+            {
+                PlayerStates.Add( new ServerPlayerState());
+            }
+        }
+
+        public void Update(GameInfo gameInfo)
+        {
+            Id = gameInfo.Id;
+            Name = gameInfo.Name;
+            MaxPlayers = gameInfo.MaxPlayers;
+            Players = gameInfo.Players;
         }
     }
 }

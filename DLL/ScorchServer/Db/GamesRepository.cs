@@ -41,9 +41,8 @@ namespace ScorchServer.Db
         {
             if (games.ContainsKey(game.Id))
             {
-                games.Remove(game.Id);               
+                games[game.Id].Update(game);               
             }
-            games.Add(game.Id, new ServerGame(game));
         }
     }
 }
