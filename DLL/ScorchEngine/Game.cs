@@ -16,6 +16,7 @@ namespace ScorchEngine
     /// </summary>
     public class Game
     {
+        public static bool OFFLINE = false;
         public event Action<int> TurnStarted;
         public event Action MatchEnded;
         public event Action<string> debugLog;
@@ -97,6 +98,9 @@ namespace ScorchEngine
 
         private void ProcessPoll(List<PlayerState> updatesList)
         {
+            if (OFFLINE)
+                return;
+
             foreach (PlayerState state in updatesList)
             {
                 m_players[state.Id].Process(state);

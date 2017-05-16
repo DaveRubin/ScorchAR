@@ -2,12 +2,15 @@ using System.Collections.Generic;
 using Extensions;
 using ScorchEngine;
 using ScorchEngine.Config;
+using ScorchEngine.Models;
 using ScorchEngine.Server;
 using UI;
 using UnityEngine;
 using Utils;
 
 public class MainGame : MonoBehaviour {
+
+    private const bool OFFLINE_MODE = false;
 
     private TankControl MyTank {
         get {
@@ -21,6 +24,18 @@ public class MainGame : MonoBehaviour {
     private int PlayerIndex;
 
     void Awake() {
+        PrefabManager.Init();
+
+        if (OFFLINE_MODE) {
+            MainUser.Instance.Name = "Test";
+            MainUser.Instance.Index = 1;
+            MainUser.Instance.CurrentGame = new GameInfo{
+                Id = "A",
+                Name = "GAME"
+            };
+            Game.OFFLINE = true;
+        }
+
         PostLogin(MainUser.Instance.Index);
     }
 
@@ -41,6 +56,7 @@ public class MainGame : MonoBehaviour {
     }
 
     private void Poll() {
+        if (OFFLINE_MODE) return;
         PlayerState pState = new PlayerState();
         pState.Id = PlayerIndex;
         pState.AngleHorizontal = MyTank.Player.ControlledTank.AngleHorizontal;
