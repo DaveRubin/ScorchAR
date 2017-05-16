@@ -8,6 +8,7 @@ namespace Utils {
     /// Handles all prefab loading and instanstiaing
     /// </summary>
     public class PrefabManager {
+        private static bool initialized = false;
         private static PrefabManager Instance;
         private static Dictionary<string,GameObject> prefabsMap = new Dictionary<string, GameObject>();
 
@@ -25,6 +26,9 @@ namespace Utils {
         /// Load resources folder prefabs, and map them for future use
         /// </summary>
         public static void Init() {
+            if (initialized)
+                return;
+
             object[] objects = Resources.LoadAll("Prefabs");
             foreach (GameObject o in objects) {
                 if (prefabsMap.ContainsKey(o.name)) {
@@ -32,6 +36,8 @@ namespace Utils {
                 }
                 prefabsMap.Add(o.name,o);
             }
+
+            initialized = true;
         }
 
         /// <summary>
