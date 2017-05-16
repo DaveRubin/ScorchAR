@@ -5,9 +5,11 @@
 using UnityEngine;
 
 public class MainUser {
+    //key used to save user name locally
     private const string KEY = "MAINUSERKEY";
     public static MainUser Instance;
 
+    //once accessed, create the static instance
     static MainUser() {
         Instance = new MainUser();
         if (PlayerPrefs.HasKey(KEY)) {
@@ -28,7 +30,7 @@ public class MainUser {
     }
 
     /// <summary>
-    /// Should save the whole object...
+    /// Saves info to local memory
     /// </summary>
     public void Save() {
         PlayerPrefs.SetString(KEY,_name);
