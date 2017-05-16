@@ -116,12 +116,17 @@ namespace ScorchEngine
             }
 
             m_players.Add(player);
-            debugLog?.Invoke("playerAdd" + player.Name);
+            Log("playerAdd" + player.Name);
 
             if (m_players.Count == r_gameConfig.MaxPlayers)
             {
                 StartGame();
             }
+        }
+
+        private void Log(string message)
+        {
+            debugLog?.Invoke(message);
         }
 
         /// <summary>
@@ -174,7 +179,7 @@ namespace ScorchEngine
         {
             foreach (Player player in m_players)
             {
-                debugLog?.Invoke((player == null).ToString());
+                Log((player == null).ToString());
                 player.ControlledTank.Position = GetPosition();
                 player.Ready += OnPlayerActionReady;
             }
