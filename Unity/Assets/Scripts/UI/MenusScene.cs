@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DG.Tweening;
+using ScorchEngine.Server;
 using UI;
 using UnityEngine;
 
@@ -31,6 +31,7 @@ public class MenusScene : MonoBehaviour {
     /// Initialize
     /// </summary>
     void Awake() {
+        _current = EScreenType.Lobby;
         if (instance == null) {
             instance = this;
             menusTypeMap = new Dictionary<EScreenType, GameObject>() {
