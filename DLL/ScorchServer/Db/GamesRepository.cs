@@ -5,21 +5,24 @@ using System.Web;
 
 namespace ScorchServer.Db
 {
+    using ScorchEngine;
     using ScorchEngine.Models;
+
+    using ScorchServer.Models;
 
     public class GamesRepository : IGamesRepository
     {
-        private Dictionary<string, GameInfo> games = GamesContext.Instance;
+        private Dictionary<string, ServerGame> games = GamesContext.Instance;
 
         public void AddGame(GameInfo gameInfo)
         {
-            games.Add(gameInfo.Id, gameInfo);
+            games.Add(gameInfo.Id, new ServerGame(gameInfo));
         }
 
         public GameInfo GetGame(string id)
         {
             // TODO LOG
-            GameInfo result = games.ContainsKey(id) ? games[id] : new GameInfo { Id = "YOU SHOULD NOT BE HERE" };
+            GameInfo result = games.ContainsKey(id) ? games[id] :null;
 
             return result;
         }
@@ -40,7 +43,7 @@ namespace ScorchServer.Db
             {
                 games.Remove(game.Id);               
             }
-            games.Add(game.Id, game);
+            games.Add(game.Id, new ServerGame(game));
         }
     }
 }

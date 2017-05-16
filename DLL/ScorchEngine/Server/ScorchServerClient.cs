@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using RestSharp;
+
+using ScorchEngine.Models;
+
 namespace ScorchEngine.Server
 {
-    using RestSharp;
-
-    using ScorchEngine.Models;
-
     public class ScorchServerClient
     {
-        private const bool DebugMode = true;
-       // private readonly RestClient client = new RestClient((DebugMode ? ServerRoutes.LocalBaseUri :ServerRoutes.ServerBaseUri));
+        private readonly RestClient client = new RestClient(DebugMode ? ServerRoutes.LocalBaseUri : ServerRoutes.ServerBaseUri);
 
+        private const bool DebugMode = false;
+
+        // private readonly RestClient client = new RestClient((DebugMode ? ServerRoutes.LocalBaseUri :ServerRoutes.ServerBaseUri));
         public List<GameInfo> GetGames()
         {
-            RestClient client = new RestClient((DebugMode ? ServerRoutes.LocalBaseUri : ServerRoutes.ServerBaseUri));
             RestRequest request = new RestRequest(ServerRoutes.GetGamesApiUrl, Method.GET);
             return client.Execute<List<GameInfo>>(request).Data;
         }
 
         public int AddPlayerToGame(string id, PlayerInfo playerInfo)
         {
-            RestClient client = new RestClient((DebugMode ? ServerRoutes.LocalBaseUri : ServerRoutes.ServerBaseUri));
-            RestRequest request = new RestRequest(ServerRoutes.AddPlayerToGameApiUrl.Replace("{id}",id), Method.POST);
+            RestRequest request = new RestRequest(ServerRoutes.AddPlayerToGameApiUrl.Replace("{id}", id), Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddJsonBody(playerInfo);
             return client.Execute<int>(request).Data;
@@ -32,7 +32,6 @@ namespace ScorchEngine.Server
 
         public GameInfo GetGame(string id)
         {
-            RestClient client = new RestClient((DebugMode ? ServerRoutes.LocalBaseUri : ServerRoutes.ServerBaseUri));
             RestRequest request = new RestRequest(ServerRoutes.GetGameApiUrl, Method.GET);
             request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
             request.AddParameter("id", id);

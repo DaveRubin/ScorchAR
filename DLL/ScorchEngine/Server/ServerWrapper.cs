@@ -7,7 +7,7 @@ namespace ScorchEngine.Server
     public class ServerWrapper
     {
         private static int debugCounter = 0;
-
+        private static ScorchServerClient clinet = new ScorchServerClient();
 
         /// <summary>
         /// </summary>
@@ -44,30 +44,7 @@ namespace ScorchEngine.Server
         /// </summary>
         /// <param name="i_CallBack"></param>
         public static void GetGames(Action<List<GameInfo>> i_CallBack) {
-            i_CallBack(GetDummyGames());
-        }
-
-        /// <summary>
-        /// Simulate server games fetch
-        /// </summary>
-        private static List<GameInfo> GetDummyGames() {
-            //create dummy games
-            List<GameInfo> games = new List<GameInfo>();
-            for (int i = 0; i < 6; i++) {
-                GameInfo gameInfo = new GameInfo();
-                gameInfo.MaxPlayers = new Random().Next(1,4);
-                gameInfo.Name = "Game "+ i;
-                gameInfo.Id = "id"+i;
-
-                for (int j = 0; j < gameInfo.MaxPlayers; j++) {
-                    PlayerInfo playerInfo = new PlayerInfo();
-                    playerInfo.Name = "Player "+i+ " "+ j;
-                    playerInfo.Id = "player" + j;
-                    gameInfo.AddPlayer(playerInfo);
-                }
-                games.Add(gameInfo);
-            }
-            return games;
+            i_CallBack(clinet.GetGames());
         }
 
     }
