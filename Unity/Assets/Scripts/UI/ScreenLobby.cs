@@ -98,6 +98,7 @@ Players
         }
 
         public void AfterLogin(int index) {
+            Debug.LogFormat("Got index {0}",index);
             MainUser.Instance.CurrentGame = currentGameSelected.Info;
             MainUser.Instance.Index = index;
             SceneManager.LoadScene("DLLTest");

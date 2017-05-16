@@ -90,6 +90,7 @@ namespace ScorchEngine
 
         private void OnPollResult(List<PlayerState> list)
         {
+
             ProcessPoll(list);
             OnStateUpdate?.Invoke(list);
         }
@@ -98,18 +99,7 @@ namespace ScorchEngine
         {
             foreach (PlayerState state in updatesList)
             {
-//                if (state.Id != self.Id)
-//                {
-                    foreach (Player mPlayer in m_players)
-                    {
-                        if (mPlayer.ID == state.Id)
-                        {
-                            mPlayer.Process(state);
-                            break;
-                        }
-                    }
-//                }
-                //debugLog?.Invoke(state.ToString());
+                m_players[state.Id].Process(state);
             }
         }
 

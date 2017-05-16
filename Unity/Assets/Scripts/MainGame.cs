@@ -54,8 +54,8 @@ public class MainGame : MonoBehaviour {
     /// </summary>
     public void InitializePlayers() {
         tanks = new List<TankControl>();
-//Add players in game,
-//for each player create a tank, and initialize
+        //Add players in game,
+        //for each player create a tank, and initialize
         List<Player> players = new List<Player>() {
             Player.CreateMockPlayer(),
             Player.CreateMockPlayer()
