@@ -17,7 +17,7 @@ namespace ScorchServer.Tests
     public class TestGamesController
     {
         ScorchServerClient client = new ScorchServerClient();
-
+        /*
         [TestMethod]
         public void TestMethod1()
         {
@@ -72,5 +72,19 @@ namespace ScorchServer.Tests
                 Debug.WriteLine(state);
             }
         }
+        */
+        [TestMethod]
+        public void TestMethod1()
+        {
+            ScorchServerClient client = new ScorchServerClient();
+            client.ResetGames();
+            List<GameInfo> games = client.GetGames();
+            foreach(GameInfo g in games)
+            {
+                Debug.WriteLine(g);
+            }
+
+        }
+        
     }
 }

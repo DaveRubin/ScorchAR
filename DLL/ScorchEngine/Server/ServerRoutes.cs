@@ -13,7 +13,7 @@ namespace ScorchEngine.Server
 
         public const string UpdatePlayerStateUrl = "api/Games/{id}/UpdateState";
 
-        public const string ClearGamesUrl = "/api/Games/Clear";
+        public const string ClearGamesUrl = "api/Games/Clear";
 
         public const string ServerBaseUri = "http://scorchar.azurewebsites.net";
 

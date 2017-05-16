@@ -13,7 +13,7 @@ namespace ScorchEngine.Server
     {
         private readonly RestClient client = new RestClient(DebugMode ? ServerRoutes.LocalBaseUri : ServerRoutes.ServerBaseUri);
 
-        private const bool DebugMode = false;
+        private const bool DebugMode = true;
 
         // private readonly RestClient client = new RestClient((DebugMode ? ServerRoutes.LocalBaseUri :ServerRoutes.ServerBaseUri));
         public List<GameInfo> GetGames()
