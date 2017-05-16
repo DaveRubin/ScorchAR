@@ -21,6 +21,7 @@ namespace ScorchServer.Tests
         [TestMethod]
         public void TestMethod1()
         {
+            client.ResetGames();
             PlayerInfo player1 = new PlayerInfo { Id = "AAAA", Name = "Dushi" };
             PlayerInfo player2 = new PlayerInfo { Id = "BBBB", Name = "Amidushi" };
             List<GameInfo> games = client.GetGames();
@@ -72,12 +73,11 @@ namespace ScorchServer.Tests
                 Debug.WriteLine(state);
             }
         }
-        */
+           */
         [TestMethod]
         public void TestMethod1()
         {
-            ScorchServerClient client = new ScorchServerClient();
-            client.ResetGames();
+           // client.ResetGames();
             List<GameInfo> games = client.GetGames();
             foreach(GameInfo g in games)
             {
@@ -85,6 +85,6 @@ namespace ScorchServer.Tests
             }
 
         }
-        
+     
     }
 }

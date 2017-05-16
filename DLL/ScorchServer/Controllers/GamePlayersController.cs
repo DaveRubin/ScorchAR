@@ -25,7 +25,7 @@ namespace ScorchServer.Controllers
             GameInfo game = gamesRepository.GetGame(id);
             game.AddPlayer(playerInfo, ref newPlayerIndex);
 
-            // gamesRepository.Update(game);
+            gamesRepository.Update(game);
             return newPlayerIndex;
         }
 
@@ -36,7 +36,7 @@ namespace ScorchServer.Controllers
             ServerGame game = gamesRepository.GetGame(id);
             game.PlayerStates[playerState.Id].Update(playerState);
 
-            // gamesRepository.Update(game);
+            gamesRepository.Update(game);
             return game.PlayerStates.Cast<PlayerState>().ToList();
         }
     }
