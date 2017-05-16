@@ -103,6 +103,7 @@ namespace ScorchEngine
 
             foreach (PlayerState state in updatesList)
             {
+                Log(state.ToString());
                 m_players[state.Id].Process(state);
             }
         }
