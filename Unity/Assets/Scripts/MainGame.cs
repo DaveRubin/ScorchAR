@@ -21,8 +21,7 @@ public class MainGame : MonoBehaviour {
     private int PlayerIndex;
 
     void Awake() {
-        string GameID = "SomeGameUID";
-        ServerWrapper.Login(GameID, Login);
+        PostLogin(MainUser.Instance.Index);
     }
 
     /// <summary>
@@ -30,7 +29,7 @@ public class MainGame : MonoBehaviour {
     /// Needs error handling exc...
     /// </summary>
     /// <param name="index"></param>
-    public void Login(int index) {
+    public void PostLogin(int index) {
         PlayerIndex = index;
         InitGame();
         InitializePlayers();
@@ -47,7 +46,7 @@ public class MainGame : MonoBehaviour {
         pState.AngleHorizontal = MyTank.Player.ControlledTank.AngleHorizontal;
         pState.Force = MyTank.Player.ControlledTank.Force;
         pState.AngleVertical= MyTank.Player.ControlledTank.AngleVertical;
-        GameCore.Poll(pState);
+        GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
     }
 
     /// <summary>

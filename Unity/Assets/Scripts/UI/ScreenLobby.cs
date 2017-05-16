@@ -90,7 +90,16 @@ Players
         }
 
         public void JoinRoom() {
-            SceneManager.LoadScene("test");
+            PlayerInfo myInfo = new PlayerInfo();
+            myInfo.Name = MainUser.Instance.Name;
+            myInfo.Id = MainUser.Instance.Name;
+            ServerWrapper.Login(currentGameSelected.Info.Name,myInfo,AfterLogin);
+        }
+
+        public void AfterLogin(int index) {
+            MainUser.Instance.CurrentGame = currentGameSelected.Info;
+            MainUser.Instance.Index = index;
+            SceneManager.LoadScene("DLLTest");
         }
     }
 }

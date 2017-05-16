@@ -83,9 +83,9 @@ namespace ScorchEngine
             GenerateTerrain();
         }
 
-        public void Poll(PlayerState myState)
+        public void Poll(string gameID,PlayerState myState)
         {
-             ServerWrapper.GetState(myState,OnPollResult);
+             ServerWrapper.GetState(gameID,myState,OnPollResult);
         }
 
         private void OnPollResult(List<PlayerState> list)
