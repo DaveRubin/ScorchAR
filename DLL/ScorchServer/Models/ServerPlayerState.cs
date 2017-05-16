@@ -9,6 +9,16 @@ namespace ScorchServer.Models
 
     public class ServerPlayerState : PlayerState
     {
+        public ServerPlayerState(PlayerState state, DateTime updateTime)
+        {
+            Id = state.Id;
+            IsReady = state.IsReady;
+            AngleHorizontal = state.AngleHorizontal;
+            AngleVertical = state.AngleVertical;
+            Force = state.Force;
+            LastUpdateTime = updateTime;
+        }
+
         public DateTime LastUpdateTime { get; set; }
     }
 }

@@ -40,12 +40,13 @@ NumberOfPlayers:{Players.Count}";
             return Id.GetHashCode();
         }
 
-        public bool AddPlayer(PlayerInfo playerInfo)
+        public bool AddPlayer(PlayerInfo playerInfo,ref int playerIndex)
         {
             bool result = false;
             if (Players.Count < MaxPlayers)
             {
                 Players.Add(playerInfo);
+                playerIndex = Players.Count - 1;
                 result = true;
             }
                return result;

@@ -8,11 +8,13 @@ namespace ScorchServer.Db
 {
     using ScorchEngine.Models;
 
+    using ScorchServer.Models;
+
     public interface IGamesRepository
     {
         void AddGame(GameInfo gameInfo);
 
-        GameInfo GetGame(string id);
+        ServerGame GetGame(string id);
 
         void RemoveGame(string id);
 

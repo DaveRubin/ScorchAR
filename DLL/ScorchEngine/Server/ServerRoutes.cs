@@ -11,6 +11,8 @@ namespace ScorchEngine.Server
         public const string AddPlayerToGameApiUrl = "api/Games/{id}/Players";
         public const string GetGameApiUrl = "api/Games/{id}";
 
+        public const string UpdatePlayerStateUrl = "api/Game/{id}/UpdateState";
+
         public const string ServerBaseUri = "http://scorchar.azurewebsites.net";
 
         public const string LocalBaseUri = "http://localhost:17212/";

@@ -35,9 +35,16 @@ namespace ScorchEngine.Server
             RestRequest request = new RestRequest(ServerRoutes.GetGameApiUrl, Method.GET);
             request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
             request.AddParameter("id", id);
-            IRestResponse<GameInfo> response = client.Execute<GameInfo>(request);
-            GameInfo res = response.Data;
             return client.Execute<GameInfo>(request).Data;
+        }
+
+        public List<PlayerState> UpdatePlayerState(string id,PlayerState playerState)
+        {
+            RestRequest request = new RestRequest(ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", id), Method.PUT);
+            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
+            request.RequestFormat = DataFormat.Json;
+            request.AddJsonBody(playerState);
+            return client.Execute<List<PlayerState>>(request).Data;
         }
     }
 }

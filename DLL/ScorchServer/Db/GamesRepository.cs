@@ -19,10 +19,10 @@ namespace ScorchServer.Db
             games.Add(gameInfo.Id, new ServerGame(gameInfo));
         }
 
-        public GameInfo GetGame(string id)
+        public ServerGame GetGame(string id)
         {
             // TODO LOG
-            GameInfo result = games.ContainsKey(id) ? games[id] :null;
+            ServerGame result = games.ContainsKey(id) ? games[id] :null;
 
             return result;
         }

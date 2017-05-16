@@ -11,6 +11,7 @@ namespace ScorchServer.Controllers
     using ScorchEngine.Server;
 
     using ScorchServer.Db;
+    using ScorchServer.Models;
 
     public class GamePlayersController : ApiController
     {
@@ -19,11 +20,23 @@ namespace ScorchServer.Controllers
 
         [Route(ServerRoutes.AddPlayerToGameApiUrl)]
         [HttpPost]
-        public void AddPlayer(string id, [FromBody] PlayerInfo playerInfo)
+        public int AddPlayer(string id, [FromBody] PlayerInfo playerInfo)
         {
+            int newPlayerIndex = -1;
             GameInfo game = gamesRepository.GetGame(id);
-            game.AddPlayer(playerInfo);
+            game.AddPlayer(playerInfo,ref newPlayerIndex);
             gamesRepository.Update(game);
+            return newPlayerIndex;
+        }
+
+        [Route(ServerRoutes.UpdatePlayerStateUrl)]
+        [HttpPut]
+        public List<PlayerState> UpdatePlayerStates(string id, [FromBody] PlayerState playerState)
+        {
+            ServerGame game = gamesRepository.GetGame(id);
+            game.PlayerStates[playerState.Id] = new ServerPlayerState(playerState, DateTime.Now);
+            gamesRepository.Update(game);
+            return game.PlayerStates.Cast<PlayerState>().ToList();
         }
     }
 }
