@@ -8,6 +8,12 @@ namespace ScorchEngine.Server
     {
         private static ScorchServerClient client = new ScorchServerClient();
 
+        private static void Test()
+        {
+            client.AddPlayerToGame("12", null);
+        }
+
+
         /// <summary>
         /// </summary>
         /// <returns></returns>
