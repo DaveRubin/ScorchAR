@@ -51,17 +51,18 @@ public class MainGame : MonoBehaviour {
         CreateMockTerrain();
         InitializeGUI();
 
-//after all is set, start polling from server for changes
+        //after all is set, start polling from server for changes
         InvokeRepeating("Poll", 1, 0.5f);
     }
 
     private void Poll() {
-        if (OFFLINE_MODE) return;
         PlayerState pState = new PlayerState();
         pState.Id = PlayerIndex;
-        pState.AngleHorizontal = MyTank.Player.ControlledTank.AngleHorizontal;
-        pState.Force = MyTank.Player.ControlledTank.Force;
-        pState.AngleVertical= MyTank.Player.ControlledTank.AngleVertical;
+        pState.AngleHorizontal = MyTank.PlayerStats.ControlledTank.AngleHorizontal;
+        pState.Force = MyTank.PlayerStats.ControlledTank.Force;
+        pState.AngleVertical= MyTank.PlayerStats.ControlledTank.AngleVertical;
+        Debug.LogFormat(pState.ToString());
+        if (OFFLINE_MODE) return;
         GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
     }
 

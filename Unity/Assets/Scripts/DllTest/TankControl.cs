@@ -14,7 +14,7 @@ public class TankControl : MonoBehaviour {
     Transform UpDwn;
     Transform BarrelsEnd;
     Transform Barrel;
-    public Player Player {get;private set;}
+    public Player PlayerStats {get;private set;}
     public float force;
     public bool active = true;
 
@@ -30,7 +30,7 @@ public class TankControl : MonoBehaviour {
 
     public void SetPlayer(Player player) {
         Local = false;
-        this.Player = player;
+        this.PlayerStats = player;
         Debug.LogFormat("Setting player id {0}",player.ID);
         player.OnUpdate += OnPLayerUpdate;
     }
@@ -78,7 +78,7 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     /// <param name="Gui"></param>
     public void LinkToGUI(CameraGUI Gui) {
-        Player.OnUpdate -= OnPLayerUpdate;
+        PlayerStats.OnUpdate -= OnPLayerUpdate;
         Local = true;
         Gui.OnForceChange += onForceChange;
         Gui.OnXAngleChange += onLeftRightChanged;
@@ -107,6 +107,7 @@ public class TankControl : MonoBehaviour {
     public void onLeftRightChanged(float angle) {
         Vector3 yRotation = Sides.localRotation.eulerAngles;
         yRotation.y = angle;
+        PlayerStats.ControlledTank.AngleHorizontal = angle;
         Sides.DOLocalRotate(yRotation,0.5f).SetEase(Ease.Linear);
     }
 
@@ -116,6 +117,7 @@ public class TankControl : MonoBehaviour {
     /// <param name="force"></param>
     public void onForceChange(float force) {
         this.force = force;
+        PlayerStats.ControlledTank.Force = force;
     }
 
     /// <summary>
@@ -125,6 +127,7 @@ public class TankControl : MonoBehaviour {
     public void onUpDownChanged(float angle) {
         Vector3 zRotation = UpDwn.localRotation.eulerAngles;
         zRotation.z = angle;
+        PlayerStats.ControlledTank.AngleVertical = angle;
         UpDwn.DOLocalRotate(zRotation,0.5f).SetEase(Ease.Linear);
     }
 
