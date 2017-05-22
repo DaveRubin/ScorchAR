@@ -74,6 +74,13 @@ public class MainGame : MonoBehaviour {
     /// According to players given, create for each one a tank, position it and link add it to game
     /// </summary>
     public void InitializePlayers() {
+
+        Transform tanksRoot= new GameObject().transform;
+        tanksRoot.gameObject.name = "Tanks";
+        tanksRoot.SetParent(rootTransform);
+        tanksRoot.localPosition = Vector3.zero;
+
+
         tanks = new List<TankControl>();
         //Add players in game,
         //for each player create a tank, and initialize
@@ -88,7 +95,7 @@ public class MainGame : MonoBehaviour {
 
         foreach (Player player in players) {
             TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
-            tankGO.transform.SetParent(rootTransform);
+            tankGO.transform.SetParent(tanksRoot);
             tankGO.transform.localPosition = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
             tankGO.SetPlayer(player);
 
@@ -106,10 +113,15 @@ public class MainGame : MonoBehaviour {
     /// </summary>
     public void CreateMockTerrain() {
 
+        Transform terrainRoot= new GameObject().transform;
+        terrainRoot.gameObject.name = "Terrain";
+        terrainRoot.SetParent(rootTransform);
+        terrainRoot.localPosition = Vector3.zero;
+
         for (int x = 0; x < GameCore.Terrain.SizeX; x++) {
             for (int z = 0; z < GameCore.Terrain.SizeZ; z++) {
                 GameObject go = PrefabManager.InstantiatePrefab("Cube");
-                go.transform.SetParent(rootTransform);
+                go.transform.SetParent(terrainRoot);
                 go.transform.localPosition = new Vector3(x, 0, z);
             }
         }
