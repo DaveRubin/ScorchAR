@@ -65,7 +65,7 @@ public class MainGame : MonoBehaviour {
         pState.AngleHorizontal = MyTank.PlayerStats.ControlledTank.AngleHorizontal;
         pState.Force = MyTank.PlayerStats.ControlledTank.Force;
         pState.AngleVertical= MyTank.PlayerStats.ControlledTank.AngleVertical;
-        Debug.LogFormat(pState.ToString());
+        //Debug.LogFormat(pState.ToString());
         if (OFFLINE_MODE) return;
         GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
     }
