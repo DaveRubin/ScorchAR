@@ -49,6 +49,16 @@ namespace ScorchEngine.Server
             return client.Execute<List<PlayerState>>(request).Data;
         }
 
+        public void UpdatePlayerStateAsync(string id, PlayerState playerState, Action<List<PlayerState>> callback)
+        {
+            RestRequest request = new RestRequest(ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", id), Method.PUT);
+            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
+            request.RequestFormat = DataFormat.Json;
+            request.AddJsonBody(playerState);
+            client.ExecuteAsync<List<PlayerState>>(request, r=>callback(r.Data));
+        }
+
+
         public void ResetGames()
         {
             RestRequest request = new RestRequest(ServerRoutes.ClearGamesUrl, Method.GET);
