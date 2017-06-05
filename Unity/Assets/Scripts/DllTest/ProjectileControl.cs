@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using Utils;
 
@@ -31,6 +32,8 @@ namespace DllTest {
                 //Debug.Log("Ground");
                 Explode();
             }
+            transform.localPosition += force*Time.deltaTime;
+            force.y += MainGame.GameCore.GetEnvironmetForces().Y*Time.deltaTime;
             // check if passed its life
         }
 

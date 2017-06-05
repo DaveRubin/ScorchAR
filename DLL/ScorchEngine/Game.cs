@@ -80,7 +80,7 @@ namespace ScorchEngine
         {
             r_gameConfig = config;
             m_players = new List<Player>();
-            m_environmentForces = new Coordinate(0, -1, 0);
+            m_environmentForces = new Coordinate(0, -9, 0);
             GenerateTerrain();
         }
 

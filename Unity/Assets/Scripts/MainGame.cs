@@ -10,7 +10,7 @@ using Utils;
 
 public class MainGame : MonoBehaviour {
 
-    private const bool OFFLINE_MODE = false;
+    private const bool OFFLINE_MODE = true;
 
     private TankControl MyTank {
         get {
@@ -22,9 +22,13 @@ public class MainGame : MonoBehaviour {
     public CameraGUI Gui;
     public static ScorchEngine.Game GameCore;
     private int PlayerIndex;
+    private Transform rootTransform;
 
     void Awake() {
         PrefabManager.Init();
+        rootTransform = new GameObject().transform;
+        rootTransform.gameObject.name = "Root";
+        rootTransform.localPosition = Vector3.zero;
 
         if (OFFLINE_MODE) {
             MainUser.Instance.Name = "Test";
@@ -61,7 +65,9 @@ public class MainGame : MonoBehaviour {
         pState.AngleHorizontal = MyTank.PlayerStats.ControlledTank.AngleHorizontal;
         pState.Force = MyTank.PlayerStats.ControlledTank.Force;
         pState.AngleVertical= MyTank.PlayerStats.ControlledTank.AngleVertical;
-        Debug.LogFormat(pState.ToString());
+        pState.IsReady = MyTank.PlayerStats.ControlledTank.IsReady;
+        MyTank.PlayerStats.ControlledTank.IsReady = false;
+        //Debug.LogFormat(pState.ToString());
         if (OFFLINE_MODE) return;
         GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
     }
@@ -70,6 +76,13 @@ public class MainGame : MonoBehaviour {
     /// According to players given, create for each one a tank, position it and link add it to game
     /// </summary>
     public void InitializePlayers() {
+
+        Transform tanksRoot= new GameObject().transform;
+        tanksRoot.gameObject.name = "Tanks";
+        tanksRoot.SetParent(rootTransform);
+        tanksRoot.localPosition = Vector3.zero;
+
+
         tanks = new List<TankControl>();
         //Add players in game,
         //for each player create a tank, and initialize
@@ -84,8 +97,10 @@ public class MainGame : MonoBehaviour {
 
         foreach (Player player in players) {
             TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
-            tankGO.transform.position = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
+            tankGO.transform.SetParent(tanksRoot);
+            tankGO.transform.localPosition = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
             tankGO.SetPlayer(player);
+
             tanks.Add(tankGO);
         }
         Debug.Log(tanks);
@@ -99,9 +114,16 @@ public class MainGame : MonoBehaviour {
     /// TODO - should be replaced with Amitai's terrain object which will derive its topology from the game object
     /// </summary>
     public void CreateMockTerrain() {
+
+        Transform terrainRoot= new GameObject().transform;
+        terrainRoot.gameObject.name = "Terrain";
+        terrainRoot.SetParent(rootTransform);
+        terrainRoot.localPosition = Vector3.zero;
+
         for (int x = 0; x < GameCore.Terrain.SizeX; x++) {
             for (int z = 0; z < GameCore.Terrain.SizeZ; z++) {
                 GameObject go = PrefabManager.InstantiatePrefab("Cube");
+                go.transform.SetParent(terrainRoot);
                 go.transform.localPosition = new Vector3(x, 0, z);
             }
         }

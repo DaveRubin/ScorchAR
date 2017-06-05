@@ -93,11 +93,16 @@ public class TankControl : MonoBehaviour {
         Gui.OnShootClicked -= Shoot;
     }
 
-
+    /// <summary>
+    /// Player update controls remote tanks
+    /// </summary>
+    /// <param name="updatedPlayer"></param>
     public void OnPLayerUpdate(Player updatedPlayer) {
         onLeftRightChanged(updatedPlayer.ControlledTank.AngleHorizontal);
         onUpDownChanged(updatedPlayer.ControlledTank.AngleVertical);
         onForceChange(updatedPlayer.ControlledTank.Force);
+
+        if (updatedPlayer.ControlledTank.IsReady) Shoot();
     }
 
     /// <summary>
@@ -135,15 +140,17 @@ public class TankControl : MonoBehaviour {
     /// Shoot projectile
     /// </summary>
     public void Shoot() {
-// set up projectile type
-// shoot it
+        if (PlayerStats.ControlledTank.IsReady) return;
+        // set up projectile type
+        // shoot it
         GameObject bullet = PrefabManager.InstantiatePrefab("Projectile");
         float addition = 0;
         float angle = UpDwn.eulerAngles.z + addition;
         float fy = Mathf.Sin(angle * Mathf.Deg2Rad) * force;
         float fxMain = Mathf.Cos(angle * Mathf.Deg2Rad) * force;
+        Debug.LogFormat("Shooting with force {0}",force);
 
-//separate xForce and Zforce
+        //separate xForce and Zforce
         float addition2 = 0;
         float angle2 = Sides.eulerAngles.y + addition2;
         float fz = Mathf.Sin(angle2 * Mathf.Deg2Rad) * fxMain;
@@ -151,6 +158,8 @@ public class TankControl : MonoBehaviour {
 
         bullet.transform.position = BarrelsEnd.position;
         bullet.GetComponent<ProjectileControl>().SetForce(Barrel,new Vector3(fx, fy, -fz));
+
+        PlayerStats.ControlledTank.IsReady = true;
     }
 
 
