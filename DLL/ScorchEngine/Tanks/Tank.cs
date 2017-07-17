@@ -12,6 +12,7 @@ namespace ScorchEngine
 		public Player Owner{ get; private set;}
 		public int Health{ get; private set;}
 	    public bool Alive { get { return Health > 0; }}
+		public bool IsReady = false;
 
 	    public Coordinate Position;
 		public float AngleHorizontal;

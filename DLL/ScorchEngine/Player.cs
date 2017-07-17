@@ -63,6 +63,7 @@ namespace ScorchEngine
 	        ControlledTank.AngleHorizontal = state.AngleHorizontal;
 	        ControlledTank.AngleVertical= state.AngleVertical;
 	        ControlledTank.Force = state.Force;
+		    ControlledTank.IsReady = state.IsReady;
 	        OnUpdate?.Invoke(this);
 	    }
 	}
