@@ -143,7 +143,6 @@ public class TankControl : MonoBehaviour {
     }
 
     public Vector3 GetForceVector() {
-        Debug.Log("Getting force vector");
         float addition = 0;
         float angle = UpDwn.eulerAngles.z + addition;
         float fy = Mathf.Sin(angle * Mathf.Deg2Rad) * force;

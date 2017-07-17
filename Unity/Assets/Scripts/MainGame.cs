@@ -138,7 +138,7 @@ public class MainGame : MonoBehaviour {
         conf.Size = new int[]{ 50, 50 };
         conf.MaxPlayers = 2;
         GameCore = new Game(conf);
-        Game.debugLog += (string obj) => Debug.LogError(obj);
+        Game.debugLog += (string obj) => Debug.Log(obj);
         GameCore.TurnStarted += OnTurnStarted;
 
     }
