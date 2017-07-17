@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\UI\ScreenMainMenu.cs" />
      <Compile Include="Assets\Scripts\UI\ScreenSettings.cs" />
      <Compile Include="Assets\Scripts\Utils\PrefabManager.cs" />
+     <Compile Include="Assets\Scripts\View\PathTracer.cs" />
      <Compile Include="Assets\Scripts\cubeController.cs" />
      <Compile Include="Assets\Vuforia\Scripts\BackgroundPlaneBehaviour.cs" />
      <Compile Include="Assets\Vuforia\Scripts\CloudRecoBehaviour.cs" />
