@@ -21,7 +21,8 @@ namespace ScorchEngine.Server
         /// <returns></returns>
         public static void GetState(string gameId,PlayerState myState, Action<List<PlayerState>> i_OnComplete)
         {
-            i_OnComplete(client.UpdatePlayerState(gameId, myState));
+            //i_OnComplete(client.UpdatePlayerState(gameId, myState));
+            client.UpdatePlayerStateAsync(gameId,myState,i_OnComplete);
          
         }
 

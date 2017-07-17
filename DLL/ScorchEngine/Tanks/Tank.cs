@@ -19,6 +19,8 @@ namespace ScorchEngine
 		public float AngleVertical;
 	    public float Force;
 
+	    public bool IsReady { get; set; }
+
 		public Tank() {
 			Position = new Coordinate();
 			AngleHorizontal = 0;
