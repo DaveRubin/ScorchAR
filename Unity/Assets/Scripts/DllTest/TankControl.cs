@@ -20,8 +20,7 @@ public class TankControl : MonoBehaviour {
     public float force;
     public bool active = true;
 
-    void Awake()
-    {
+    void Awake() {
         body = transform;
         Sides = transform.FindChild("Top");
         UpDwn = transform.FindChild("Top/Barrel");
@@ -30,6 +29,7 @@ public class TankControl : MonoBehaviour {
         HealthMask = transform.Find("Health/Remaining").GetComponent<RectTransform>();
         transform.GetComponentInChildren<AlwaysLookAt>().SetTarget(Camera.main.transform);
         Tests();
+
     }
 
     public void SetPlayer(Player player) {

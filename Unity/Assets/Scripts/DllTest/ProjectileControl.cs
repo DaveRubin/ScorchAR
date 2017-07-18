@@ -1,4 +1,4 @@
-using UnityEditor;
+using DG.Tweening;
 using UnityEngine;
 using Utils;
 
@@ -49,8 +49,11 @@ namespace DllTest {
         public void Explode() {
             GameObject.Destroy(this.gameObject);
             GameObject explosion = PrefabManager.InstantiatePrefab("Explosion");
+            GameObject explosion2  = PrefabManager.InstantiatePrefab("ExplosionFX");
             explosion.transform.position = transform.position;
+            explosion2.transform.position = transform.position;
             explosion.GetComponent<Explosion>().SetDamage(3);
+            DOVirtual.DelayedCall(2,()=>GameObject.Destroy(explosion2));
         }
     }
 }
