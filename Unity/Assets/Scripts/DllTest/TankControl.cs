@@ -15,6 +15,7 @@ public class TankControl : MonoBehaviour {
     Transform UpDwn;
     Transform BarrelsEnd;
     PathTracer Tracer;
+    RectTransform HealthMask;
     public Player PlayerStats {get;private set;}
     public float force;
     public bool active = true;
@@ -26,7 +27,8 @@ public class TankControl : MonoBehaviour {
         UpDwn = transform.FindChild("Top/Barrel");
         BarrelsEnd = transform.FindChild("Top/Barrel/Tip");
         Tracer = transform.FindChild("Path").GetComponent<PathTracer>();
-        Debug.Log("Found everything");
+        HealthMask = transform.Find("Health/Remaining").GetComponent<RectTransform>();
+        Tests();
     }
 
     public void SetPlayer(Player player) {
@@ -38,13 +40,6 @@ public class TankControl : MonoBehaviour {
 
 
     void Update() {
-        Vector3 pos = body.localPosition;
-        Vector3 yRotation = Sides.localRotation.eulerAngles;
-        Vector3 zRotation = UpDwn.localRotation.eulerAngles;
-
-        Sides.localRotation = Quaternion.Euler(yRotation);
-        UpDwn.localRotation = Quaternion.Euler(zRotation);
-        body.localPosition = pos;
         if (updatePathDirtyFlag) {
             Tracer.transform.position = BarrelsEnd.position;
             Tracer.SetPath(GetForceVector());
@@ -80,6 +75,7 @@ public class TankControl : MonoBehaviour {
         onLeftRightChanged(updatedPlayer.ControlledTank.AngleHorizontal);
         onUpDownChanged(updatedPlayer.ControlledTank.AngleVertical);
         onForceChange(updatedPlayer.ControlledTank.Force);
+        UpdateHealthBar(updatedPlayer.ControlledTank.Health);
 
         if (updatedPlayer.ControlledTank.IsReady) Shoot();
     }
@@ -152,6 +148,25 @@ public class TankControl : MonoBehaviour {
         float fz = Mathf.Sin(angle2 * Mathf.Deg2Rad) * fxMain;
         float fx = Mathf.Cos(angle2 * Mathf.Deg2Rad) * fxMain;
         return new Vector3(fx, fy, -fz);
+    }
+
+    /// <summary>
+    /// Gets value between 1 - 100 and updates health bar
+    /// </summary>
+    /// <param name="tankHealth"></param>
+    public void UpdateHealthBar(int tankHealth) {
+        Debug.Log("Update health bar iwth" +tankHealth);
+        float normalizedValue = ((float)tankHealth/100)*2;
+        HealthMask.sizeDelta = new Vector2(normalizedValue,0.3f);
+    }
+
+    public void Tests() {
+        return;
+        //test tank health
+        for (int i = 0; i < 10; i++) {
+            int j = i;
+            DOVirtual.DelayedCall(j*0.5f,()=>UpdateHealthBar(100 - j*10));
+        }
     }
 
 
