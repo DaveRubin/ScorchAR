@@ -28,6 +28,7 @@ public class TankControl : MonoBehaviour {
         BarrelsEnd = transform.FindChild("Top/Barrel/Tip");
         Tracer = transform.FindChild("Path").GetComponent<PathTracer>();
         HealthMask = transform.Find("Health/Remaining").GetComponent<RectTransform>();
+        transform.GetComponentInChildren<AlwaysLookAt>().SetTarget(Camera.main.transform);
         Tests();
     }
 
