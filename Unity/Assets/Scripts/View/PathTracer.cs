@@ -5,10 +5,10 @@ using UnityEngine.Rendering;
 namespace View {
     public class PathTracer :MonoBehaviour{
 
-        const int SEGMENTS = 20;
-        private float gravity = 1;
-        private LineRenderer lineRenderer;
+        const int SEGMENTS = 20; //including root point
+        private float gravity = 1; //should get its value from environment forces
         private Vector3[] positions;
+        private LineRenderer lineRenderer;
 
 
         void Awake() {
@@ -17,27 +17,23 @@ namespace View {
             if (lineRenderer == null) {
                 lineRenderer = gameObject.AddComponent<LineRenderer>();
             }
-            InitLineRenderer();
 
             //create points
             positions = new Vector3[SEGMENTS];
             for (int i = 0; i < SEGMENTS; i++) {
                 positions[i] = Vector3.zero;
             }
-            lineRenderer.positionCount = SEGMENTS;
-            lineRenderer.SetPositions(positions);
+            InitLineRenderer();
         }
 
         public void SetPath(Vector3 velocity) {
-            Debug.Log(gameObject.GetInstanceID());
-
             //set path per point
             float density = 0.1f;
             Vector3 pos = Vector3.zero;
-            for (int i = 0; i < SEGMENTS; i++) {
+            for (int i = 0; i < lineRenderer.positionCount; i++) {
+                lineRenderer.SetPosition(i,pos);
                 pos+=velocity*density;
                 velocity.y += gravity*density;
-                lineRenderer.SetPosition(i,pos);
             }
         }
 
@@ -51,6 +47,9 @@ namespace View {
             lineRenderer.shadowCastingMode =  ShadowCastingMode.Off;
             lineRenderer.startWidth = 0.5f;
             lineRenderer.endWidth = 0;
+
+            lineRenderer.positionCount = SEGMENTS;
+            lineRenderer.SetPositions(positions);
         }
 
     }

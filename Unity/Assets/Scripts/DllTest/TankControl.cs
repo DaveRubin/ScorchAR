@@ -14,7 +14,6 @@ public class TankControl : MonoBehaviour {
     Transform Sides;
     Transform UpDwn;
     Transform BarrelsEnd;
-    Transform Barrel;
     PathTracer Tracer;
     public Player PlayerStats {get;private set;}
     public float force;
@@ -23,10 +22,9 @@ public class TankControl : MonoBehaviour {
     void Awake()
     {
         body = transform;
-        Sides = transform.FindChild("YAxis");
-        UpDwn = transform.FindChild("YAxis/ZAxis");
-        Barrel = transform.FindChild("YAxis/ZAxis/Barrel");
-        BarrelsEnd = transform.FindChild("YAxis/ZAxis/Barrel/Tip");
+        Sides = transform.FindChild("Top");
+        UpDwn = transform.FindChild("Top/Barrel");
+        BarrelsEnd = transform.FindChild("Top/Barrel/Tip");
         Tracer = transform.FindChild("Path").GetComponent<PathTracer>();
         Debug.Log("Found everything");
     }
@@ -138,7 +136,7 @@ public class TankControl : MonoBehaviour {
         bullet.transform.position = BarrelsEnd.position;
         Vector3 forceVector = GetForceVector();
         Debug.LogFormat("Shooting with force {0}",force);
-        bullet.GetComponent<ProjectileControl>().SetForce(Barrel,forceVector);
+        bullet.GetComponent<ProjectileControl>().SetForce(UpDwn,forceVector);
         PlayerStats.ControlledTank.IsReady = true;
     }
 
