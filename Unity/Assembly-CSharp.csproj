@@ -116,6 +116,7 @@
      <Compile Include="Assets\Scripts\Utils\PrefabManager.cs" />
      <Compile Include="Assets\Scripts\View\AlwaysLookAt.cs" />
      <Compile Include="Assets\Scripts\View\PathTracer.cs" />
+     <Compile Include="Assets\Scripts\View\PositionMarker.cs" />
      <Compile Include="Assets\Scripts\cubeController.cs" />
      <Compile Include="Assets\Vuforia\Scripts\BackgroundPlaneBehaviour.cs" />
      <Compile Include="Assets\Vuforia\Scripts\CloudRecoBehaviour.cs" />

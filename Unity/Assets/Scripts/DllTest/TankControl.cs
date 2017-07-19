@@ -16,6 +16,7 @@ public class TankControl : MonoBehaviour {
     Transform BarrelsEnd;
     PathTracer Tracer;
     RectTransform HealthMask;
+    PositionMarker positionMarker;
     public Player PlayerStats {get;private set;}
     public float force;
     public bool active = true;
@@ -28,6 +29,7 @@ public class TankControl : MonoBehaviour {
         Tracer = transform.FindChild("Path").GetComponent<PathTracer>();
         HealthMask = transform.Find("Health/Remaining").GetComponent<RectTransform>();
         transform.GetComponentInChildren<AlwaysLookAt>().SetTarget(Camera.main.transform);
+        positionMarker = GetComponentInChildren<PositionMarker>();
         Tests();
 
     }
@@ -156,17 +158,25 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     /// <param name="tankHealth"></param>
     public void UpdateHealthBar(int tankHealth) {
-        Debug.Log("Update health bar iwth" +tankHealth);
+        Debug.Log("Update health bar width" +tankHealth);
         float normalizedValue = ((float)tankHealth/100)*2;
         HealthMask.sizeDelta = new Vector2(normalizedValue,0.3f);
     }
 
     public void Tests() {
-        return;
-        //test tank health
-        for (int i = 0; i < 10; i++) {
-            int j = i;
-            DOVirtual.DelayedCall(j*0.5f,()=>UpdateHealthBar(100 - j*10));
+
+        if (false) {
+            //test position marker
+            DOVirtual.DelayedCall(1,positionMarker.Enable);
+            DOVirtual.DelayedCall(5,positionMarker.Disable);
+        }
+
+        if (false) {
+            //test tank health
+            for (int i = 0; i < 10; i++) {
+                int j = i;
+                DOVirtual.DelayedCall(j*0.5f,()=>UpdateHealthBar(100 - j*10));
+            }
         }
     }
 
