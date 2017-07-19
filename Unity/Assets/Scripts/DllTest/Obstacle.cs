@@ -8,7 +8,7 @@ public class Obstacle : MonoBehaviour {
         Explosion explosion = collider.gameObject.GetComponent<Explosion>();
         if (explosion != null) {
             Debug.Log("ONNNNN");
-            life -= explosion.GetDamage();
+            life -= explosion.Damage;
             if ( life <= 0 ) GameObject.Destroy(gameObject);
         }
 

@@ -47,13 +47,24 @@ namespace DllTest {
         }
 
         public void Explode() {
+            float damage = 3;
             GameObject.Destroy(this.gameObject);
-            GameObject explosion = PrefabManager.InstantiatePrefab("Explosion");
-            GameObject explosion2  = PrefabManager.InstantiatePrefab("ExplosionFX");
-            explosion.transform.position = transform.position;
-            explosion2.transform.position = transform.position;
-            explosion.GetComponent<Explosion>().SetDamage(3);
-            DOVirtual.DelayedCall(2,()=>GameObject.Destroy(explosion2));
+            GameObject radius = PrefabManager.InstantiatePrefab("ExplosionRadius");
+            GameObject fire  = PrefabManager.InstantiatePrefab("ExplosionFX");
+            radius.transform.position = transform.position;
+            fire.transform.position = transform.position;
+
+            radius.GetComponent<Explosion>().Damage = damage;
+            MeshRenderer meshRenderer = radius.GetComponent<MeshRenderer>();
+            radius.transform.localScale = Vector3.zero;
+
+            Sequence sequence = DOTween.Sequence();
+            sequence.Insert(0,radius.transform.DOScale(3,0.5f));
+            sequence.Insert(0.8f,meshRenderer.material.DOFade(0,1));
+            sequence.OnComplete(()=>{
+                GameObject.Destroy(fire);
+                GameObject.Destroy(radius);
+            });
         }
     }
 }
