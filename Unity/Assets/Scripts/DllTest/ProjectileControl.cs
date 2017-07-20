@@ -6,6 +6,7 @@ namespace DllTest {
 
     public class ProjectileControl : MonoBehaviour {
 
+        const float TIME_FACTOR = 3;
         Vector3 force = Vector3.zero;
         Transform origin;
 
@@ -27,13 +28,14 @@ namespace DllTest {
         /// Itterate the projectile and check if hit the board
         /// </summary>
         void Update() {
+
             // check if hit ground
             if (transform.position.y < 0) {
                 //Debug.Log("Ground");
                 Explode();
             }
-            transform.localPosition += force*Time.deltaTime;
-            force.y += MainGame.GameCore.GetEnvironmetForces().Y*Time.deltaTime;
+            transform.localPosition += force*Time.deltaTime*TIME_FACTOR;
+            force.y += MainGame.GameCore.GetEnvironmetForces().Y*Time.deltaTime*TIME_FACTOR;
             // check if passed its life
         }
 

@@ -11,6 +11,7 @@ namespace View {
         private float gravity = 1; //should get its value from environment forces
         private Vector3[] positions;
         private LineRenderer lineRenderer;
+        private Material lineRendererMaterial;
 
         public bool visible = false;
 
@@ -31,7 +32,9 @@ namespace View {
 
         public void SetVisible(bool visible) {
             this.visible = visible;
-            gameObject.SetActive(visible);
+            lineRendererMaterial.DOFade(visible?1:0,0.5f);
+            //lineRenderer.material.color = visible? Color.white:Color.clear;
+//            gameObject.SetActive(visible);
         }
 
         public void SetPath(Vector3 velocity) {
@@ -58,6 +61,7 @@ namespace View {
 
             lineRenderer.positionCount = SEGMENTS;
             lineRenderer.SetPositions(positions);
+            lineRendererMaterial = lineRenderer.material;
         }
 
     }

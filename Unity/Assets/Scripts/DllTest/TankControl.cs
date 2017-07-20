@@ -14,7 +14,7 @@ public class TankControl : MonoBehaviour {
     Transform Sides;
     Transform UpDwn;
     Transform BarrelsEnd;
-    PathTracer Tracer;
+    PathTracer ProjectilePath;
     RectTransform HealthMask;
     PositionMarker positionMarker;
     Transform cameraTransform;
@@ -27,12 +27,15 @@ public class TankControl : MonoBehaviour {
         Sides = transform.FindChild("Top");
         UpDwn = transform.FindChild("Top/Barrel");
         BarrelsEnd = transform.FindChild("Top/Barrel/Tip");
-        Tracer = transform.FindChild("Path").GetComponent<PathTracer>();
+        ProjectilePath = transform.FindChild("Path").GetComponent<PathTracer>();
         HealthMask = transform.Find("Health/Remaining").GetComponent<RectTransform>();
         transform.GetComponentInChildren<AlwaysLookAt>().SetTarget(Camera.main.transform);
         positionMarker = GetComponentInChildren<PositionMarker>();
         Tests();
+    }
 
+    void Start() {
+        ProjectilePath.SetVisible(false);
     }
 
     public void SetPlayer(Player player) {
@@ -44,9 +47,9 @@ public class TankControl : MonoBehaviour {
 
 
     void Update() {
-        if (Tracer.visible && updatePathDirtyFlag) {
-            Tracer.transform.position = BarrelsEnd.position;
-            Tracer.SetPath(GetForceVector());
+        if (ProjectilePath.visible && updatePathDirtyFlag) {
+            ProjectilePath.transform.position = BarrelsEnd.position;
+            ProjectilePath.SetPath(GetForceVector());
             updatePathDirtyFlag = false;
         }
     }
@@ -184,7 +187,7 @@ public class TankControl : MonoBehaviour {
     }
 
     public void OnShowPathToggle(bool val) {
-        Tracer.SetVisible(val);
+        ProjectilePath.SetVisible(val);
         if (val) updatePathDirtyFlag = true;
     }
 
