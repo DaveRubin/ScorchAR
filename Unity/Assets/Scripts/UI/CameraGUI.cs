@@ -9,6 +9,7 @@ namespace UI {
         public event Action<float> OnXAngleChange;
         public event Action<float> OnYAngleChange;
         public event Action<float> OnForceChange;
+        public event Action<bool> OnShowPath;
 
         public float Force {
             get {
@@ -38,6 +39,7 @@ namespace UI {
         private Slider sliderForce;
 
         private Button fireButton;
+        private ExtendedButton showPathButton;
 
 
         void Awake() {
@@ -46,11 +48,16 @@ namespace UI {
             UpdateTexts();
         }
 
+        void Start() {
+            DispatchInitValues();
+        }
+
         /// <summary>
         /// Get components from children
         /// </summary>
         private void GetRelevantComponents() {
             fireButton = transform.Find("FireButton").GetComponent<Button>();
+            showPathButton = transform.Find("ShowPathButton").GetComponent<ExtendedButton>();
             sliderForce = transform.Find("SliderForce").GetComponent<Slider>();
             sliderX = transform.Find("SliderX").GetComponent<Slider>();
             sliderY = transform.Find("SliderY").GetComponent<Slider>();
@@ -68,8 +75,16 @@ namespace UI {
             sliderY.onValueChanged.AddListener(OnYChanged);
             sliderX.onValueChanged.AddListener(OnXChanged);
             fireButton.onClick.AddListener(OnFireClicked);
+            showPathButton.onPointerDown.AddListener(()=>TogglePath(true));
+            showPathButton.onPointerUp.AddListener(()=>TogglePath(false));
+            showPathButton.onPointerExit.AddListener(()=>TogglePath(false));
         }
 
+        public void TogglePath(bool val) {
+            if (OnShowPath != null) {
+                OnShowPath(val);
+            }
+        }
 
         private void OnFireClicked() {
             if (OnShootClicked != null) {
@@ -109,5 +124,6 @@ namespace UI {
             if (OnYAngleChange != null) OnYAngleChange(YAngle);
             if (OnForceChange != null) OnForceChange(Force);
         }
+
     }
 }

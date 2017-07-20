@@ -5,11 +5,14 @@ using UnityEngine.Rendering;
 namespace View {
     public class PathTracer :MonoBehaviour{
 
-        const int SEGMENTS = 20; //including root point
+        public bool Enabled = false;
+
+        private const int SEGMENTS = 20; //including root point
         private float gravity = 1; //should get its value from environment forces
         private Vector3[] positions;
         private LineRenderer lineRenderer;
 
+        public bool visible = false;
 
         void Awake() {
             gravity = MainGame.GameCore.GetEnvironmetForces().Y;
@@ -24,6 +27,11 @@ namespace View {
                 positions[i] = Vector3.zero;
             }
             InitLineRenderer();
+        }
+
+        public void SetVisible(bool visible) {
+            this.visible = visible;
+            gameObject.SetActive(visible);
         }
 
         public void SetPath(Vector3 velocity) {

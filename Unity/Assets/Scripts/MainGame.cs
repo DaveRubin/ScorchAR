@@ -18,9 +18,9 @@ public class MainGame : MonoBehaviour {
         }
     }
 
-    List<TankControl> tanks;
     public CameraGUI Gui;
     public static ScorchEngine.Game GameCore;
+    private List<TankControl> tanks;
     private int PlayerIndex;
     private Transform rootTransform;
 

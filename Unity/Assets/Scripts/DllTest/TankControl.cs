@@ -17,6 +17,7 @@ public class TankControl : MonoBehaviour {
     PathTracer Tracer;
     RectTransform HealthMask;
     PositionMarker positionMarker;
+    Transform cameraTransform;
     public Player PlayerStats {get;private set;}
     public float force;
     public bool active = true;
@@ -43,7 +44,7 @@ public class TankControl : MonoBehaviour {
 
 
     void Update() {
-        if (updatePathDirtyFlag) {
+        if (Tracer.visible && updatePathDirtyFlag) {
             Tracer.transform.position = BarrelsEnd.position;
             Tracer.SetPath(GetForceVector());
             updatePathDirtyFlag = false;
@@ -51,16 +52,18 @@ public class TankControl : MonoBehaviour {
     }
 
     /// <summary>
-    /// Link tank to GUI
+    /// Link tank to GUI (and set
     /// </summary>
     /// <param name="Gui"></param>
     public void LinkToGUI(CameraGUI Gui) {
+        positionMarker.Enable();
         PlayerStats.OnUpdate -= OnPLayerUpdate;
         Local = true;
         Gui.OnForceChange += onForceChange;
         Gui.OnXAngleChange += onLeftRightChanged;
         Gui.OnYAngleChange += onUpDownChanged;
         Gui.OnShootClicked += Shoot;
+        Gui.OnShowPath += OnShowPathToggle;
     }
 
     public void UnlinkGUI(CameraGUI Gui) {
@@ -178,6 +181,11 @@ public class TankControl : MonoBehaviour {
                 DOVirtual.DelayedCall(j*0.5f,()=>UpdateHealthBar(100 - j*10));
             }
         }
+    }
+
+    public void OnShowPathToggle(bool val) {
+        Tracer.SetVisible(val);
+        if (val) updatePathDirtyFlag = true;
     }
 
 

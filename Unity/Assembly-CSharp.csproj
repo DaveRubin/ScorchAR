@@ -106,6 +106,7 @@
      <Compile Include="Assets\Scripts\Terrain\TerrainDeform.cs" />
      <Compile Include="Assets\Scripts\UI\CameraGUI.cs" />
      <Compile Include="Assets\Scripts\UI\EScreenType.cs" />
+     <Compile Include="Assets\Scripts\UI\ExtendedButton.cs" />
      <Compile Include="Assets\Scripts\UI\LobbyItem.cs" />
      <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
      <Compile Include="Assets\Scripts\UI\MenusScene.cs" />
