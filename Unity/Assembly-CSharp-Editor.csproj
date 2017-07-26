@@ -228,6 +228,9 @@
  <Reference Include="RestSharp">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Engine/Debug/RestSharp.dll</HintPath>
  </Reference>
+ <Reference Include="RestSharp">
+ <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Engine/Debug/RestSharp.dll</HintPath>
+ </Reference>
  <Reference Include="ScorchEngine">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Engine/Debug/ScorchEngine.dll</HintPath>
  </Reference>
@@ -235,7 +238,11 @@
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Vuforia/Editor/Scripts/Vuforia.UnityExtensions.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Vuforia.UnityExtensions">
+<<<<<<< Updated upstream
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
+=======
+ <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
+>>>>>>> Stashed changes
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
