@@ -34,6 +34,7 @@ namespace DllTest {
                 //Debug.Log("Ground");
                 Explode();
             }
+
             transform.localPosition += force*Time.deltaTime*TIME_FACTOR;
             force.y += MainGame.GameCore.GetEnvironmetForces().Y*Time.deltaTime*TIME_FACTOR;
             // check if passed its life

@@ -9,18 +9,19 @@ using View;
 public class TankControl : MonoBehaviour {
 
     public bool Local{get;private set;}
-    bool updatePathDirtyFlag = false;
-    Transform body;
-    Transform Sides;
-    Transform UpDwn;
-    Transform BarrelsEnd;
-    PathTracer ProjectilePath;
-    RectTransform HealthMask;
-    PositionMarker positionMarker;
-    Transform cameraTransform;
-    public Player PlayerStats {get;private set;}
+    public Player PlayerStats;
     public float force;
     public bool active = true;
+
+    private bool updatePathDirtyFlag = false;
+    private Transform body;
+    private Transform UpDwn;
+    private PathTracer ProjectilePath;
+    private RectTransform HealthMask;
+    private PositionMarker positionMarker;
+    private Transform cameraTransform;
+    private Transform Sides;
+    private Transform BarrelsEnd;
 
     void Awake() {
         body = transform;
@@ -36,6 +37,15 @@ public class TankControl : MonoBehaviour {
 
     void Start() {
         ProjectilePath.SetVisible(false);
+    }
+
+    /// <summary>
+    /// When gets hit remove damage
+    /// </summary>
+    /// <param name="damage"></param>
+    public void Hit(float damage) {
+        //PlayerStats.ControlledTank.Health -= damage;
+        UpdateHealthBar(PlayerStats.ControlledTank.Health - (int)damage);
     }
 
     public void SetPlayer(Player player) {
@@ -59,9 +69,9 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     /// <param name="Gui"></param>
     public void LinkToGUI(CameraGUI Gui) {
+        Local = true;
         positionMarker.Enable();
         PlayerStats.OnUpdate -= OnPLayerUpdate;
-        Local = true;
         Gui.OnForceChange += onForceChange;
         Gui.OnXAngleChange += onLeftRightChanged;
         Gui.OnYAngleChange += onUpDownChanged;
@@ -74,6 +84,7 @@ public class TankControl : MonoBehaviour {
         Gui.OnXAngleChange -= onLeftRightChanged;
         Gui.OnYAngleChange -= onUpDownChanged;
         Gui.OnShootClicked -= Shoot;
+        Gui.OnShowPath -= OnShowPathToggle;
     }
 
     /// <summary>
@@ -164,9 +175,13 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     /// <param name="tankHealth"></param>
     public void UpdateHealthBar(int tankHealth) {
-        Debug.Log("Update health bar width" +tankHealth);
-        float normalizedValue = ((float)tankHealth/100)*2;
+        Debug.Log("Update health bar width" + tankHealth);
+
+        float normalizedValue = ((float)tankHealth / 100) * 2;
         HealthMask.sizeDelta = new Vector2(normalizedValue,0.3f);
+        if (normalizedValue <=0 ) {
+            Kill();
+        }
     }
 
     public void Tests() {
@@ -189,6 +204,14 @@ public class TankControl : MonoBehaviour {
     public void OnShowPathToggle(bool val) {
         ProjectilePath.SetVisible(val);
         if (val) updatePathDirtyFlag = true;
+    }
+
+    public void Kill() {
+        Debug.Log("Killed");
+        //Create explosion
+        GameObject fire  = PrefabManager.InstantiatePrefab("ExplosionFX");
+        fire.transform.position = transform.position;
+        DOVirtual.DelayedCall(2,()=>GameObject.Destroy(fire));
     }
 
 
