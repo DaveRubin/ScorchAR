@@ -61,5 +61,10 @@ NumberOfPlayers:{Players.Count}";
         {
             return Players.AsReadOnly();
         }
+
+        public bool IsGameFull()
+        {
+            return MaxPlayers == Players.Count;
+        }
     }
 }

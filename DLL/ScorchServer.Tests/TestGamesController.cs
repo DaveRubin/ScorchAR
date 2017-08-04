@@ -21,8 +21,21 @@ namespace ScorchServer.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            client.ResetGames();
+            //client.ResetGames();
             //test1();
+            createGameTest("testgame1");
+            createGameTest("testgame2");
+            createGameTest("testgame3");
+            createGameTest("testgame4");
+        }
+
+        private void createGameTest(string name)
+        {
+            int maxPlayers = 1;
+            PlayerInfo player = new PlayerInfo { Id = "AAAA", Name = "Dushi" };
+            string gameId = client.createGame(name, maxPlayers, player);
+            Debug.WriteLine("create Game and got id {0}",gameId);
+            getAndPrintGameInfo(gameId);
         }
 
         private void printStates(List<PlayerState> stateList)
@@ -30,6 +43,16 @@ namespace ScorchServer.Tests
             foreach (PlayerState state in stateList)
             {
                 Debug.WriteLine(state);
+            }
+        }
+
+        private void getAndPrintGameInfo(string gameId)
+        {
+            GameInfo gameInfo = client.GetGame(gameId);
+            Debug.WriteLine(gameInfo);
+            foreach (PlayerInfo player in gameInfo.Players)
+            {
+                Debug.WriteLine(player);
             }
         }
 
@@ -43,11 +66,7 @@ namespace ScorchServer.Tests
             Debug.WriteLine("player {0} : idx: {1}", player1, p1Idx);
             int p2Idx = client.AddPlayerToGame(gameId, player2);
             Debug.WriteLine("player {0} : idx: {1}", player2, p2Idx);
-            GameInfo gameInfo = client.GetGame(gameId);
-            foreach (PlayerInfo player in gameInfo.Players)
-            {
-                Debug.WriteLine(player);
-            }
+            getAndPrintGameInfo(gameId);
 
             PlayerState p1State = new PlayerState
             {
