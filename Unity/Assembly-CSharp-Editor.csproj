@@ -106,6 +106,7 @@
      <None Include="Assets\PostProcessing\Resources\Shaders\Tonemapping.cginc" />
      <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Uber.shader" />
+     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Blit.shader" />
      <None Include="Assets\PostProcessing\Editor Resources\Monitors\WaveformRender.shader" />
      <None Include="Assets\PostProcessing\Editor Resources\Monitors\VectorscopeCompute.compute" />
@@ -115,6 +116,7 @@
      <None Include="Assets\Vuforia\Shaders\VideoBackground.shader" />
      <None Include="Assets\license_3rdpartynotice.txt" />
      <None Include="Assets\PostProcessing\Resources\Bluenoise64\LICENSE.txt" />
+     <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
      <None Include="Assets\PostProcessing\Resources\Shaders\BuiltinDebugViews.shader" />
      <None Include="Assets\Vuforia\Editor\WebcamProfiles\profiles.xml" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Common.cginc" />
@@ -127,6 +129,7 @@
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\PostProcessing\Resources\Shaders\EyeHistogram.compute" />
      <None Include="Assets\PostProcessing\Resources\Shaders\TAA.cginc" />
+     <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
      <None Include="Assets\PostProcessing\Resources\Shaders\EyeAdaptation.cginc" />
      <None Include="Assets\PostProcessing\Resources\Shaders\GrainGen.shader" />
      <None Include="Assets\Demigiant\DOTween\DOTween46.xml" />
