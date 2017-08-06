@@ -34,9 +34,10 @@ namespace UI {
         private Text textX;
         private Text textForce;
 
-        private Slider sliderY;
-        private Slider sliderX;
-        private Slider sliderForce;
+        private Scroller sliderY;
+        //private Slider sliderX;
+        private Scroller sliderX;
+        private Scroller sliderForce;
 
         private Button fireButton;
         private ExtendedButton showPathButton;
@@ -58,9 +59,12 @@ namespace UI {
         private void GetRelevantComponents() {
             fireButton = transform.Find("FireButton").GetComponent<Button>();
             showPathButton = transform.Find("ShowPathButton").GetComponent<ExtendedButton>();
-            sliderForce = transform.Find("SliderForce").GetComponent<Slider>();
-            sliderX = transform.Find("SliderX").GetComponent<Slider>();
-            sliderY = transform.Find("SliderY").GetComponent<Slider>();
+//            sliderForce = transform.Find("SliderForce").GetComponent<Slider>();
+            sliderForce = transform.Find("ScrollerForce").GetComponent<Scroller>();
+//            sliderX = transform.Find("SliderX").GetComponent<Slider>();
+            sliderX = transform.Find("ScrollerX").GetComponent<Scroller>();
+            sliderY = transform.Find("ScrollerY").GetComponent<Scroller>();
+//            sliderY = transform.Find("SliderY").GetComponent<Slider>();
             textY = transform.Find("AnglesY").GetComponent<Text>();
             textX = transform.Find("AnglesX").GetComponent<Text>();
             textForce = transform.Find("Force").GetComponent<Text>();

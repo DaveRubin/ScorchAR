@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using Extensions;
 using ScorchEngine;
 using ScorchEngine.Config;
@@ -112,6 +113,7 @@ public class MainGame : MonoBehaviour {
 
             tanks.Add(tankGO);
         }
+
         Debug.Log(tanks);
 
 //tank = GameObject.Find("Tank").GetComponent<TankControl>();

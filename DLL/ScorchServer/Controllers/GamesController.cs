@@ -19,6 +19,44 @@ namespace ScorchServer.Controllers
     {
         private readonly GamesRepository gamesRepository = new GamesRepository();
 
+        private static int gameIdSequence = 1;
+
+        private readonly object createLockObject = new object();
+
+        [Route(ServerRoutes.CreateGameUrl)]
+        [HttpPost]
+        public string Create([FromBody] PlayerInfo playerInfo)
+        {
+            string name = string.Empty;
+            int maxPlayers = 0;
+            string gameId;
+            lock (createLockObject)
+            {
+                ++gameIdSequence;
+                gameId = gameIdSequence.ToString();
+            }
+            
+            foreach (KeyValuePair<string, string> parameter in Request.GetQueryNameValuePairs())
+            {
+                switch (parameter.Key)
+                {
+                    case "name":
+                        name = parameter.Value;
+                        break;
+                    case "maxPlayers":
+                        maxPlayers = int.Parse(parameter.Value);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            GameInfo createdGameContext = new GameInfo { Id = gameId, MaxPlayers = maxPlayers, Name = name };
+            int playerIndex = -1;
+            createdGameContext.AddPlayer(playerInfo, ref playerIndex);
+            gamesRepository.AddGame(createdGameContext);
+            return gameId;
+        }
 
         [Route(ServerRoutes.GetGamesApiUrl)]
         [HttpGet]
@@ -47,6 +85,5 @@ namespace ScorchServer.Controllers
         {
             gamesRepository.Reset();
         }
-
     }
 }

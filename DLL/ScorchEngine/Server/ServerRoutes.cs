@@ -15,6 +15,8 @@ namespace ScorchEngine.Server
 
         public const string ClearGamesUrl = "api/Games/Clear";
 
+        public const string CreateGameUrl = "api/Games/Create";
+
         public const string ServerBaseUri = "http://scorchar.azurewebsites.net";
 
         public const string LocalBaseUri = "http://localhost:17212/";
