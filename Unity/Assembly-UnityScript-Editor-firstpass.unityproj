@@ -148,6 +148,9 @@
  <Reference Include="UnityEditorConsuloPlugin5.3">
  <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Editor/Plugins/UnityEditorConsuloPlugin5.3.dll</HintPath>
  </Reference>
+ <Reference Include="RestSharp">
+ <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Engine/Debug/RestSharp.dll</HintPath>
+ </Reference>
  <Reference Include="ScorchEngine">
  <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Engine/Debug/ScorchEngine.dll</HintPath>
  </Reference>
@@ -156,9 +159,6 @@
  </Reference>
  <Reference Include="Vuforia.UnityExtensions">
  <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
- </Reference>
- <Reference Include="RestSharp">
- <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Engine/Debug/RestSharp.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

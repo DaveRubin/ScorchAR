@@ -24,6 +24,7 @@ public class MainGame : MonoBehaviour {
     private List<TankControl> tanks;
     private int PlayerIndex;
     private Transform rootTransform;
+    private GameObject terrain;
 
     void Awake() {
         PrefabManager.Init();
@@ -52,8 +53,10 @@ public class MainGame : MonoBehaviour {
     public void PostLogin(int index) {
         PlayerIndex = index;
         InitGame();
+        CreateTerrain();
         InitializePlayers();
-        CreateMockTerrain();
+        //CreateMockTerrain();
+
         InitializeGUI();
 
         //after all is set, start polling from server for changes
@@ -99,7 +102,13 @@ public class MainGame : MonoBehaviour {
         foreach (Player player in players) {
             TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
             tankGO.transform.SetParent(tanksRoot);
-            tankGO.transform.localPosition = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
+            //tankGO.transform.localPosition = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
+            int x = 50;
+            int y = 50;
+            float height = terrain.GetComponentInChildren<Terrain>().SampleHeight(new Vector3(x,0,y));
+            tankGO.transform.localPosition = new Vector3(x,height,y);
+            tankGO.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
+
             tankGO.SetPlayer(player);
 
             tanks.Add(tankGO);
@@ -129,6 +138,21 @@ public class MainGame : MonoBehaviour {
                 go.transform.localPosition = new Vector3(x, 0, z);
             }
         }
+    }
+
+    /// <summary>
+    /// Create terrain
+    /// TODO - should find a way to have tanks on the terrain...
+    /// </summary>
+    public void CreateTerrain() {
+
+        Transform terrainRoot= new GameObject().transform;
+        terrainRoot.gameObject.name = "Terrain";
+        terrainRoot.SetParent(rootTransform);
+        terrainRoot.localPosition = Vector3.zero;
+
+        terrain = PrefabManager.InstantiatePrefab("Terrain");
+        terrain.transform.SetParent(terrainRoot);
     }
 
     /// <summary>

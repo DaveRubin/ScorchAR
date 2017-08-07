@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: kakabepita
+  m_Name: TerrainMaterial
   m_Shader: {fileID: 4800000, guid: 66e825c09577e47bbabf9346ba59e8c0, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
