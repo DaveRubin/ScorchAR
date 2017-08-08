@@ -18,9 +18,7 @@ namespace ScorchEngine.Server
         {
             RestRequest request = new RestRequest(ServerRoutes.GetGamesApiUrl, Method.GET);
             request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
-
-            IRestResponse<List<GameInfo>> response = client.Execute<List<GameInfo>>(request);
-            return response.Data;
+            return client.Execute<List<GameInfo>>(request).Data;
         }
 
         public int AddPlayerToGame(string gameId, PlayerInfo playerInfo)
