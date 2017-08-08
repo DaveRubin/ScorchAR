@@ -24,7 +24,12 @@ public class MainGame : MonoBehaviour {
     private List<TankControl> tanks;
     private int PlayerIndex;
     private Transform rootTransform;
-    private GameObject terrain;
+    public static GameObject terrain;
+
+    public static GameObject GetTerrain()
+    {
+        return terrain;
+    }
 
     void Awake() {
         PrefabManager.Init();

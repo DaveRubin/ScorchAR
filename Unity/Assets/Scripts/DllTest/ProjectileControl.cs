@@ -9,12 +9,17 @@ namespace DllTest {
         const float TIME_FACTOR = 3;
         Vector3 force = Vector3.zero;
         Transform origin;
+        private GameObject a, terrainDeformScript;
 
         SphereCollider hitTest;
+        float x,y, terrainHeight;
         
+
         void Awake() {
             hitTest = GetComponent<SphereCollider>();
+            a = MainGame.GetTerrain();
         }
+
 
         void OnCollisionEnter(Collision collision) {
             // Check if collided with cube
@@ -30,6 +35,14 @@ namespace DllTest {
         void Update() {
 
             // check if hit ground
+            x = transform.position.x;
+            y = transform.position.z;
+            terrainHeight = a.GetComponentInChildren<Terrain>().SampleHeight(new Vector3(x,0,y));
+
+            if(transform.position.y < terrainHeight){
+                Explode();
+            }
+
             if (transform.position.y < 0) {
                 //Debug.Log("Ground");
                 Explode();

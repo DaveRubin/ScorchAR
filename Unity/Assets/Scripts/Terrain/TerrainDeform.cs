@@ -11,7 +11,7 @@ public class TerrainDeform : MonoBehaviour {
         TerrainGameBoard = GetComponent<Terrain>();
     }
 
-    void DeformMesh(int xExplosionPos, int yExplosionPos, int radius, int depth)
+    public void DeformMesh(int xExplosionPos, int yExplosionPos, int radius, int depth)
     {
         float distance, d;
         //get the terrain heightmap width and height
