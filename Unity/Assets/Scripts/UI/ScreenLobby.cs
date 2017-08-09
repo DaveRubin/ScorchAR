@@ -17,6 +17,7 @@ namespace UI {
         Button buttonJoin;
 
         void Awake() {
+            base.Awake();
             PrefabManager.Init();
             selectedGameInfo =transform.Find("MainPanel/Right/Panel/Text").GetComponent<Text>();
             transform.Find("ButtonBack").GetComponent<Button>().onClick.AddListener(GoBack);
@@ -35,21 +36,26 @@ namespace UI {
             float current = 0;
             float height = -1;
             lobbyItems = new List<LobbyItem>();
-            foreach (GameInfo game in games) {
+            if (games == null) {
+                height = 0;
+            }
+            else {
+                foreach (GameInfo game in games) {
 
-                GameObject tmp = PrefabManager.InstantiatePrefab("LobbyGameItem");
-                tmp.name = game.Name;
-                tmp.transform.SetParent(container);
-                tmp.transform.localScale = Vector3.one;
-                tmp.transform.localPosition = new Vector3(0, current);
-                current -= tmp.GetComponent<RectTransform>().rect.height;
-                LobbyItem lobbyItem =tmp.GetComponent<LobbyItem>();
-                lobbyItem.Info = game;
-                lobbyItem.OnClicked += OnGameSelected;
-                lobbyItems.Add(lobbyItem);
+                    GameObject tmp = PrefabManager.InstantiatePrefab("LobbyGameItem");
+                    tmp.name = game.Name;
+                    tmp.transform.SetParent(container);
+                    tmp.transform.localScale = Vector3.one;
+                    tmp.transform.localPosition = new Vector3(0, current);
+                    current -= tmp.GetComponent<RectTransform>().rect.height;
+                    LobbyItem lobbyItem =tmp.GetComponent<LobbyItem>();
+                    lobbyItem.Info = game;
+                    lobbyItem.OnClicked += OnGameSelected;
+                    lobbyItems.Add(lobbyItem);
 
-                if (height == -1) {
-                    height = tmp.GetComponent<RectTransform>().rect.height * games.Count;
+                    if (height == -1) {
+                        height = tmp.GetComponent<RectTransform>().rect.height * games.Count;
+                    }
                 }
             }
 

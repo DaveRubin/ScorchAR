@@ -14,6 +14,7 @@ namespace DllTest {
         
         void Awake() {
             hitTest = GetComponent<SphereCollider>();
+            Terrain a = MainGame.terrain.GetComponent<Terrain>();
         }
 
         void OnCollisionEnter(Collision collision) {

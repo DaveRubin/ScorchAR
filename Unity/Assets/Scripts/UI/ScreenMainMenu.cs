@@ -7,6 +7,7 @@ public class ScreenMainMenu : ScreenBase {
     InputField inputName;
 
 	void Awake () {
+        base.Awake();
         buttonSave = transform.Find("UserPanel/ButtonSave").GetComponent<Button>();
         inputName = transform.Find("UserPanel/InputName").GetComponent<InputField>();
         transform.Find("ButtonLobby").GetComponent<Button>().onClick.AddListener(LobbyClicked);
