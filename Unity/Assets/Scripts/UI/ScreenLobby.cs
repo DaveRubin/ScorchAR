@@ -24,7 +24,23 @@ namespace UI {
             buttonJoin = transform.Find("ButtonJoin").GetComponent<Button>();
             content = transform.Find("MainPanel/Left/Scroll View/Viewport/Content").GetComponent<RectTransform>();
             buttonJoin.onClick.AddListener(JoinRoom);
-            ServerWrapper.GetGames(OnGamesFetched);
+            //ServerWrapper.GetGames(OnGamesFetched);
+            List<GameInfo> listGameInfo = new List<GameInfo>();
+            for (int i = 0; i < 10; i++) {
+                GameInfo gi = new GameInfo();
+                gi.Id = i.ToString();
+                gi.Name = "Game "+i;
+                gi.MaxPlayers = 2;
+                gi.Players = new List<PlayerInfo>();;
+                for (int j = 0; j < gi.MaxPlayers; j++) {
+                    PlayerInfo p = new PlayerInfo();
+                    p.Name = "Player " + j;
+                    p.Id = j.ToString();
+                    gi.Players.Add(p);
+                }
+                listGameInfo.Add(gi);
+            }
+            OnGamesFetched(listGameInfo);
         }
 
         /// <summary>

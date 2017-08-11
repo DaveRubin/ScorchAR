@@ -17,7 +17,7 @@ namespace UI {
         public Tween Enter() {
             if (motion != null)
                 motion.Kill(true);
-            
+
             canvasGroup.alpha = 1;
             transform.position = MenusScene.EnterStartPos.position;
             gameObject.SetActive(true);
