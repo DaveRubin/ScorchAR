@@ -26,6 +26,11 @@ public class MainGame : MonoBehaviour {
     private Transform rootTransform;
     public static GameObject terrain;
 
+    public static GameObject GetTerrain()
+    {
+        return terrain;
+    }
+
     void Awake() {
         PrefabManager.Init();
         rootTransform = new GameObject().transform;
