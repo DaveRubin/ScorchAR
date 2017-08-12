@@ -35,7 +35,8 @@ public class MainGame : MonoBehaviour {
         PrefabManager.Init();
         rootTransform = new GameObject().transform;
         rootTransform.gameObject.name = "Root";
-        rootTransform.localPosition = Vector3.zero;
+        //rootTransform.position = new Vector3(-25,0,-25);
+        rootTransform.position = Vector3.zero;
 
         if (OFFLINE_MODE) {
             MainUser.Instance.Name = "Test";
@@ -112,7 +113,7 @@ public class MainGame : MonoBehaviour {
             int y = 50;
             float height = terrain.GetComponentInChildren<Terrain>().SampleHeight(new Vector3(x,0,y));
             tankGO.transform.localPosition = new Vector3(x,height,y);
-            tankGO.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
+            tankGO.transform.localScale = Vector3.one*0.5f;
 
             tankGO.SetPlayer(player);
 
@@ -126,38 +127,18 @@ public class MainGame : MonoBehaviour {
     }
 
     /// <summary>
-    /// Create mock terrain
-    /// TODO - should be replaced with Amitai's terrain object which will derive its topology from the game object
-    /// </summary>
-    public void CreateMockTerrain() {
-
-        Transform terrainRoot= new GameObject().transform;
-        terrainRoot.gameObject.name = "Terrain";
-        terrainRoot.SetParent(rootTransform);
-        terrainRoot.localPosition = Vector3.zero;
-
-        for (int x = 0; x < GameCore.Terrain.SizeX; x++) {
-            for (int z = 0; z < GameCore.Terrain.SizeZ; z++) {
-                GameObject go = PrefabManager.InstantiatePrefab("Cube");
-                go.transform.SetParent(terrainRoot);
-                go.transform.localPosition = new Vector3(x, 0, z);
-            }
-        }
-    }
-
-    /// <summary>
     /// Create terrain
     /// TODO - should find a way to have tanks on the terrain...
     /// </summary>
     public void CreateTerrain() {
 
         Transform terrainRoot= new GameObject().transform;
-        terrainRoot.gameObject.name = "Terrain";
-        terrainRoot.SetParent(rootTransform);
-        terrainRoot.localPosition = Vector3.zero;
 
         terrain = PrefabManager.InstantiatePrefab("Terrain");
         terrain.transform.SetParent(terrainRoot);
+        terrainRoot.gameObject.name = "Terrain";
+        terrainRoot.SetParent(rootTransform);
+        terrainRoot.localPosition = Vector3.zero;
     }
 
     /// <summary>
