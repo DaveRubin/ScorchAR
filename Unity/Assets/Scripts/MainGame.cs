@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using DG.Tweening;
-using Extensions;
 using ScorchEngine;
 using ScorchEngine.Config;
 using ScorchEngine.Models;
@@ -8,6 +6,7 @@ using ScorchEngine.Server;
 using UI;
 using UnityEngine;
 using Utils;
+using Vuforia;
 
 public class MainGame : MonoBehaviour {
 
@@ -25,6 +24,7 @@ public class MainGame : MonoBehaviour {
     private int PlayerIndex;
     private Transform rootTransform;
     public static GameObject terrain;
+    private VuforiaWrapper vuforiaWrapper;
 
     public static GameObject GetTerrain()
     {
@@ -37,6 +37,8 @@ public class MainGame : MonoBehaviour {
         rootTransform.gameObject.name = "Root";
         //rootTransform.position = new Vector3(-25,0,-25);
         rootTransform.position = Vector3.zero;
+        vuforiaWrapper = new VuforiaWrapper();
+        vuforiaWrapper.onStatusChange += OnTrackerDetection;
 
         if (OFFLINE_MODE) {
             MainUser.Instance.Name = "Test";
@@ -57,16 +59,17 @@ public class MainGame : MonoBehaviour {
     /// </summary>
     /// <param name="index"></param>
     public void PostLogin(int index) {
+
         PlayerIndex = index;
         InitGame();
         CreateTerrain();
         InitializePlayers();
         //CreateMockTerrain();
-
         InitializeGUI();
 
         //after all is set, start polling from server for changes
         InvokeRepeating("Poll", 1, 0.5f);
+        vuforiaWrapper.Init();
     }
 
     private void Poll() {
@@ -166,6 +169,10 @@ public class MainGame : MonoBehaviour {
 
     public void OnTurnStarted(int playerIndex) {
         Debug.LogFormat("Player #{0} turn ", playerIndex);
+    }
+
+    public void OnTrackerDetection(bool detected) {
+        Gui.ToggleTrackerDetection(detected);
     }
 
 }
