@@ -56,14 +56,15 @@
      <None Include="Assets\Vuforia\Shaders\ColoredLines.shader" />
      <None Include="Assets\Resources\Shaders\WireFrameShader.shader" />
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel8.shader" />
-     <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
      <None Include="Assets\link.xml" />
      <None Include="Assets\Vuforia\Shaders\VertexLitWithZ.shader" />
      <None Include="Assets\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
+     <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
      <None Include="Assets\Resources\digital-7\readme.txt" />
      <None Include="Assets\readme_SDK.txt" />
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel4.shader" />
      <None Include="Assets\Vuforia\Shaders\RenderVideoBackground.shader" />
+     <None Include="Assets\Demigiant\DOTween\DOTween43.xml" />
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel6.shader" />
      <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel3.shader" />
@@ -76,10 +77,9 @@
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel2.shader" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
-     <None Include="Assets\Demigiant\DOTween\DOTween46.xml" />
-     <None Include="Assets\Demigiant\DOTween\DOTween43.xml" />
      <None Include="Assets\Vuforia\Shaders\ClippingMask.shader" />
      <None Include="Assets\Vuforia\Shaders\BrightTexture.shader" />
+     <None Include="Assets\Demigiant\DOTween\DOTween46.xml" />
      <None Include="Assets\Retro Pixel\Readme.txt" />
      <None Include="Assets\Vuforia\Shaders\Text3D.shader" />
  <Reference Include="Assembly-UnityScript-Editor-firstpass">
@@ -145,21 +145,6 @@
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="DOTween">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
- </Reference>
- <Reference Include="DOTween43">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
- </Reference>
- <Reference Include="DOTween46">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
- </Reference>
- <Reference Include="DOTween50">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
- </Reference>
- <Reference Include="DOTweenEditor">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
- </Reference>
  <Reference Include="UnityEditorConsuloPlugin5.3">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Editor/Plugins/UnityEditorConsuloPlugin5.3.dll</HintPath>
  </Reference>
@@ -174,6 +159,21 @@
  </Reference>
  <Reference Include="Vuforia.UnityExtensions">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

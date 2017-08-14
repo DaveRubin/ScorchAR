@@ -11,6 +11,7 @@ using Vuforia;
 public class MainGame : MonoBehaviour {
 
     private const bool OFFLINE_MODE = true;
+    private const bool VUFORIA = false;
 
     private TankControl MyTank {
         get {
@@ -69,7 +70,10 @@ public class MainGame : MonoBehaviour {
 
         //after all is set, start polling from server for changes
         InvokeRepeating("Poll", 1, 0.5f);
-        vuforiaWrapper.Init();
+        if (VUFORIA) vuforiaWrapper.Init();
+        else {
+            Gui.DisableErrors();
+        }
     }
 
     private void Poll() {

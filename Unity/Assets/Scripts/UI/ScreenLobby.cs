@@ -10,6 +10,8 @@ using Utils;
 namespace UI {
     public class ScreenLobby : ScreenBase {
 
+        private const string SCENE_NAME = "DLLTest";
+//        private const string SCENE_NAME = "MainGame";
         RectTransform content;
         List<LobbyItem> lobbyItems;
         LobbyItem currentGameSelected;
@@ -122,10 +124,9 @@ Players
         }
 
         public void AfterLogin(int index) {
-            Debug.LogFormat("Got index {0}",index);
             MainUser.Instance.CurrentGame = currentGameSelected.Info;
             MainUser.Instance.Index = index;
-            SceneManager.LoadScene("DLLTest");
+            SceneManager.LoadScene(SCENE_NAME);
         }
     }
 }

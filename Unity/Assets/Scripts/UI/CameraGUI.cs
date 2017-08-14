@@ -135,6 +135,10 @@ namespace UI {
             if (OnYAngleChange != null) OnYAngleChange(YAngle);
             if (OnForceChange != null) OnForceChange(Force);
         }
+        
+        public void DisableErrors() {
+            errorOverlay.gameObject.SetActive(false);
+        }
 
         /// <summary>
         /// When tracked is undetected,show "TRACKER NOT DETECTED"
@@ -142,10 +146,12 @@ namespace UI {
         /// <param name="detected"></param>
         public void ToggleTrackerDetection(bool detected) {
             if (errorToggleTween != null) errorToggleTween.Kill();
+            float fadeTime = 0.5f;
             CanvasGroup canvasIn = detected? errorOverlay:controls;
             CanvasGroup canvasOut = !detected? errorOverlay:controls;
-
             Sequence sequence = DOTween.Sequence();
+            sequence.Insert(0,canvasIn.DOFade(1,fadeTime));
+            sequence.Insert(0,canvasOut.DOFade(0,fadeTime));
             sequence.InsertCallback(0,()=>{
                 if (!detected) errorOverlay.gameObject.SetActive(true);
                 if (detected) controls.gameObject.SetActive(true);

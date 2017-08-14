@@ -46,6 +46,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
+     <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
      <Compile Include="Assets\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
      <Compile Include="Assets\EffectExamples\Shared\Scripts\GunAim.cs" />
      <Compile Include="Assets\EffectExamples\Shared\Scripts\GunShoot.cs" />
@@ -136,14 +138,15 @@
      <None Include="Assets\Vuforia\Shaders\ColoredLines.shader" />
      <None Include="Assets\Resources\Shaders\WireFrameShader.shader" />
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel8.shader" />
-     <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
      <None Include="Assets\link.xml" />
      <None Include="Assets\Vuforia\Shaders\VertexLitWithZ.shader" />
      <None Include="Assets\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
+     <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
      <None Include="Assets\Resources\digital-7\readme.txt" />
      <None Include="Assets\readme_SDK.txt" />
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel4.shader" />
      <None Include="Assets\Vuforia\Shaders\RenderVideoBackground.shader" />
+     <None Include="Assets\Demigiant\DOTween\DOTween43.xml" />
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel6.shader" />
      <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel3.shader" />
@@ -156,10 +159,9 @@
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel2.shader" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
-     <None Include="Assets\Demigiant\DOTween\DOTween46.xml" />
-     <None Include="Assets\Demigiant\DOTween\DOTween43.xml" />
      <None Include="Assets\Vuforia\Shaders\ClippingMask.shader" />
      <None Include="Assets\Vuforia\Shaders\BrightTexture.shader" />
+     <None Include="Assets\Demigiant\DOTween\DOTween46.xml" />
      <None Include="Assets\Retro Pixel\Readme.txt" />
      <None Include="Assets\Vuforia\Shaders\Text3D.shader" />
  <Reference Include="UnityEngine.UI">
@@ -183,18 +185,6 @@
  <Reference Include="UnityEngine.VR">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
- <Reference Include="DOTween">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
- </Reference>
- <Reference Include="DOTween43">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
- </Reference>
- <Reference Include="DOTween46">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
- </Reference>
- <Reference Include="DOTween50">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
- </Reference>
  <Reference Include="RestSharp">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Engine/Debug/RestSharp.dll</HintPath>
  </Reference>
@@ -203,6 +193,18 @@
  </Reference>
  <Reference Include="Vuforia.UnityExtensions">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
