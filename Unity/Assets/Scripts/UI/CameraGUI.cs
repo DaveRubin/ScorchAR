@@ -135,7 +135,7 @@ namespace UI {
             if (OnYAngleChange != null) OnYAngleChange(YAngle);
             if (OnForceChange != null) OnForceChange(Force);
         }
-        
+
         public void DisableErrors() {
             errorOverlay.gameObject.SetActive(false);
         }

@@ -7,6 +7,7 @@ using UI;
 using UnityEngine;
 using Utils;
 using Vuforia;
+using DG.Tweening;
 
 public class MainGame : MonoBehaviour {
 
@@ -60,7 +61,6 @@ public class MainGame : MonoBehaviour {
     /// </summary>
     /// <param name="index"></param>
     public void PostLogin(int index) {
-
         PlayerIndex = index;
         InitGame();
         CreateTerrain();
@@ -70,6 +70,7 @@ public class MainGame : MonoBehaviour {
 
         //after all is set, start polling from server for changes
         InvokeRepeating("Poll", 1, 0.5f);
+        OverlayControl.Instance.ToggleLoading(false);
         if (VUFORIA) vuforiaWrapper.Init();
         else {
             Gui.DisableErrors();

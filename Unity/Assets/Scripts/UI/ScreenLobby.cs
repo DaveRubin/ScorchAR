@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
+using DG.Tweening;
 
 namespace UI {
     public class ScreenLobby : ScreenBase {
@@ -120,7 +121,9 @@ Players
             PlayerInfo myInfo = new PlayerInfo();
             myInfo.Name = MainUser.Instance.Name;
             myInfo.Id = MainUser.Instance.Name;
-            ServerWrapper.Login(currentGameSelected.Info.Id,myInfo,AfterLogin);
+            OverlayControl.Instance.ToggleLoading(true).OnComplete(()=> {
+                ServerWrapper.Login(currentGameSelected.Info.Id,myInfo,AfterLogin);
+            });
         }
 
         public void AfterLogin(int index) {

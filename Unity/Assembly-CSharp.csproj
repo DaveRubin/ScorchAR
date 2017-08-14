@@ -81,6 +81,7 @@
      <Compile Include="Assets\Scripts\UI\LobbyItem.cs" />
      <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
      <Compile Include="Assets\Scripts\UI\MenusScene.cs" />
+     <Compile Include="Assets\Scripts\UI\OverlayControl.cs" />
      <Compile Include="Assets\Scripts\UI\ScreenBase.cs" />
      <Compile Include="Assets\Scripts\UI\ScreenLobby.cs" />
      <Compile Include="Assets\Scripts\UI\ScreenMainMenu.cs" />
@@ -88,6 +89,7 @@
      <Compile Include="Assets\Scripts\UI\Scroller.cs" />
      <Compile Include="Assets\Scripts\UI\ScrollerEvent.cs" />
      <Compile Include="Assets\Scripts\Utils\PrefabManager.cs" />
+     <Compile Include="Assets\Scripts\Utils\SpriteFadeWiggle.cs" />
      <Compile Include="Assets\Scripts\View\AlwaysLookAt.cs" />
      <Compile Include="Assets\Scripts\View\PathTracer.cs" />
      <Compile Include="Assets\Scripts\View\PositionMarker.cs" />
