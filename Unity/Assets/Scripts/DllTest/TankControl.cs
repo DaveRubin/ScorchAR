@@ -154,20 +154,20 @@ public class TankControl : MonoBehaviour {
     /// Shoot projectile
     /// </summary>
     public void Shoot() {
-        if (PlayerStats.ControlledTank.IsReady)  {
-            Debug.Log("AAAAA");
-            print("A");
-            // set up projectile type
-            GameObject bullet = PrefabManager.InstantiatePrefab("Projectile");
-            //...
+        //if (PlayerStats.ControlledTank.IsReady)  {
+        Debug.Log("AAAAA");
+        print("A");
+        // set up projectile type
+        GameObject bullet = PrefabManager.InstantiatePrefab("Projectile");
+        //...
 
-            // shoot it
-            bullet.transform.position = BarrelsEnd.position;
-            Vector3 forceVector = GetForceVector();
-            Debug.LogFormat("Shooting with force {0}",force);
-            bullet.GetComponent<ProjectileControl>().SetForce(UpDwn,forceVector);
-            PlayerStats.ControlledTank.IsReady = false;
-        }
+        // shoot it
+        bullet.transform.position = BarrelsEnd.position;
+        Vector3 forceVector = GetForceVector();
+        Debug.LogFormat("Shooting with force {0}",force);
+        bullet.GetComponent<ProjectileControl>().SetForce(UpDwn,forceVector);
+        PlayerStats.ControlledTank.IsReady = false;
+//        }
 
     }
 
