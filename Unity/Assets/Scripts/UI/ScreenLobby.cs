@@ -163,7 +163,6 @@ Players
         public void Reset() {
             Debug.Log("ResetGames");
             UnityServerWrapper.Instance.ResetGames();
-            //ServerWrapper.ResetGames();
             UpdateLobby();
         }
 

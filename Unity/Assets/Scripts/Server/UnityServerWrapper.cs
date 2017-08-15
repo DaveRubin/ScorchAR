@@ -79,24 +79,26 @@ namespace Server {
 //            return client.Execute<GameInfo>(request).Data;
         }
 
-        public List<PlayerState> UpdatePlayerState(string id, PlayerState playerState)
+        public void UpdatePlayerState(string gameId, PlayerState playerState, Action<List<PlayerState>> onDoneCallback )
         {
-            return new List<PlayerState>();
-//            RestRequest request = new RestRequest(ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", id), Method.PUT);
-//            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
-//            request.RequestFormat = DataFormat.Json;
-//            request.AddJsonBody(playerState);
-//            return client.Execute<List<PlayerState>>(request).Data;
+            Debug.Log("get player state " + ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", gameId));
+            string url = GetURL(ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", gameId));
+            string json = JsonConvert.SerializeObject(playerState);
+            byte[] postData = System.Text.Encoding.ASCII.GetBytes(json.ToCharArray());
+            StartCoroutine(PostCoroutine(url, www => {
+                if (www.error == null)
+                {
+                    Debug.LogFormat("Got playerState: {0}", www.text);
+                    List<PlayerState> list = JsonConvert.DeserializeObject<List<PlayerState>>(www.text);
+                    onDoneCallback(list);
+                }
+                else
+                {
+                    Debug.LogError("Error");
+                }
+            }, postData));
         }
 
-        public void UpdatePlayerStateAsync(string id, PlayerState playerState, Action<List<PlayerState>> callback)
-        {
-//            RestRequest request = new RestRequest(ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", id), Method.PUT);
-//            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
-//            request.RequestFormat = DataFormat.Json;
-//            request.AddJsonBody(playerState);
-//            client.ExecuteAsync<List<PlayerState>>(request, r => callback(r.Data));
-        }
 
 
         public string CreateGame(string name, int maxPlayers, PlayerInfo playerInfo)

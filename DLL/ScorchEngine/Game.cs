@@ -91,7 +91,7 @@ namespace ScorchEngine
             ServerWrapper.GetState(gameID,myState,OnPollResult);
         }
 
-        private void OnPollResult(List<PlayerState> list)
+        public void OnPollResult(List<PlayerState> list)
         {
 
             ProcessPoll(list);

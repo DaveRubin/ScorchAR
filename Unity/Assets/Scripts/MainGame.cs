@@ -94,7 +94,8 @@ public class MainGame : MonoBehaviour {
         pState.IsReady = MyTank.PlayerStats.ControlledTank.IsReady;
         //Debug.LogFormat(pState.ToString());
         if (OFFLINE_MODE) return;
-        GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
+        UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, GameCore.OnPollResult);
+       // GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
         MyTank.PlayerStats.ControlledTank.IsReady = false;
     }
 

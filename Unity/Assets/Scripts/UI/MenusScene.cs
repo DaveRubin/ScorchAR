@@ -39,9 +39,6 @@ public class MenusScene : MonoBehaviour {
         EnterEndPos = transform.Find("EnterEndPos");
         ExitEndPos = transform.Find("ExitEndPos");
         ScorchEngine.Game.debugLog += s => Debug.LogError(s);
-        //Debug.LogError("before Test()");
-        //ServerWrapper.Test();
-        //Debug.LogError("After Test()");
         _current = EScreenType.Lobby;
         if (instance == null) {
             instance = this;

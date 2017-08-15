@@ -97,6 +97,9 @@
     <Reference Include="Vuforia.UnityExtensions">
       <HintPath>Assets\Vuforia\Scripts\Internal\Vuforia.UnityExtensions.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\UnityPackages\JsonNet\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
@@ -125,6 +128,7 @@
     <Compile Include="Assets\Scripts\PanelManager.cs" />
     <Compile Include="Assets\Scripts\ResizePanel.cs" />
     <Compile Include="Assets\Scripts\ScrollDetailTexture.cs" />
+    <Compile Include="Assets\Scripts\Server\UnityServerWrapper.cs" />
     <Compile Include="Assets\Scripts\ShowSliderValue.cs" />
     <Compile Include="Assets\Scripts\Terrain\TerrainDeform.cs" />
     <Compile Include="Assets\Scripts\TiltWindow.cs" />
@@ -147,6 +151,7 @@
     <Compile Include="Assets\Scripts\View\PathTracer.cs" />
     <Compile Include="Assets\Scripts\View\PositionMarker.cs" />
     <Compile Include="Assets\Scripts\cubeController.cs" />
+    <Compile Include="Assets\UnityPackages\JsonNetSample\JsonNetSample.cs" />
     <Compile Include="Assets\Vuforia\Scripts\BackgroundPlaneBehaviour.cs" />
     <Compile Include="Assets\Vuforia\Scripts\CloudRecoBehaviour.cs" />
     <Compile Include="Assets\Vuforia\Scripts\CylinderTargetBehaviour.cs" />
