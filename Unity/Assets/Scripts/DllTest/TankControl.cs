@@ -98,6 +98,7 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     /// <param name="updatedPlayer"></param>
     public void OnPLayerUpdate(Player updatedPlayer) {
+        Debug.Log("OnPlayer update....");
         updatePlayer = updatedPlayer;
     }
 
@@ -105,9 +106,9 @@ public class TankControl : MonoBehaviour {
         onLeftRightChanged(updatedPlayer.ControlledTank.AngleHorizontal);
         onUpDownChanged(updatedPlayer.ControlledTank.AngleVertical);
         onForceChange(updatedPlayer.ControlledTank.Force);
-        UpdateHealthBar(updatedPlayer.ControlledTank.Health);
+        //UpdateHealthBar(updatedPlayer.ControlledTank.Health);
         Debug.LogErrorFormat("Player {0} got updated",PlayerStats.ID);
-        //if (updatedPlayer.ControlledTank.IsReady) Shoot();
+        if (updatedPlayer.ControlledTank.IsReady) Shoot();
     }
 
     /// <summary>
@@ -155,6 +156,7 @@ public class TankControl : MonoBehaviour {
     public void Shoot() {
         if (PlayerStats.ControlledTank.IsReady)  {
             Debug.Log("AAAAA");
+            print("A");
             // set up projectile type
             GameObject bullet = PrefabManager.InstantiatePrefab("Projectile");
             //...
