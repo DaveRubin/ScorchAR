@@ -6,8 +6,10 @@ namespace UI {
     public class OverlayControl : MonoBehaviour {
         public bool hideOnStart;
         public static OverlayControl Instance;
-        private Image loading;
+        private Image loadingImage;
         private const float FADE_DURATION = 2f;
+
+        private bool isLoading;
 
         void Awake() {
             if (Instance != null) {
@@ -15,7 +17,7 @@ namespace UI {
             }
             else {
                 Instance = this;
-                loading = transform.Find("Loading").GetComponent<Image>();
+                loadingImage = transform.Find("Loading").GetComponent<Image>();
             }
 
             if (hideOnStart) ToggleLoading(false,false);
@@ -24,12 +26,14 @@ namespace UI {
         public Tween ToggleLoading(bool show, bool animate = true) {
             Sequence sequence = DOTween.Sequence();
             if (show) gameObject.SetActive(true);
-            sequence.Append(loading.DOFade(show?1:0, animate?FADE_DURATION:0));
+            sequence.Append(loadingImage.DOFade(show?1:0, animate?FADE_DURATION:0));
             sequence.AppendCallback(()=> {
                 if (!show) gameObject.SetActive(false);
+                isLoading = show;
             });
             return sequence;
         }
+
 
     }
 }
