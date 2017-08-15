@@ -81,7 +81,7 @@ public class TankControl : MonoBehaviour {
         Gui.OnForceChange += onForceChange;
         Gui.OnXAngleChange += onLeftRightChanged;
         Gui.OnYAngleChange += onUpDownChanged;
-        Gui.OnShootClicked += Shoot;
+        Gui.OnShootClicked += OnGuiShoot;
         Gui.OnShowPath += OnShowPathToggle;
     }
 
@@ -89,7 +89,7 @@ public class TankControl : MonoBehaviour {
         Gui.OnForceChange -= onForceChange;
         Gui.OnXAngleChange -= onLeftRightChanged;
         Gui.OnYAngleChange -= onUpDownChanged;
-        Gui.OnShootClicked -= Shoot;
+        Gui.OnShootClicked -= OnGuiShoot;
         Gui.OnShowPath -= OnShowPathToggle;
     }
 
@@ -166,9 +166,6 @@ public class TankControl : MonoBehaviour {
         Vector3 forceVector = GetForceVector();
         Debug.LogFormat("Shooting with force {0}",force);
         bullet.GetComponent<ProjectileControl>().SetForce(UpDwn,forceVector);
-        PlayerStats.ControlledTank.IsReady = false;
-//        }
-
     }
 
     public Vector3 GetForceVector() {
@@ -227,6 +224,11 @@ public class TankControl : MonoBehaviour {
         GameObject fire  = PrefabManager.InstantiatePrefab("ExplosionFX");
         fire.transform.position = transform.position;
         DOVirtual.DelayedCall(2,()=>GameObject.Destroy(fire));
+    }
+
+    public void OnGuiShoot() {
+        PlayerStats.ControlledTank.IsReady = true;
+        Shoot();
     }
 
 

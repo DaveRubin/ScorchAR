@@ -76,7 +76,7 @@ public class MainGame : MonoBehaviour {
         InitializeGUI();
 
         //after all is set, start polling from server for changes
-        InvokeRepeating("Poll", 1, 0.5f);
+        InvokeRepeating("Poll", 1, 1f);
         OverlayControl.Instance.ToggleLoading(false);
         if (VUFORIA) vuforiaWrapper.Init();
         else {
