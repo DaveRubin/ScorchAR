@@ -91,10 +91,10 @@ public class MainGame : MonoBehaviour {
         pState.Force = MyTank.PlayerStats.ControlledTank.Force;
         pState.AngleVertical= MyTank.PlayerStats.ControlledTank.AngleVertical;
         pState.IsReady = MyTank.PlayerStats.ControlledTank.IsReady;
-        MyTank.PlayerStats.ControlledTank.IsReady = false;
         //Debug.LogFormat(pState.ToString());
         if (OFFLINE_MODE) return;
         GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
+        MyTank.PlayerStats.ControlledTank.IsReady = false;
     }
 
     /// <summary>
