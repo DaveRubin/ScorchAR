@@ -3,11 +3,10 @@ using ScorchEngine;
 using ScorchEngine.Config;
 using ScorchEngine.Models;
 using ScorchEngine.Server;
+using Server;
 using UI;
 using UnityEngine;
 using Utils;
-using Vuforia;
-using DG.Tweening;
 
 public class MainGame : MonoBehaviour {
 
@@ -59,8 +58,9 @@ public class MainGame : MonoBehaviour {
     }
 
     void OnDestroy() {
-        ServerWrapper.RemovePlayerFromGame(gameID,PlayerIndex);
-        Debug.LogError("Exiting");
+        UnityServerWrapper.Instance.RemovePlayerFromGame(gameID,PlayerIndex,()=> {
+            Debug.LogError("Exiting");
+        });
     }
 
     /// <summary>

@@ -169,6 +169,9 @@
  <Reference Include="ScorchEngine">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Engine/Debug/ScorchEngine.dll</HintPath>
  </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/UnityPackages/JsonNet/Newtonsoft.Json.dll</HintPath>
+ </Reference>
  <Reference Include="Vuforia.UnityExtensions.Editor">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Vuforia/Editor/Scripts/Vuforia.UnityExtensions.Editor.dll</HintPath>
  </Reference>

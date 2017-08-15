@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace UI {
     public class ScreenLobby : ScreenBase {
@@ -22,6 +24,7 @@ namespace UI {
         Button buttonJoin;
 
         void Awake() {
+            //Test();
             base.Awake();
             PrefabManager.Init();
             selectedGameInfo =transform.Find("MainPanel/Right/Panel/Text").GetComponent<Text>();
@@ -128,7 +131,7 @@ Players
             myInfo.Name = MainUser.Instance.Name;
             myInfo.Id = MainUser.Instance.Name;
             OverlayControl.Instance.ToggleLoading(true).OnComplete(()=> {
-                ServerWrapper.Login(currentGameSelected.Info.Id,myInfo,AfterLogin);
+                UnityServerWrapper.Instance.AddPlayerToGame(currentGameSelected.Info.Id,myInfo,AfterLogin);
             });
         }
 
@@ -159,7 +162,8 @@ Players
 
         public void Reset() {
             Debug.Log("ResetGames");
-            ServerWrapper.ResetGames();
+            UnityServerWrapper.Instance.ResetGames();
+            //ServerWrapper.ResetGames();
             UpdateLobby();
         }
 
@@ -171,5 +175,13 @@ Players
                 UnityServerWrapper.Instance.GetGames(OnGamesFetched);
             }
         }
+
+        public void Test() {
+            string s = "[{\"PlayerStates\":[{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0},{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0}],\"Name\":\"Game0 \",\"Id\":\"id0\",\"MaxPlayers\":2,\"Players\":[]},{\"PlayerStates\":[{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0},{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0}],\"Name\":\"Game0 \",\"Id\":\"id0\",\"MaxPlayers\":2,\"Players\":[]}]";
+            //string s = "{\"PlayerStates\":[{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0},{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0}],\"Name\":\"Game0 \",\"Id\":\"id0\",\"MaxPlayers\":2,\"Players\":[]},{\"PlayerStates\":[{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0},{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0}],\"Name\":\"Game0 \",\"Id\":\"id0\",\"MaxPlayers\":2,\"Players\":[]}";
+            var c = JsonConvert.DeserializeObject<List<GameInfo>>(s);
+            Debug.Log(c);
+        }
+
     }
 }
