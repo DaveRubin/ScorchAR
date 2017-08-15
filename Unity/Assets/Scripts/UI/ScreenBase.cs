@@ -1,12 +1,13 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI {
     public abstract class ScreenBase : MonoBehaviour{
 
         protected Tween motion;
         protected CanvasGroup canvasGroup;
+        protected Action onEnter;
 
         public float FADE_DURATION = 0.5f;
 
@@ -21,6 +22,7 @@ namespace UI {
             canvasGroup.alpha = 1;
             transform.position = MenusScene.EnterStartPos.position;
             gameObject.SetActive(true);
+            if (onEnter!=null)  onEnter();
             Sequence sequence = DOTween.Sequence();
             sequence.Insert(0,transform.DOMove(MenusScene.EnterEndPos.position,FADE_DURATION).SetEase(Ease.OutExpo));
             sequence.Insert(0,transform.DORotate(MenusScene.EnterEndPos.rotation.eulerAngles,FADE_DURATION).SetEase(Ease.OutExpo));

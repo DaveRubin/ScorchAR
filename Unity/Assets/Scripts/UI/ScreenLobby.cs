@@ -29,13 +29,8 @@ namespace UI {
             content = transform.Find("MainPanel/Left/Scroll View/Viewport/Content").GetComponent<RectTransform>();
             buttonJoin.onClick.AddListener(JoinRoom);
             transform.Find("ButtonReset").GetComponent<Button>().onClick.AddListener(Reset);
-
-            if (TEST) {
-                TestDummyGames();
-            }
-            else {
-                ServerWrapper.GetGames(OnGamesFetched);
-            }
+            onEnter += UpdateLobby;
+            //UpdateLobby();
         }
 
         /// <summary>
@@ -43,7 +38,16 @@ namespace UI {
         /// </summary>
         /// <param name="games"></param>
         private void OnGamesFetched(List<GameInfo> games ) {
+            if (lobbyItems != null) {
+                Debug.Log("Clearing lobby");
+                foreach (LobbyItem lobbyItem1 in lobbyItems) {
+                    GameObject.Destroy(lobbyItem1.gameObject);
+                }
+            }
+
             Transform container= content.Find("Container");
+            container.localPosition = new Vector3(0,0,0);
+            content.sizeDelta = new Vector2(content.rect.width,0);
             float current = 0;
             float height = -1;
             lobbyItems = new List<LobbyItem>();
@@ -71,7 +75,7 @@ namespace UI {
             }
 
             content.sizeDelta = new Vector2(content.rect.width,height);
-            container.localPosition += new Vector3(0,height/2);
+            container.localPosition = new Vector3(0,-height/2);
 
         }
 
@@ -146,6 +150,16 @@ Players
         public void Reset() {
             Debug.Log("ResetGames");
             ServerWrapper.ResetGames();
+            UpdateLobby();
+        }
+
+        public void UpdateLobby() {
+            if (TEST) {
+                TestDummyGames();
+            }
+            else {
+                ServerWrapper.GetGames(OnGamesFetched);
+            }
         }
     }
 }
