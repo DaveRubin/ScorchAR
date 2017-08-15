@@ -59,6 +59,7 @@ public class MainGame : MonoBehaviour {
 
     void OnDestroy() {
         ServerWrapper.RemovePlayerFromGame(gameID,PlayerIndex);
+        Debug.LogError("Exiting");
     }
 
     /// <summary>
