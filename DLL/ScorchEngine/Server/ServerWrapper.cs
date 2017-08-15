@@ -48,5 +48,10 @@ namespace ScorchEngine.Server
             i_CallBack(client.GetGames());
         }
 
+
+        public static void RemovePlayerFromGame(string gameId, int playerIndex)
+        {
+            client.RemovePlayerFromGame(gameId,playerIndex);
+        }
     }
 }

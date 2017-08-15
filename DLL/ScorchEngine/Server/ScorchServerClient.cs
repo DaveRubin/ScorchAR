@@ -63,7 +63,7 @@ namespace ScorchEngine.Server
             client.Execute(request);
         }
 
-        public string createGame(string name, int maxPlayers, PlayerInfo playerInfo)
+        public string CreateGame(string name, int maxPlayers, PlayerInfo playerInfo)
         {
             RestRequest request = new RestRequest(ServerRoutes.CreateGameUrl, Method.POST);
             request.AddJsonBody(playerInfo);
@@ -71,6 +71,12 @@ namespace ScorchEngine.Server
             request.AddQueryParameter("name", name);
             request.AddQueryParameter("maxPlayers", maxPlayers.ToString());
             return client.Execute(request).Content.Replace("\"", "");
+        }
+
+        public void RemovePlayerFromGame(string gameId, int playerIndex)
+        {
+            RestRequest request = new RestRequest(ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", gameId).Replace("{index}",playerIndex.ToString()), Method.PUT);
+            client.Execute(request);
         }
     }
 }

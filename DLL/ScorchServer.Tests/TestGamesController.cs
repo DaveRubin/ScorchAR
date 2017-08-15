@@ -34,7 +34,7 @@ namespace ScorchServer.Tests
         {
             int maxPlayers = 1;
             PlayerInfo player = new PlayerInfo { Id = "AAAA", Name = "Dushi" };
-            string gameId = client.createGame(name, maxPlayers, player);
+            string gameId = client.CreateGame(name, maxPlayers, player);
             Debug.WriteLine("create Game and got id {0}",gameId);
             getAndPrintGameInfo(gameId);
         }

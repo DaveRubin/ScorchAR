@@ -19,10 +19,10 @@ namespace ScorchServer.Controllers
 
         [Route(ServerRoutes.AddPlayerToGameApiUrl)]
         [HttpPost]
-        public int AddPlayer(string id, [FromBody] PlayerInfo playerInfo)
+        public int AddPlayer(string gameId, [FromBody] PlayerInfo playerInfo)
         {
             int newPlayerIndex = -1;
-            GameInfo game = gamesRepository.GetGame(id);
+            GameInfo game = gamesRepository.GetGame(gameId);
             game.AddPlayer(playerInfo, ref newPlayerIndex);
 
             gamesRepository.Update(game);
@@ -31,13 +31,22 @@ namespace ScorchServer.Controllers
 
         [Route(ServerRoutes.UpdatePlayerStateUrl)]
         [HttpPut]
-        public List<PlayerState> UpdatePlayerStates(string id, [FromBody] PlayerState playerState)
+        public List<PlayerState> UpdatePlayerStates(string gameId, [FromBody] PlayerState playerState)
         {
-            ServerGame game = gamesRepository.GetGame(id);
+            ServerGame game = gamesRepository.GetGame(gameId);
             game.PlayerStates[playerState.Id].Update(playerState);
 
             gamesRepository.Update(game);
             return game.PlayerStates.Cast<PlayerState>().ToList();
+        }
+        // ONLY FOR DEBUG
+        [Route(ServerRoutes.RemovePlayerFromGameUrl)]
+        [HttpPut]
+        public void RemovePlayerFromGame(string gameId,int playerIndex)
+        {
+            ServerGame game = gamesRepository.GetGame(gameId);
+            game.PlayerStates.RemoveAt(playerIndex);
+            game.Players.RemoveAt(playerIndex);
         }
     }
 }
