@@ -65,6 +65,7 @@
     <Compile Include="Tanks\TankStyle.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Geometry\Coordinate.cs" />
+    <Compile Include="utils\SimpleJson.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -21,7 +21,7 @@ namespace ScorchServer.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            client.ResetGames();
+            //client.ResetGames();
 
              //test1();
             // createGameTest("testgame1");
