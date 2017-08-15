@@ -187,6 +187,18 @@
  <Reference Include="UnityEngine.VR">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
+ <Reference Include="DOTween">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ </Reference>
  <Reference Include="RestSharp">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Engine/Debug/RestSharp.dll</HintPath>
  </Reference>
@@ -195,18 +207,6 @@
  </Reference>
  <Reference Include="Vuforia.UnityExtensions">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
- </Reference>
- <Reference Include="DOTween">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
- </Reference>
- <Reference Include="DOTween50">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
- </Reference>
- <Reference Include="DOTween43">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
- </Reference>
- <Reference Include="DOTween46">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

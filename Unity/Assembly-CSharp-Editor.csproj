@@ -145,6 +145,21 @@
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="DOTween">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditorConsuloPlugin5.3">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Editor/Plugins/UnityEditorConsuloPlugin5.3.dll</HintPath>
  </Reference>
@@ -159,21 +174,6 @@
  </Reference>
  <Reference Include="Vuforia.UnityExtensions">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
- </Reference>
- <Reference Include="DOTweenEditor">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
- </Reference>
- <Reference Include="DOTween">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
- </Reference>
- <Reference Include="DOTween50">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
- </Reference>
- <Reference Include="DOTween43">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
- </Reference>
- <Reference Include="DOTween46">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
