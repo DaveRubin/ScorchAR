@@ -22,7 +22,7 @@ namespace Utils {
             float half = min + delta/2;
             current = nextTarget;
             nextTarget = Random.Range(half - delta/2 ,half+ delta/2);
-            s.DOFade(nextTarget,duration);
+            s.DOFade(nextTarget,duration).SetEase(Ease.InOutSine);
         }
     }
 }
