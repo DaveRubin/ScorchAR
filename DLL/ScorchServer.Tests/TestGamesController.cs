@@ -23,13 +23,13 @@ namespace ScorchServer.Tests
         {
             client.ResetGames();
 
-            // test1();
+             //test1();
             // createGameTest("testgame1");
             // createGameTest("testgame2");
             // createGameTest("testgame3");
             // createGameTest("testgame4");
             // client.GetGames().ForEach(t=>Debug.WriteLine(t));
-            removePlayerFromGameTest();
+            //removePlayerFromGameTest();
         }
 
         private void removePlayerFromGameTest()
