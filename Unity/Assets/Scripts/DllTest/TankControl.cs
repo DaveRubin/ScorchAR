@@ -23,6 +23,8 @@ public class TankControl : MonoBehaviour {
     private Transform Sides;
     private Transform BarrelsEnd;
 
+    private Player updatePlayer = null;
+
     void Awake() {
         body = transform;
         Sides = transform.FindChild("Top");
@@ -62,6 +64,10 @@ public class TankControl : MonoBehaviour {
             ProjectilePath.SetPath(GetForceVector());
             updatePathDirtyFlag = false;
         }
+        if (updatePlayer != null) {
+            UpdatePlayer(updatePlayer);
+            updatePlayer = null;
+        }
     }
 
     /// <summary>
@@ -92,6 +98,10 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     /// <param name="updatedPlayer"></param>
     public void OnPLayerUpdate(Player updatedPlayer) {
+        updatePlayer = updatedPlayer;
+    }
+
+    private void UpdatePlayer(Player updatedPlayer) {
         onLeftRightChanged(updatedPlayer.ControlledTank.AngleHorizontal);
         onUpDownChanged(updatedPlayer.ControlledTank.AngleVertical);
         onForceChange(updatedPlayer.ControlledTank.Force);

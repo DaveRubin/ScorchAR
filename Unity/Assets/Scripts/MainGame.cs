@@ -11,7 +11,7 @@ using DG.Tweening;
 
 public class MainGame : MonoBehaviour {
 
-    private const bool OFFLINE_MODE = true;
+    private const bool OFFLINE_MODE = false;
     private const bool VUFORIA = false;
 
     private TankControl MyTank {
@@ -58,7 +58,7 @@ public class MainGame : MonoBehaviour {
     }
 
     void OnDestroy() {
-        //ServerWrapper.
+        ServerWrapper.RemovePlayerFromGame(gameID,PlayerIndex);
     }
 
     /// <summary>
@@ -134,7 +134,7 @@ public class MainGame : MonoBehaviour {
             tanks.Add(tankGO);
         }
 
-        Debug.Log(tanks);
+        Debug.Log(tanks.Count);
 
 //tank = GameObject.Find("Tank").GetComponent<TankControl>();
 //tank.SetPlayer(GameCore.self);
@@ -174,6 +174,7 @@ public class MainGame : MonoBehaviour {
     /// </summary>
     public void InitializeGUI() {
         Gui = GameObject.Find("GUI").GetComponent<CameraGUI>();
+        Debug.LogFormat("Player index {0}",PlayerIndex);
         TankControl tc = tanks[PlayerIndex];
         tc.LinkToGUI(Gui);
     }

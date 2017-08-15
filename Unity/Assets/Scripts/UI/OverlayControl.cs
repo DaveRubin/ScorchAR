@@ -17,6 +17,8 @@ namespace UI {
             }
             else {
                 Instance = this;
+                transform.Find("Loading").gameObject.SetActive(true);
+
                 loadingImage = transform.Find("Loading").GetComponent<Image>();
             }
 
