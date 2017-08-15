@@ -207,11 +207,11 @@
  <Reference Include="ScorchEngine">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Engine/Debug/ScorchEngine.dll</HintPath>
  </Reference>
- <Reference Include="Vuforia.UnityExtensions">
- <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
- </Reference>
  <Reference Include="Newtonsoft.Json">
  <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/UnityPackages/JsonNet/Newtonsoft.Json.dll</HintPath>
+ </Reference>
+ <Reference Include="Vuforia.UnityExtensions">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

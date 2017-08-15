@@ -131,7 +131,7 @@ Players
             myInfo.Name = MainUser.Instance.Name;
             myInfo.Id = MainUser.Instance.Name;
             OverlayControl.Instance.ToggleLoading(true).OnComplete(()=> {
-                ServerWrapper.Login(currentGameSelected.Info.Id,myInfo,AfterLogin);
+                UnityServerWrapper.Instance.AddPlayerToGame(currentGameSelected.Info.Id,myInfo,AfterLogin);
             });
         }
 
@@ -162,7 +162,8 @@ Players
 
         public void Reset() {
             Debug.Log("ResetGames");
-            ServerWrapper.ResetGames();
+            UnityServerWrapper.Instance.ResetGames();
+            //ServerWrapper.ResetGames();
             UpdateLobby();
         }
 
