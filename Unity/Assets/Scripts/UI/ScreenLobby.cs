@@ -30,7 +30,7 @@ namespace UI {
             buttonJoin.onClick.AddListener(JoinRoom);
             transform.Find("ButtonReset").GetComponent<Button>().onClick.AddListener(Reset);
             onEnter += UpdateLobby;
-            //UpdateLobby();
+            UpdateLobby();
         }
 
         /// <summary>
@@ -74,8 +74,14 @@ namespace UI {
                 }
             }
 
+
             content.sizeDelta = new Vector2(content.rect.width,height);
             container.localPosition = new Vector3(0,-height/2);
+            Debug.LogFormat(@"height -{0} | games.Count - {1} (-1 if null) | content.sizeDelta.ToString() -{2} | container.localPosition -{3}",
+            height,
+            games == null? -1:games.Count,
+            content.sizeDelta.ToString(),
+            container.localPosition);
 
         }
 
