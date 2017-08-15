@@ -17,17 +17,32 @@ namespace ScorchServer.Tests
     public class TestGamesController
     {
         ScorchServerClient client = new ScorchServerClient();
-      
+
         [TestMethod]
         public void TestMethod1()
         {
-            //client.ResetGames();
-            //test1();
-            //            createGameTest("testgame1");
-            //            createGameTest("testgame2");
-            //            createGameTest("testgame3");
-            //            createGameTest("testgame4");
-            client.GetGames().ForEach(t=>Debug.WriteLine(t));
+            client.ResetGames();
+
+            // test1();
+            // createGameTest("testgame1");
+            // createGameTest("testgame2");
+            // createGameTest("testgame3");
+            // createGameTest("testgame4");
+            // client.GetGames().ForEach(t=>Debug.WriteLine(t));
+            removePlayerFromGameTest();
+        }
+
+        private void removePlayerFromGameTest()
+        {
+            PlayerInfo player = new PlayerInfo { Id = "AAAA", Name = "Dushi" };
+            List<GameInfo> games = client.GetGames();
+            games[0].Players.ForEach(p => Debug.WriteLine(p));
+            int index = client.AddPlayerToGame(games[0].Id, player);
+            GameInfo game = client.GetGame(games[0].Id);
+            game.Players.ForEach(p => Debug.WriteLine(p));
+            client.RemovePlayerFromGame("id0", index);
+            game = client.GetGame("id0");
+            game.Players.ForEach(p => Debug.WriteLine(p));
         }
 
         private void createGameTest(string name)
@@ -35,7 +50,7 @@ namespace ScorchServer.Tests
             int maxPlayers = 1;
             PlayerInfo player = new PlayerInfo { Id = "AAAA", Name = "Dushi" };
             string gameId = client.CreateGame(name, maxPlayers, player);
-            Debug.WriteLine("create Game and got id {0}",gameId);
+            Debug.WriteLine("create Game and got id {0}", gameId);
             getAndPrintGameInfo(gameId);
         }
 
@@ -70,20 +85,20 @@ namespace ScorchServer.Tests
             getAndPrintGameInfo(gameId);
 
             PlayerState p1State = new PlayerState
-            {
-                Id = p1Idx,
-                AngleHorizontal = 0.1f,
-                AngleVertical = 0.2f,
-                Force = 100
-            };
+                                      {
+                                          Id = p1Idx, 
+                                          AngleHorizontal = 0.1f, 
+                                          AngleVertical = 0.2f, 
+                                          Force = 100
+                                      };
 
             PlayerState p2State = new PlayerState
-            {
-                Id = p2Idx,
-                AngleHorizontal = 0.2f,
-                AngleVertical = 0.3f,
-                Force = 200
-            };
+                                      {
+                                          Id = p2Idx, 
+                                          AngleHorizontal = 0.2f, 
+                                          AngleVertical = 0.3f, 
+                                          Force = 200
+                                      };
 
             client.UpdatePlayerState(gameId, p1State);
 
@@ -97,6 +112,5 @@ namespace ScorchServer.Tests
             stateList = client.UpdatePlayerState(gameId, p2State);
             printStates(stateList);
         }
-     
     }
 }

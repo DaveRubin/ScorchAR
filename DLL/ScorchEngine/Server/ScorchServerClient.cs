@@ -7,12 +7,16 @@ using ScorchEngine.Models;
 
 namespace ScorchEngine.Server
 {
+    using System.Diagnostics;
+
     public class ScorchServerClient
     {
+
+        private const bool DebugMode = false;
         private readonly RestClient client =
             new RestClient(DebugMode ? ServerRoutes.LocalBaseUri : ServerRoutes.ServerBaseUri);
 
-        private const bool DebugMode = false;
+        
 
         public List<GameInfo> GetGames()
         {
@@ -75,7 +79,7 @@ namespace ScorchEngine.Server
 
         public void RemovePlayerFromGame(string gameId, int playerIndex)
         {
-            RestRequest request = new RestRequest(ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", gameId).Replace("{index}",playerIndex.ToString()), Method.PUT);
+            RestRequest request = new RestRequest(ServerRoutes.RemovePlayerFromGameUrl.Replace("{id}", gameId).Replace("{index}",playerIndex.ToString()), Method.PUT);
             client.Execute(request);
         }
     }
