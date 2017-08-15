@@ -22,6 +22,7 @@ public class MainGame : MonoBehaviour {
 
     public CameraGUI Gui;
     public static ScorchEngine.Game GameCore;
+    public static string gameID;
     private List<TankControl> tanks;
     private int PlayerIndex;
     private Transform rootTransform;
@@ -52,7 +53,12 @@ public class MainGame : MonoBehaviour {
             Game.OFFLINE = true;
         }
 
+        gameID = MainUser.Instance.CurrentGame.Id;
         PostLogin(MainUser.Instance.Index);
+    }
+
+    void OnDestroy() {
+        //ServerWrapper.
     }
 
     /// <summary>
