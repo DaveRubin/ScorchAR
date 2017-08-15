@@ -30,7 +30,7 @@ namespace ScorchServer.Controllers
         }
 
         [Route(ServerRoutes.UpdatePlayerStateUrl)]
-        [HttpPut]
+        [HttpPost]
         public List<PlayerState> UpdatePlayerStates(string id, [FromBody] PlayerState playerState)
         {
             ServerGame game = gamesRepository.GetGame(id);
@@ -41,7 +41,7 @@ namespace ScorchServer.Controllers
         }
         // ONLY FOR DEBUG
         [Route(ServerRoutes.SetPlayerInActiveUrl)]
-        [HttpPut]
+        [HttpPost]
         public void RemovePlayerFromGame(string id,int index)
         {
             ServerGame game = gamesRepository.GetGame(id);
