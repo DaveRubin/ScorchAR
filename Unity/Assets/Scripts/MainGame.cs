@@ -35,6 +35,7 @@ public class MainGame : MonoBehaviour {
     }
 
     void Awake() {
+        Application.targetFrameRate = 60;
         PrefabManager.Init();
         rootTransform = new GameObject().transform;
         rootTransform.gameObject.name = "Root";
