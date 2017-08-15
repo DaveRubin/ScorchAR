@@ -1,6 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using ScorchEngine.Models;
 using UnityEngine;
 
@@ -34,6 +35,7 @@ namespace Server {
             if (www.error == null) {
                 //fill list
                 Debug.LogFormat("Got: {0}",www.text);
+                list = JsonConvert.DeserializeObject<List<GameInfo>>(www.text);
             }
             else {
                 Debug.LogFormat("Error loading games {0}",www.error);

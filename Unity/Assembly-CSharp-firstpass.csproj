@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <RootNamespace></RootNamespace>
+    <ProjectGuid>{2662B409-6332-1E56-D797-C9025C53BDD6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <BaseDirectory>Assets</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_0;UNITY_5_6;UNITY_5;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_ANDROID;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VR;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_2_0_SUBSET;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;VUFORIA_ANDROID_SETTINGS;UNITY_HAS_GOOGLEVR</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Bson\BsonBinaryType.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Bson\BsonBinaryWriter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Bson\BsonObjectId.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Bson\BsonReader.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Bson\BsonToken.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Bson\BsonType.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Bson\BsonWriter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\ConstructorHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\BinaryConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\BsonObjectIdConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\CustomCreationConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\DataSetConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\DataTableConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\DateTimeConverterBase.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\DiscriminatedUnionConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\EntityKeyMemberConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\ExpandoObjectConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\JsonValueConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\KeyValuePairConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\RegexConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\StringEnumConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\VersionConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Converters\XmlNodeConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\DateFormatHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\DateParseHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\DateTimeZoneHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\DefaultValueHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\FloatFormatHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\FloatParseHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\FormatterAssemblyStyle.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Formatting.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\IArrayPool.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\IJsonLineInfo.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonArrayAttribute.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonConstructorAttribute.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonContainerAttribute.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonConvert.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonConverterAttribute.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonConverterCollection.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonDictionaryAttribute.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonException.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonExtensionDataAttribute.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonIgnoreAttribute.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonObjectAttribute.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonPosition.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonPropertyAttribute.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonReader.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonReaderException.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonRequiredAttribute.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonSerializationException.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonSerializer.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonSerializerSettings.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonTextReader.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonTextWriter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonToken.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonValidatingReader.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonWriter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\JsonWriterException.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\CommentHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\Extensions.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\IJEnumerable.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JArray.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JConstructor.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JContainer.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JEnumerable.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JObject.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JProperty.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JPropertyDescriptor.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JRaw.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JToken.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JTokenEqualityComparer.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JTokenReader.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JTokenType.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JTokenWriter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JValue.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JsonLoadSettings.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JsonMergeSettings.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JsonPath\FieldMultipleFilter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JsonPath\JPath.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\MergeArrayHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Linq\MergeNullValueHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\MemberSerialization.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\MetadataPropertyHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\MissingMemberHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\NullValueHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\ObjectCreationHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\PreserveReferencesHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Properties\AssemblyInfo.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\ReferenceLoopHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Required.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\Extensions.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\JsonSchema.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\JsonSchemaBuilder.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\JsonSchemaConstants.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\JsonSchemaException.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\JsonSchemaGenerator.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\JsonSchemaModel.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\JsonSchemaModelBuilder.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\JsonSchemaNode.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\JsonSchemaNodeCollection.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\JsonSchemaResolver.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\JsonSchemaType.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\JsonSchemaWriter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\UndefinedSchemaIdHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\ValidationEventArgs.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Schema\ValidationEventHandler.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\CachedAttributeGetter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\CamelCaseNamingStrategy.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\DefaultContractResolver.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\DiagnosticsTraceWriter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\DynamicValueProvider.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\ErrorContext.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\ErrorEventArgs.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\ExpressionValueProvider.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\IAttributeProvider.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\IContractResolver.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\IReferenceResolver.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\ITraceWriter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\IValueProvider.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonArrayContract.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonContainerContract.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonContract.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonDictionaryContract.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonDynamicContract.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonISerializableContract.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonLinqContract.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonObjectContract.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonProperty.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonStringContract.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\JsonTypeReflector.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\NamingStrategy.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\ObjectConstructor.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\OnErrorAttribute.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\ReflectionAttributeProvider.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\ReflectionValueProvider.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\TraceJsonReader.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Serialization\TraceJsonWriter.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\SerializationBinder.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\StringEscapeHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\TraceLevel.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\TypeNameHandling.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\AotHelper.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\Base64Encoder.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\CollectionUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\CollectionWrapper.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\ConvertUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\DateTimeParser.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\DateTimeUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\DictionaryWrapper.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\DynamicProxy.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\DynamicProxyMetaObject.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\DynamicReflectionDelegateFactory.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\DynamicUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\EnumUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\EnumValue.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\ExpressionReflectionDelegateFactory.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\FSharpUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\ILGeneratorExtensions.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\ImmutableCollectionsUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\JavaScriptUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\JsonTokenUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\LinqBridge.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\MathUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\MethodCall.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\MiscellaneousUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\PropertyNameTable.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\ReflectionObject.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\ReflectionUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\StringBuffer.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\StringReference.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\StringUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\ThreadSafeStore.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\TypeExtensions.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\Utilities\ValidationUtils.cs" />
+     <Compile Include="Assets\Plugins\Newtonsoft.Json\WriteState.cs" />
+     <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel5.shader" />
+     <None Include="Assets\Demigiant\DOTween\readme.txt" />
+     <None Include="Assets\Vuforia\Shaders\ColoredLines.shader" />
+     <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel8.shader" />
+     <None Include="Assets\link.xml" />
+     <None Include="Assets\Vuforia\Shaders\VertexLitWithZ.shader" />
+     <None Include="Assets\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
+     <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
+     <None Include="Assets\Resources\digital-7\readme.txt" />
+     <None Include="Assets\readme_SDK.txt" />
+     <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel4.shader" />
+     <None Include="Assets\Vuforia\Shaders\RenderVideoBackground.shader" />
+     <None Include="Assets\Demigiant\DOTween\DOTween43.xml" />
+     <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel6.shader" />
+     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
+     <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel3.shader" />
+     <None Include="Assets\Vuforia\Shaders\VideoBackground.shader" />
+     <None Include="Assets\license_3rdpartynotice.txt" />
+     <None Include="Assets\Resources\Materials\TerrainShader.shader" />
+     <None Include="Assets\Vuforia\Editor\WebcamProfiles\profiles.xml" />
+     <None Include="Assets\Vuforia\Shaders\DepthMask.shader" />
+     <None Include="Assets\StreamingAssets\QCAR\Image_Target.xml" />
+     <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel7.shader" />
+     <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel2.shader" />
+     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
+     <None Include="Assets\Vuforia\Shaders\ClippingMask.shader" />
+     <None Include="Assets\Vuforia\Shaders\BrightTexture.shader" />
+     <None Include="Assets\Demigiant\DOTween\DOTween46.xml" />
+     <None Include="Assets\Retro Pixel\Readme.txt" />
+     <None Include="Assets\Vuforia\Shaders\Text3D.shader" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TestRunner">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="nunit.framework">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/TestRunner/nunit.framework.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.HoloLens">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VR">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="RestSharp">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Engine/Debug/RestSharp.dll</HintPath>
+ </Reference>
+ <Reference Include="ScorchEngine">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Engine/Debug/ScorchEngine.dll</HintPath>
+ </Reference>
+ <Reference Include="Vuforia.UnityExtensions">
+ <HintPath>/Users/david/School/final project/Tanks/Unity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>
