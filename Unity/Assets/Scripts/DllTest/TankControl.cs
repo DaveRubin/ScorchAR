@@ -106,8 +106,8 @@ public class TankControl : MonoBehaviour {
         onUpDownChanged(updatedPlayer.ControlledTank.AngleVertical);
         onForceChange(updatedPlayer.ControlledTank.Force);
         UpdateHealthBar(updatedPlayer.ControlledTank.Health);
-
-        if (updatedPlayer.ControlledTank.IsReady) Shoot();
+        Debug.LogErrorFormat("Player {0} got updated",PlayerStats.ID);
+        //if (updatedPlayer.ControlledTank.IsReady) Shoot();
     }
 
     /// <summary>
