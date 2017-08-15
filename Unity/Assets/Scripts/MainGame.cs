@@ -126,8 +126,8 @@ public class MainGame : MonoBehaviour {
             tankGO.transform.SetParent(tanksRoot);
             //tankGO.transform.localPosition = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
 
-            int x = i==0? 50:75;
-            int y = i==0? 50:75;
+            int x = i==0? 50:25;
+            int y = i==0? 50:25;
             float height = terrain.GetComponentInChildren<Terrain>().SampleHeight(new Vector3(x,0,y));
             tankGO.transform.localPosition = new Vector3(x,height,y);
             tankGO.transform.localScale = Vector3.one*0.5f;
