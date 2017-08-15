@@ -28,6 +28,7 @@ namespace UI {
             buttonJoin = transform.Find("ButtonJoin").GetComponent<Button>();
             content = transform.Find("MainPanel/Left/Scroll View/Viewport/Content").GetComponent<RectTransform>();
             buttonJoin.onClick.AddListener(JoinRoom);
+            transform.Find("ButtonReset").GetComponent<Button>().onClick.AddListener(Reset);
 
             if (TEST) {
                 TestDummyGames();
@@ -140,6 +141,11 @@ Players
                 listGameInfo.Add(gi);
             }
             OnGamesFetched(listGameInfo);
+        }
+
+        public void Reset() {
+            Debug.Log("ResetGames");
+            ServerWrapper.ResetGames();
         }
     }
 }
