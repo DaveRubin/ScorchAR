@@ -40,7 +40,7 @@ namespace ScorchServer.Controllers
             return game.PlayerStates.Cast<PlayerState>().ToList();
         }
         // ONLY FOR DEBUG
-        [Route(ServerRoutes.RemovePlayerFromGameUrl)]
+        [Route(ServerRoutes.SetPlayerInActiveUrl)]
         [HttpPut]
         public void RemovePlayerFromGame(string id,int index)
         {
