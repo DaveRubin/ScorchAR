@@ -32,17 +32,17 @@ namespace ScorchServer.Tests
             //removePlayerFromGameTest();
         }
 
-        private void removePlayerFromGameTest()
+        private void removePlayerFromGameTest(Action<List<GameInfo>> iCallBack)
         {
-            PlayerInfo player = new PlayerInfo { Id = "AAAA", Name = "Dushi" };
-            List<GameInfo> games = client.GetGames();
-            games[0].Players.ForEach(p => Debug.WriteLine(p));
-            int index = client.AddPlayerToGame(games[0].Id, player);
-            GameInfo game = client.GetGame(games[0].Id);
-            game.Players.ForEach(p => Debug.WriteLine(p));
-            client.RemovePlayerFromGame("id0", index);
-            game = client.GetGame("id0");
-            game.Players.ForEach(p => Debug.WriteLine(p));
+            //PlayerInfo player = new PlayerInfo { Id = "AAAA", Name = "Dushi" };
+            //List<GameInfo> games = client.GetGames(iCallBack);
+            //games[0].Players.ForEach(p => Debug.WriteLine(p));
+            //int index = client.AddPlayerToGame(games[0].Id, player);
+            //GameInfo game = client.GetGame(games[0].Id);
+            //game.Players.ForEach(p => Debug.WriteLine(p));
+            //client.RemovePlayerFromGame("id0", index);
+            //game = client.GetGame("id0");
+            //game.Players.ForEach(p => Debug.WriteLine(p));
         }
 
         private void createGameTest(string name)
@@ -72,45 +72,45 @@ namespace ScorchServer.Tests
             }
         }
 
-        private void test1()
+        private void test1(Action<List<GameInfo>> iCallBack)
         {
-            PlayerInfo player1 = new PlayerInfo { Id = "AAAA", Name = "Dushi" };
-            PlayerInfo player2 = new PlayerInfo { Id = "BBBB", Name = "Amidushi" };
-            List<GameInfo> games = client.GetGames();
-            string gameId = games[0].Id;
-            int p1Idx = client.AddPlayerToGame(gameId, player1);
-            Debug.WriteLine("player {0} : idx: {1}", player1, p1Idx);
-            int p2Idx = client.AddPlayerToGame(gameId, player2);
-            Debug.WriteLine("player {0} : idx: {1}", player2, p2Idx);
-            getAndPrintGameInfo(gameId);
-
-            PlayerState p1State = new PlayerState
-                                      {
-                                          Id = p1Idx, 
-                                          AngleHorizontal = 0.1f, 
-                                          AngleVertical = 0.2f, 
-                                          Force = 100
-                                      };
-
-            PlayerState p2State = new PlayerState
-                                      {
-                                          Id = p2Idx, 
-                                          AngleHorizontal = 0.2f, 
-                                          AngleVertical = 0.3f, 
-                                          Force = 200
-                                      };
-
-            client.UpdatePlayerState(gameId, p1State);
-
-            List<PlayerState> stateList = client.UpdatePlayerState(gameId, p2State);
-            printStates(stateList);
-
-            p1State.AngleHorizontal = 0.5f;
-            p2State.AngleHorizontal = 0.12f;
-            client.UpdatePlayerState(gameId, p1State);
-
-            stateList = client.UpdatePlayerState(gameId, p2State);
-            printStates(stateList);
+           //PlayerInfo player1 = new PlayerInfo { Id = "AAAA", Name = "Dushi" };
+           //PlayerInfo player2 = new PlayerInfo { Id = "BBBB", Name = "Amidushi" };
+           //List<GameInfo> games = client.GetGames(iCallBack);
+           //string gameId = games[0].Id;
+           //int p1Idx = client.AddPlayerToGame(gameId, player1);
+           //Debug.WriteLine("player {0} : idx: {1}", player1, p1Idx);
+           //int p2Idx = client.AddPlayerToGame(gameId, player2);
+           //Debug.WriteLine("player {0} : idx: {1}", player2, p2Idx);
+           //getAndPrintGameInfo(gameId);
+           //
+           //PlayerState p1State = new PlayerState
+           //                          {
+           //                              Id = p1Idx, 
+           //                              AngleHorizontal = 0.1f, 
+           //                              AngleVertical = 0.2f, 
+           //                              Force = 100
+           //                          };
+           //
+           //PlayerState p2State = new PlayerState
+           //                          {
+           //                              Id = p2Idx, 
+           //                              AngleHorizontal = 0.2f, 
+           //                              AngleVertical = 0.3f, 
+           //                              Force = 200
+           //                          };
+           //
+           //client.UpdatePlayerState(gameId, p1State);
+           //
+           //List<PlayerState> stateList = client.UpdatePlayerState(gameId, p2State);
+           //printStates(stateList);
+           //
+           //p1State.AngleHorizontal = 0.5f;
+           //p2State.AngleHorizontal = 0.12f;
+           //client.UpdatePlayerState(gameId, p1State);
+           //
+           //stateList = client.UpdatePlayerState(gameId, p2State);
+           //printStates(stateList);
         }
     }
 }

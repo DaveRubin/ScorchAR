@@ -17,7 +17,7 @@ namespace ScorchEngine.Server
 
         public const string CreateGameUrl = "api/Games/Create";
 
-        public const string RemovePlayerFromGameUrl = "api/Games/{id}/RemovePlayer/{index}";
+        public const string SetPlayerInActiveUrl = "api/Games/{id}/RemovePlayer/{index}";
 
         public const string ServerBaseUri = "http://scorchar.azurewebsites.net";
 

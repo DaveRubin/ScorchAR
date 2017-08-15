@@ -18,11 +18,11 @@ namespace ScorchEngine.Server
 
         
 
-        public List<GameInfo> GetGames()
+        public void GetGames(Action<List<GameInfo>> iCallBack)
         {
             RestRequest request = new RestRequest(ServerRoutes.GetGamesApiUrl, Method.GET);
             request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
-            return client.Execute<List<GameInfo>>(request).Data;
+            client.ExecuteAsync<List<GameInfo>>(request,r=>iCallBack(r.Data));
         }
 
         public int AddPlayerToGame(string gameId, PlayerInfo playerInfo)
@@ -79,7 +79,7 @@ namespace ScorchEngine.Server
 
         public void RemovePlayerFromGame(string gameId, int playerIndex)
         {
-            RestRequest request = new RestRequest(ServerRoutes.RemovePlayerFromGameUrl.Replace("{id}", gameId).Replace("{index}",playerIndex.ToString()), Method.PUT);
+            RestRequest request = new RestRequest(ServerRoutes.SetPlayerInActiveUrl.Replace("{id}", gameId).Replace("{index}",playerIndex.ToString()), Method.PUT);
             client.Execute(request);
         }
     }
