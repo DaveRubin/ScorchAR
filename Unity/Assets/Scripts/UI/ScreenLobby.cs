@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using ScorchEngine;
 using ScorchEngine.Models;
 using ScorchEngine.Server;
+using Server;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
-using DG.Tweening;
 
 namespace UI {
     public class ScreenLobby : ScreenBase {
@@ -30,7 +31,10 @@ namespace UI {
             buttonJoin.onClick.AddListener(JoinRoom);
             transform.Find("ButtonReset").GetComponent<Button>().onClick.AddListener(Reset);
             onEnter += UpdateLobby;
-            //UpdateLobby();
+        }
+
+        void Start() {
+            UpdateLobby();
         }
 
         /// <summary>
@@ -74,8 +78,14 @@ namespace UI {
                 }
             }
 
+
             content.sizeDelta = new Vector2(content.rect.width,height);
             container.localPosition = new Vector3(0,-height/2);
+            Debug.LogFormat(@"height -{0} | games.Count - {1} (-1 if null) | content.sizeDelta.ToString() -{2} | container.localPosition -{3}",
+            height,
+            games == null? -1:games.Count,
+            content.sizeDelta.ToString(),
+            container.localPosition);
 
         }
 
@@ -158,7 +168,7 @@ Players
                 TestDummyGames();
             }
             else {
-                ServerWrapper.GetGames(OnGamesFetched);
+                UnityServerWrapper.Instance.GetGames(OnGamesFetched);
             }
         }
     }
