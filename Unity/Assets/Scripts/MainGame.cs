@@ -120,12 +120,14 @@ public class MainGame : MonoBehaviour {
             GameCore.AddPlayer(player);
         }
 
-        foreach (Player player in players) {
+        for (int i = 0; i < players.Count; i++) {
+            Player player = players[i];
             TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
             tankGO.transform.SetParent(tanksRoot);
             //tankGO.transform.localPosition = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
-            int x = 50;
-            int y = 50;
+
+            int x = i==0? 50:75;
+            int y = i==0? 50:75;
             float height = terrain.GetComponentInChildren<Terrain>().SampleHeight(new Vector3(x,0,y));
             tankGO.transform.localPosition = new Vector3(x,height,y);
             tankGO.transform.localScale = Vector3.one*0.5f;

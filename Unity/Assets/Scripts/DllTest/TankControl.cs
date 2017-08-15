@@ -153,7 +153,7 @@ public class TankControl : MonoBehaviour {
     /// Shoot projectile
     /// </summary>
     public void Shoot() {
-        if (PlayerStats.ControlledTank.IsReady) return;
+        if (!PlayerStats.ControlledTank.IsReady) return;
         // set up projectile type
         GameObject bullet = PrefabManager.InstantiatePrefab("Projectile");
         //...
@@ -163,7 +163,7 @@ public class TankControl : MonoBehaviour {
         Vector3 forceVector = GetForceVector();
         Debug.LogFormat("Shooting with force {0}",force);
         bullet.GetComponent<ProjectileControl>().SetForce(UpDwn,forceVector);
-        PlayerStats.ControlledTank.IsReady = true;
+        PlayerStats.ControlledTank.IsReady = false;
     }
 
     public Vector3 GetForceVector() {
