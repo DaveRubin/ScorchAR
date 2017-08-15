@@ -88,7 +88,7 @@ namespace Server {
             StartCoroutine(PostCoroutine(url, www => {
                 if (www.error == null)
                 {
-                    Debug.LogFormat("Got playerState: {0}", www.text);
+                    //Debug.LogFormat("Got playerState: {0}", www.text);
                     List<PlayerState> list = JsonConvert.DeserializeObject<List<PlayerState>>(www.text);
                     onDoneCallback(list);
                 }
