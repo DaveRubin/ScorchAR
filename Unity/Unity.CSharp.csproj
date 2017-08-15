@@ -201,7 +201,7 @@
     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
     <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
-    <None Include="Assets\Resources\Shaders\WireFrameShader.shader" />
+    <None Include="Assets\Resources\Materials\TerrainShader.shader" />
     <None Include="Assets\Resources\digital-7\readme.txt" />
     <None Include="Assets\Retro Pixel\Readme.txt" />
     <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel2.shader" />

@@ -53,5 +53,10 @@ namespace ScorchEngine.Server
         {
             client.RemovePlayerFromGame(gameId,playerIndex);
         }
+
+        public static void ResetGames()
+        {
+            client.ResetGames();
+        }
     }
 }
