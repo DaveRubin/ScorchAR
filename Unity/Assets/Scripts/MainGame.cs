@@ -77,9 +77,13 @@ public class MainGame : MonoBehaviour {
         InitializeGUI();
 
         //after all is set, start polling from server for changes
+        GameCore.MyID = PlayerIndex;
         InvokeRepeating("Poll", 1, 1f);
         OverlayControl.Instance.ToggleLoading(false);
-        if (VUFORIA) vuforiaWrapper.Init();
+        if (VUFORIA)
+        {
+            vuforiaWrapper.Init();
+        }
         else {
             Gui.DisableErrors();
         }
