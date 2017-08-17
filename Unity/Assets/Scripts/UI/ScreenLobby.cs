@@ -15,8 +15,8 @@ namespace UI {
     public class ScreenLobby : ScreenBase {
 
         private const bool TEST = false;
-        private const string SCENE_NAME = "DLLTest";
-        //private const string SCENE_NAME = "MainGame";
+//        private const string SCENE_NAME = "DLLTest";
+        private const string SCENE_NAME = "MainGame";
         RectTransform content;
         List<LobbyItem> lobbyItems;
         LobbyItem currentGameSelected;
