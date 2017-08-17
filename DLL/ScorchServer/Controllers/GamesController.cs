@@ -25,7 +25,7 @@ namespace ScorchServer.Controllers
 
         [Route(ServerRoutes.CreateGameUrl)]
         [HttpPost]
-        public string Create([FromBody] PlayerInfo playerInfo)
+        public GameInfo Create([FromBody] PlayerInfo playerInfo)
         {
             string name = string.Empty;
             int maxPlayers = 0;
@@ -55,7 +55,7 @@ namespace ScorchServer.Controllers
             int playerIndex = -1;
             createdGameContext.AddPlayer(playerInfo, ref playerIndex);
             gamesRepository.AddGame(createdGameContext);
-            return gameId;
+            return createdGameContext;
         }
 
         [Route(ServerRoutes.GetGamesApiUrl)]

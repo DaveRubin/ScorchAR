@@ -6,7 +6,7 @@ namespace ScorchEngine.Models
     using System.Diagnostics;
     using System.Runtime.InteropServices.ComTypes;
 
-    using SimpleJSON;
+
 
     public class GameInfo
     {
@@ -70,30 +70,5 @@ NumberOfPlayers:{Players.Count}";
         {
             return MaxPlayers == Players.Count;
         }
-
-        public static List<GameInfo> ParseJsonAsList(string json)
-        {
-            List<GameInfo> res = new List<GameInfo>();
-            SimpleJSON.JSONNode node = SimpleJSON.JSON.Parse("{\"List\":" + json + "}");
-            Debug.WriteLine(node);
-            ;
-            for (int i = 0; i < node["List"].Count; ++i)
-            {
-                GameInfo currentGame = new GameInfo();
-                currentGame.Id = node["List"][i]["Id"].ToString();
-                currentGame.Name = node["List"][i]["Name"].ToString();
-                currentGame.MaxPlayers = node["List"][i]["MaxPlayers"].AsInt;
-                currentGame.Players = new List<PlayerInfo>();
-                for (int j = 0; j < node["List"][i]["Players"].Count; ++j)
-                {
-                    PlayerInfo player = new PlayerInfo();
-                    player.Id = node["List"][i]["Players"][j]["Id"].ToString();
-                    player.Name = node["List"][i]["Players"][j]["Name"].ToString();
-                    currentGame.Players.Add(player);
-                }
-                res.Add(currentGame);
-            }
-            return res;
-        } 
     }
 }
