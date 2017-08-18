@@ -7,6 +7,7 @@ using ScorchEngine.Server;
 using UnityEngine;
 
 namespace Server {
+
     public class UnityServerWrapper :MonoBehaviour {
         public static UnityServerWrapper Instance;
         void Awake() {
@@ -101,15 +102,25 @@ namespace Server {
 
 
 
-        public string CreateGame(string name, int maxPlayers, PlayerInfo playerInfo)
+        public void CreateGame(string name, int maxPlayers, PlayerInfo playerInfo, Action<GameInfo> onDoneCallback)
         {
-            return null;
-//            RestRequest request = new RestRequest(ServerRoutes.CreateGameUrl, Method.POST);
-//            request.AddJsonBody(playerInfo);
-//            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
-//            request.AddQueryParameter("name", name);
-//            request.AddQueryParameter("maxPlayers", maxPlayers.ToString());
-//            return client.Execute(request).Content.Replace("\"", "");
+            string urlHash = ServerRoutes.ClearGamesUrl + "?name=" + name + "maxPlayers=" + maxPlayers;
+            Debug.Log("creating GAME " + urlHash);
+            string url = GetURL(urlHash);
+            string json = JsonConvert.SerializeObject(playerInfo);
+            byte[] postData = System.Text.Encoding.ASCII.GetBytes(json.ToCharArray());
+            StartCoroutine(PostCoroutine(url, www => {
+                if (www.error == null)
+                {
+                    Debug.LogFormat("Got {0}", www.text);
+                    JsonConvert.DeserializeObject<GameInfo>(www.text);
+                    onDoneCallback(JsonConvert.DeserializeObject<GameInfo>(www.text));
+                }
+                else
+                {
+                    Debug.LogError("Error");
+                }
+            }, postData));
         }
 
         public void RemovePlayerFromGame(string gameId, int playerIndex)
