@@ -41,7 +41,21 @@ namespace Server {
         }
 
         public void RemovePlayerFromGame(string gameID, int playerIndex, Action onDoneCallback) {
-
+            
+            string url = GetURL(ServerRoutes.SetPlayerInActiveUrl.Replace("{id}", gameID).Replace("{index}", playerIndex.ToString()));
+            Debug.Log("remove player from game " + url);
+            byte[] postData = System.Text.Encoding.ASCII.GetBytes(" ");
+            StartCoroutine(PostCoroutine(url, www => {
+                if (www.error == null)
+                {
+                    Debug.LogFormat("Got {0}", www.text);
+                    onDoneCallback();
+                }
+                else
+                {
+                    Debug.LogError("Error");
+                }
+            }, postData));
         }
 
 
