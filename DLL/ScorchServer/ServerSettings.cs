@@ -7,6 +7,9 @@ namespace ScorchServer
 {
     public static class ServerSettings
     {
-        public static string k_DbName = "ScorchDb";
+        public const string k_DbName = "scorchar";
+
+        public const string ConnectionString =
+            "";
     }
 }

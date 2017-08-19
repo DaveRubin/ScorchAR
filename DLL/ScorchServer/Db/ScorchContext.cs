@@ -27,8 +27,9 @@ namespace ScorchServer.Db
                         {
                             try
                             {
-                                MongoClient client = new MongoClient();
+                                MongoClient client = new MongoClient(ServerSettings.ConnectionString);
                                 s_Instance = client.GetDatabase(ServerSettings.k_DbName);
+
 
                             }
                             catch (Exception exception)
