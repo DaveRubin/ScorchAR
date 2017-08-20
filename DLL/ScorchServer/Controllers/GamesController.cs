@@ -25,8 +25,9 @@ namespace ScorchServer.Controllers
 
         [Route(ServerRoutes.CreateGameUrl)]
         [HttpPost]
-        public GameInfo Create(string name, [FromBody] PlayerInfo playerInfo)
+        public GameInfo Create([FromBody] PlayerInfo playerInfo)
         {
+            string name = string.Empty;
             int maxPlayers = 0;
             string gameId;
             lock (createLockObject)
@@ -39,6 +40,9 @@ namespace ScorchServer.Controllers
             {
                 switch (parameter.Key)
                 {
+                    case "name":
+                        name = parameter.Value;
+                        break;
                     case "maxPlayers":
                         maxPlayers = int.Parse(parameter.Value);
                         break;
