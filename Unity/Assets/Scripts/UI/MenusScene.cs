@@ -46,6 +46,7 @@ public class MenusScene : MonoBehaviour {
                 {EScreenType.MainMenu,transform.Find("Main Menu").GetComponent<ScreenBase>()},
                 {EScreenType.Lobby,transform.Find("Lobby").GetComponent<ScreenBase>()},
                 {EScreenType.Settings,transform.Find("Settings").GetComponent<ScreenBase>()},
+                {EScreenType.CreateGame,transform.Find("CreateGame").GetComponent<ScreenBase>()},
             };
             Current = EScreenType.MainMenu;
             UpdateItemsVisibility();

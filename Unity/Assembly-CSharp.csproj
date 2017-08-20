@@ -84,6 +84,7 @@
      <Compile Include="Assets\Scripts\UI\MenusScene.cs" />
      <Compile Include="Assets\Scripts\UI\OverlayControl.cs" />
      <Compile Include="Assets\Scripts\UI\ScreenBase.cs" />
+     <Compile Include="Assets\Scripts\UI\ScreenCreateGame.cs" />
      <Compile Include="Assets\Scripts\UI\ScreenLobby.cs" />
      <Compile Include="Assets\Scripts\UI\ScreenMainMenu.cs" />
      <Compile Include="Assets\Scripts\UI\ScreenSettings.cs" />

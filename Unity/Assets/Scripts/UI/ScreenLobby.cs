@@ -15,8 +15,8 @@ namespace UI {
     public class ScreenLobby : ScreenBase {
 
         private const bool TEST = false;
-//        private const string SCENE_NAME = "DLLTest";
-        private const string SCENE_NAME = "MainGame";
+//        public const string SCENE_NAME = "DLLTest";
+        public const string SCENE_NAME = "MainGame";
         RectTransform content;
         List<LobbyItem> lobbyItems;
         LobbyItem currentGameSelected;
@@ -33,6 +33,7 @@ namespace UI {
             content = transform.Find("MainPanel/Left/Scroll View/Viewport/Content").GetComponent<RectTransform>();
             buttonJoin.onClick.AddListener(JoinRoom);
             transform.Find("ButtonReset").GetComponent<Button>().onClick.AddListener(Reset);
+            transform.Find("ButtonCreate").GetComponent<Button>().onClick.AddListener(Create);
             onEnter += UpdateLobby;
         }
 
@@ -127,11 +128,8 @@ Players
 
         public void JoinRoom() {
             Game.debugLog += (string obj) => Debug.LogError(obj);
-            PlayerInfo myInfo = new PlayerInfo();
-            myInfo.Name = MainUser.Instance.Name;
-            myInfo.Id = MainUser.Instance.Name;
             OverlayControl.Instance.ToggleLoading(true).OnComplete(()=> {
-                UnityServerWrapper.Instance.AddPlayerToGame(currentGameSelected.Info.Id,myInfo,AfterLogin);
+                UnityServerWrapper.Instance.AddPlayerToGame(currentGameSelected.Info.Id,MainUser.Instance.GetPLayerInfo(),AfterLogin);
             });
         }
 
@@ -180,6 +178,18 @@ Players
             //string s = "{\"PlayerStates\":[{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0},{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0}],\"Name\":\"Game0 \",\"Id\":\"id0\",\"MaxPlayers\":2,\"Players\":[]},{\"PlayerStates\":[{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0},{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0}],\"Name\":\"Game0 \",\"Id\":\"id0\",\"MaxPlayers\":2,\"Players\":[]}";
             var c = JsonConvert.DeserializeObject<List<GameInfo>>(s);
             Debug.Log(c);
+        }
+
+        public void Create() {
+            MenusScene.GoTo(EScreenType.CreateGame);
+        }
+
+        public void ShowCreateGameMenu() {
+
+        }
+
+        public void onGameCreated(GameInfo gameInfo) {
+
         }
 
     }

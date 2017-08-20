@@ -2,6 +2,7 @@ namespace UI {
     public enum EScreenType {
         MainMenu,
         Lobby,
-        Settings
+        Settings,
+        CreateGame
     }
 }

@@ -48,5 +48,12 @@ public class MainUser {
         PlayerPrefs.SetInt(KEY_INDEX,_index);
     }
 
+    public PlayerInfo GetPLayerInfo() {
+        PlayerInfo info = new PlayerInfo();
+        info.Name = MainUser.Instance.Name;
+        info.Id = MainUser.Instance.Name;
+        return info;
+    }
+
 
 }

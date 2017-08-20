@@ -100,8 +100,6 @@ namespace Server {
             }, postData));
         }
 
-
-
         public void CreateGame(string name, int maxPlayers, PlayerInfo playerInfo, Action<GameInfo> onDoneCallback)
         {
             string urlHash = ServerRoutes.ClearGamesUrl + "?name=" + name + "maxPlayers=" + maxPlayers;
