@@ -94,11 +94,11 @@
     <Reference Include="ScorchEngine">
       <HintPath>Assets\Engine\Debug\ScorchEngine.dll</HintPath>
     </Reference>
-    <Reference Include="Vuforia.UnityExtensions">
-      <HintPath>Assets\Vuforia\Scripts\Internal\Vuforia.UnityExtensions.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Assets\UnityPackages\JsonNet\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Vuforia.UnityExtensions">
+      <HintPath>Assets\Vuforia\Scripts\Internal\Vuforia.UnityExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +140,7 @@
     <Compile Include="Assets\Scripts\UI\MenusScene.cs" />
     <Compile Include="Assets\Scripts\UI\OverlayControl.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenBase.cs" />
+    <Compile Include="Assets\Scripts\UI\ScreenCreateGame.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenLobby.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenMainMenu.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenSettings.cs" />
