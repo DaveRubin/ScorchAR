@@ -79,7 +79,7 @@ namespace ScorchEngine.Server
 
         public void RemovePlayerFromGame(string gameId, int playerIndex)
         {
-            RestRequest request = new RestRequest(ServerRoutes.SetPlayerInActiveUrl.Replace("{id}", gameId).Replace("{index}",playerIndex.ToString()), Method.PUT);
+            RestRequest request = new RestRequest(ServerRoutes.SetPlayerInActiveUrl.Replace("{id}", gameId).Replace("{index}",playerIndex.ToString()), Method.POST);
             client.Execute(request);
         }
     }
