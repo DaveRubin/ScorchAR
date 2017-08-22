@@ -1,8 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace UI {
     public class Scroller :MonoBehaviour,IDragHandler{
@@ -15,10 +14,10 @@ namespace UI {
         private List<Transform> transforms = new List<Transform>();
         float singleWidth;
         public float value = 0;
-        public ScrollerEvent onValueChanged;
-
+//        public ScrollerEvent onValueChanged;
+        public Action<float> onValueChanged;
         void Awake() {
-            onValueChanged = new ScrollerEvent();
+            //onValueChanged = new ScrollerEvent();
             transforms.Add(transform.FindChild("ScrollContainer/a"));
             transforms.Add(transform.FindChild("ScrollContainer/b"));
             transforms.Add(transform.FindChild("ScrollContainer/c"));
@@ -46,7 +45,9 @@ namespace UI {
                 }
             }
             if (update) UpdateDials(delta);
-            onValueChanged.Invoke(value);
+            Debug.LogFormat("Update on drag {0} ",value);
+            if (onValueChanged != null)
+                onValueChanged.Invoke(value);
         }
 
         public void UpdateDials(float delta) {

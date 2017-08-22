@@ -82,9 +82,9 @@ namespace UI {
         /// register events to their handlers
         /// </summary>
         private void RegisterEvents() {
-            sliderForce.onValueChanged.AddListener(OnForceSliderChange);
-            sliderY.onValueChanged.AddListener(OnYChanged);
-            sliderX.onValueChanged.AddListener(OnXChanged);
+            sliderForce.onValueChanged += OnForceSliderChange;
+            sliderY.onValueChanged += OnYChanged;
+            sliderX.onValueChanged += OnXChanged;
             fireButton.onClick.AddListener(OnFireClicked);
             showPathButton.onPointerDown.AddListener(()=>TogglePath(true));
             showPathButton.onPointerUp.AddListener(()=>TogglePath(false));
