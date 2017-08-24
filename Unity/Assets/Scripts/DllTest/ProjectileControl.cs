@@ -63,7 +63,7 @@ namespace DllTest {
         }
 
         public void Explode() {
-            float damage = 3;
+            float damage = 25;
             GameObject.Destroy(this.gameObject);
             GameObject radius = PrefabManager.InstantiatePrefab("ExplosionRadius");
             GameObject fire  = PrefabManager.InstantiatePrefab("ExplosionFX");

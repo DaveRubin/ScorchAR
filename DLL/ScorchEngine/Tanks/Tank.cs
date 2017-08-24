@@ -25,6 +25,7 @@ namespace ScorchEngine
 			AngleHorizontal = 0;
 			AngleVertical = 0;
 		    Force = 0;
+			Health = 100;
 		}
 
 	    /// <summary>

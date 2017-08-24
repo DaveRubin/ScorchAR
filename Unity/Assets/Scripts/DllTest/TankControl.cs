@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using DllTest;
 using ScorchEngine;
+using ScorchEngine.Items;
 using UI;
 using UnityEngine;
 using Utils;
@@ -47,7 +48,9 @@ public class TankControl : MonoBehaviour {
     /// <param name="damage"></param>
     public void Hit(float damage) {
         //PlayerStats.ControlledTank.Health -= damage;
-        UpdateHealthBar(PlayerStats.ControlledTank.Health - (int)damage);
+        Debug.LogFormat("Hit for {0} damage, total health - {1}",damage,PlayerStats.ControlledTank.Health);
+        PlayerStats.ControlledTank.Damage(EWeaponType.Regular,(int)damage);
+        UpdateHealthBar(PlayerStats.ControlledTank.Health);
     }
 
     public void SetPlayer(Player player) {
@@ -57,6 +60,10 @@ public class TankControl : MonoBehaviour {
         player.OnUpdate += OnPLayerUpdate;
     }
 
+    void OnCollisionEnter(Collision collision) {
+// Check if collided with cube
+        Debug.LogFormat("Collided with {0} {1}", collision.gameObject.name, gameObject.name);
+    }
 
     void Update() {
         if (ProjectilePath.visible && updatePathDirtyFlag) {
@@ -187,8 +194,6 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     /// <param name="tankHealth"></param>
     public void UpdateHealthBar(int tankHealth) {
-        Debug.Log("Update health bar width" + tankHealth);
-
         float normalizedValue = ((float)tankHealth / 100) * 2;
         HealthMask.sizeDelta = new Vector2(normalizedValue,0.3f);
         if (normalizedValue <=0 ) {
@@ -223,6 +228,7 @@ public class TankControl : MonoBehaviour {
         //Create explosion
         GameObject fire  = PrefabManager.InstantiatePrefab("ExplosionFX");
         fire.transform.position = transform.position;
+        GameObject.Destroy(gameObject);
         DOVirtual.DelayedCall(2,()=>GameObject.Destroy(fire));
     }
 

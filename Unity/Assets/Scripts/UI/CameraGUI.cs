@@ -62,7 +62,7 @@ namespace UI {
         /// </summary>
         private void GetRelevantComponents() {
             controls = transform.Find("Controls").GetComponent<CanvasGroup>();
-            //errorOverlay = transform.Find("ErrorOvelay").GetComponent<CanvasGroup>();
+            errorOverlay = transform.Find("ErrorOvelay").GetComponent<CanvasGroup>();
             GetControlComponents();
             DispatchInitValues();
         }
@@ -137,7 +137,7 @@ namespace UI {
         }
 
         public void DisableErrors() {
-            //errorOverlay.gameObject.SetActive(false);
+            errorOverlay.gameObject.SetActive(false);
         }
 
         /// <summary>

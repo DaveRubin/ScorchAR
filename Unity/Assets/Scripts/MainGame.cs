@@ -6,12 +6,13 @@ using ScorchEngine.Server;
 using Server;
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 
 public class MainGame : MonoBehaviour {
 
-    private const bool OFFLINE_MODE = false;
-    private const bool VUFORIA = false;
+    private bool OFFLINE_MODE = false;
+    private bool VUFORIA = false;
 
     private TankControl MyTank {
         get {
@@ -34,6 +35,9 @@ public class MainGame : MonoBehaviour {
     }
 
     void Awake() {
+        if (SceneManager.GetActiveScene().name == "DLLTest") {
+            OFFLINE_MODE = true;
+        }
         Application.targetFrameRate = 60;
         PrefabManager.Init();
         rootTransform = new GameObject().transform;
@@ -51,10 +55,13 @@ public class MainGame : MonoBehaviour {
                 Name = "GAME"
             };
             Game.OFFLINE = true;
+            PostLogin(MainUser.Instance.Index);
+        }
+        else {
+            gameID = MainUser.Instance.CurrentGame.Id;
+            PostLogin(MainUser.Instance.Index);
         }
 
-        gameID = MainUser.Instance.CurrentGame.Id;
-        PostLogin(MainUser.Instance.Index);
     }
 
     void OnDestroy() {
@@ -79,7 +86,7 @@ public class MainGame : MonoBehaviour {
         //after all is set, start polling from server for changes
         GameCore.MyID = PlayerIndex;
         InvokeRepeating("Poll", 1, 1f);
-        OverlayControl.Instance.ToggleLoading(false);
+        //OverlayControl.Instance.ToggleLoading(false);
         if (VUFORIA)
         {
             vuforiaWrapper.Init();

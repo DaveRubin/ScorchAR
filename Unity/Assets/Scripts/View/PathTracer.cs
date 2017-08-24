@@ -12,6 +12,7 @@ namespace View {
         private Vector3[] positions;
         private LineRenderer lineRenderer;
         private Material lineRendererMaterial;
+        Tween lineRendererLoop;
 
         public bool visible = false;
 
@@ -28,6 +29,10 @@ namespace View {
                 positions[i] = Vector3.zero;
             }
             InitLineRenderer();
+        }
+
+        void OnDestroy() {
+            lineRendererLoop.Kill();
         }
 
         public void SetVisible(bool visible) {
@@ -50,7 +55,7 @@ namespace View {
 
         public void InitLineRenderer() {
             lineRenderer.material = Resources.Load("Materials/ProjectilePatheMaterial") as Material;
-            DOVirtual.Float(1,0,0.5f,val=>{
+            lineRendererLoop = DOVirtual.Float(1,0,0.5f,val=>{
                 lineRenderer.material.mainTextureOffset = new Vector2(val,0);
             }).SetEase(Ease.Linear).SetLoops(-1);
             lineRenderer.useWorldSpace = false;
