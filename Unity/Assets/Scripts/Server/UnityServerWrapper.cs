@@ -44,17 +44,15 @@ namespace Server
                     url, 
                     www =>
                         {
-                            List<GameInfo> list = new List<GameInfo>();
                             if (www.error == null)
                             {
-                                list = JsonConvert.DeserializeObject<List<GameInfo>>(www.text);
+                                List<GameInfo> list = JsonConvert.DeserializeObject<List<GameInfo>>(www.text);
+                                onDoneCallback(list);
                             }
                             else
                             {
                                 Debug.LogFormat("Error loading games {0}", www.error);
                             }
-
-                            onDoneCallback(list);
                         }));
         }
 
@@ -125,14 +123,6 @@ namespace Server
                     postData));
         }
 
-        public GameInfo GetGame(string id)
-        {
-            return null;
-
-            // RestRequest request = new RestRequest(ServerRoutes.GetGameApiUrl.Replace("{id}", id), Method.GET);
-            // return client.Execute<GameInfo>(request).Data;
-        }
-
         public void UpdatePlayerState(string gameId, PlayerState playerState, Action<List<PlayerState>> onDoneCallback)
         {
             Debug.Log("get player state " + ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", gameId));
@@ -184,10 +174,56 @@ namespace Server
                     postData));
         }
 
-        public void RemovePlayerFromGame(string gameId, int playerIndex)
+        public void CreateUser(string name, Action<PlayerInfo> onDoneCallback)
         {
-            // RestRequest request = new RestRequest(ServerRoutes.SetPlayerInActiveUrl.Replace("{id}", gameId).Replace("{index}",playerIndex.ToString()), Method.PUT);
-            // client.Execute(request);
+            string urlHash = ServerRoutes.CreateUserUrl;
+            Debug.Log("creating User " + urlHash);
+            string url = GetURL(urlHash);
+            string json = JsonConvert.SerializeObject(name);
+            byte[] postData = System.Text.Encoding.ASCII.GetBytes(json.ToCharArray());
+            StartCoroutine(
+                PostCoroutine(
+                    url,
+                    www =>
+                    {
+                        if (www.error == null)
+                        {
+                            Debug.LogFormat("Got {0}", www.text);
+                            JsonConvert.DeserializeObject<GameInfo>(www.text);
+                            onDoneCallback(JsonConvert.DeserializeObject<PlayerInfo>(www.text));
+                        }
+                        else
+                        {
+                            Debug.LogError("Error createting user");
+                        }
+                    },
+                    postData));
+        }
+
+        public void UpdateUser(PlayerInfo playerInfo, Action<PlayerInfo> onDoneCallback)
+        {
+            string urlHash = ServerRoutes.UpdateUserNameUrl;
+            Debug.Log("Updateing User Name " + urlHash);
+            string url = GetURL(urlHash);
+            string json = JsonConvert.SerializeObject(playerInfo);
+            byte[] postData = System.Text.Encoding.ASCII.GetBytes(json.ToCharArray());
+            StartCoroutine(
+                PostCoroutine(
+                    url,
+                    www =>
+                    {
+                        if (www.error == null)
+                        {
+                            Debug.LogFormat("Got {0}", www.text);
+                            JsonConvert.DeserializeObject<GameInfo>(www.text);
+                            onDoneCallback(JsonConvert.DeserializeObject<PlayerInfo>(www.text));
+                        }
+                        else
+                        {
+                            Debug.LogError("Error createting user");
+                        }
+                    },
+                    postData));
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
