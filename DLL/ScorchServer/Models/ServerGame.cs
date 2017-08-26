@@ -12,6 +12,7 @@ namespace ScorchServer.Models
     {
 
         public List<ServerPlayerState> PlayerStates { get; set; }
+        public DateTime LastUpdateTime { get; set; }
 
         public ServerGame(GameInfo gameInfo)
         {
@@ -23,6 +24,7 @@ namespace ScorchServer.Models
             {
                 PlayerStates.Add( new ServerPlayerState());
             }
+            LastUpdateTime = DateTime.Now;
         }
 
         public void Update(GameInfo gameInfo)
@@ -31,6 +33,7 @@ namespace ScorchServer.Models
             Name = gameInfo.Name;
             MaxPlayers = gameInfo.MaxPlayers;
             Players = gameInfo.Players;
+            LastUpdateTime = DateTime.Now;
         }
     }
 }

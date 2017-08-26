@@ -1,10 +1,14 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 using ScorchEngine.Models;
+
 using ScorchServer.Models;
 
 namespace ScorchServer.Db
 {
+    using System;
+    using System.Linq;
+
     public class GamesRepository : IGamesRepository
     {
         private Dictionary<string, ServerGame> games = GamesContext.Instance;
@@ -59,6 +63,21 @@ namespace ScorchServer.Db
             lock (gamesLock)
             {
                 games = GamesContext.Reset();
+            }
+        }
+
+        public void Cleanup()
+        {
+            lock (gamesLock)
+            {
+                List<string> gamesNames = games.Keys.ToList();
+                foreach (string name in gamesNames)
+                {
+                    if (games[name].LastUpdateTime < DateTime.Now.AddMinutes(-2))
+                    {
+                        games.Remove(name);
+                    }   
+                }
             }
         }
     }

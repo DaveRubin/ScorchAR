@@ -19,12 +19,12 @@ namespace ScorchServer.Controllers
     {
         private readonly UserRepository userRepository = new UserRepository();
 
-        private static int gameIdSequence = 1;
         private readonly object createLockObject = new object();
+
 
         [Route(ServerRoutes.CreateUserUrl)]
         [HttpPost]
-        public PlayerInfo CreateUer(string name)
+        public PlayerInfo CreateUer([FromBody] string name)
         {
             PlayerInfo newUser;
             lock (createLockObject)
@@ -37,34 +37,12 @@ namespace ScorchServer.Controllers
             return newUser;
         }
 
-        /*  // GET: api/User
-          public IEnumerable<User> Get()
-          {
-             // return userRepository.Users.AsQueryable().ToEnumerable();
-          }*/
-
-        // GET: api/User/dfsafds
-        public PlayerInfo Get(string i_Id)
+        [Route(ServerRoutes.UpdateUserNameUrl)]
+        [HttpPost]
+        public PlayerInfo UpdateUserName([FromBody] PlayerInfo playerInfo)
         {
-            return userRepository.Find(i_Id);
-        }
-
-        // POST: api/User
-        public void Post([FromBody] PlayerInfo i_User)
-        {
-            userRepository.Insert(i_User);
-        }
-
-        // PUT: api/User/5
-        public void Put(string i_Id, [FromBody] PlayerInfo i_User)
-        {
-            userRepository.Update(i_User);
-        }
-
-        // DELETE: api/User/5
-        public void Delete(string i_Id)
-        {
-            userRepository.Delete(i_Id);
+            userRepository.Update(playerInfo);
+            return playerInfo;
         }
     }
 }
