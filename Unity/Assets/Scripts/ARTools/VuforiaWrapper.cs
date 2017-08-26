@@ -18,7 +18,7 @@ public class VuforiaWrapper : ITrackableEventHandler{
     public void OnTrackableStateChanged(TrackableBehaviour.Status previousStatus, TrackableBehaviour.Status newStatus) {
         Debug.LogFormat("Going from {0} -> {1}",previousStatus,newStatus);
         if (onStatusChange != null) {
-            onStatusChange(newStatus == TrackableBehaviour.Status.DETECTED);
+            onStatusChange(newStatus == TrackableBehaviour.Status.DETECTED ||newStatus == TrackableBehaviour.Status.TRACKED);
         }
     }
 }

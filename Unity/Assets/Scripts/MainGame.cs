@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using ScorchEngine;
 using ScorchEngine.Config;
 using ScorchEngine.Models;
@@ -12,7 +13,7 @@ using Utils;
 public class MainGame : MonoBehaviour {
 
     private bool OFFLINE_MODE = false;
-    private bool VUFORIA = false;
+    private bool VUFORIA = true;
 
     private TankControl MyTank {
         get {
@@ -24,10 +25,13 @@ public class MainGame : MonoBehaviour {
     public static ScorchEngine.Game GameCore;
     public static string gameID;
     private List<TankControl> tanks;
+    private List<float> tanksHeight;
     private int PlayerIndex;
     private Transform rootTransform;
     public static GameObject terrain;
+    private Terrain terrainComp;
     private VuforiaWrapper vuforiaWrapper;
+    private Tween terrainTween;
 
     public static GameObject GetTerrain()
     {
@@ -96,6 +100,16 @@ public class MainGame : MonoBehaviour {
         }
     }
 
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.A)) {
+            OnTrackerDetection(true);
+        }
+        if (Input.GetKeyDown(KeyCode.Z)) {
+            OnTrackerDetection(false);
+        }
+
+    }
+
     private void Poll() {
         PlayerState pState = new PlayerState();
         pState.Id = PlayerIndex;
@@ -121,8 +135,9 @@ public class MainGame : MonoBehaviour {
         tanksRoot.SetParent(rootTransform);
         tanksRoot.localPosition = Vector3.zero;
 
-
         tanks = new List<TankControl>();
+        tanksHeight  = new List<float>();
+
         //Add players in game,
         //for each player create a tank, and initialize
         List<Player> players = new List<Player>() {
@@ -143,13 +158,15 @@ public class MainGame : MonoBehaviour {
             int x = i==0? 50:30;
             int y = i==0? 50:20;
             tankGO.onKill += onTankKilled;
-            float height = terrain.GetComponentInChildren<Terrain>().SampleHeight(new Vector3(x,0,y));
+            terrainComp = terrain.GetComponentInChildren<Terrain>();
+            float height = terrainComp.SampleHeight(new Vector3(x,0,y));
             tankGO.transform.localPosition = new Vector3(x,height,y);
             tankGO.transform.localScale = Vector3.one*0.5f;
 
             tankGO.SetPlayer(player);
 
             tanks.Add(tankGO);
+            tanksHeight.Add(tankGO.transform.localPosition.y);
         }
 
         Debug.Log(tanks.Count);
@@ -202,6 +219,8 @@ public class MainGame : MonoBehaviour {
     }
 
     public void OnTrackerDetection(bool detected) {
+        Debug.Log(detected);
+        ToggleMapHeight(detected);
         Gui.ToggleTrackerDetection(detected);
     }
 
@@ -209,6 +228,33 @@ public class MainGame : MonoBehaviour {
         Gui.ShowEndGame(tank != MyTank).AddListener(()=> {
             SceneManager.LoadScene("Menus");
         });
+    }
+
+    public void ToggleMapHeight(bool show) {
+
+        if (terrainTween != null)
+            terrainTween.Kill();
+
+        float duration = 0.6f;
+        float from = show?0:60;
+        float to = show?60:0;
+        if (show) terrainComp.gameObject.SetActive(true);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Insert(0,DOVirtual.Float(from,to,duration,val=> {
+            terrainComp.terrainData.size = new Vector3(64, val, 64);
+        }));
+        sequence.InsertCallback(duration,()=> {
+            if (!show)  terrainComp.gameObject.SetActive(false);
+        });
+
+        for (int i = 0; i < tanks.Count; i++) {
+            TankControl tank = tanks[i];
+            sequence.Insert(0,tank.transform.DOLocalMoveY(show?tanksHeight[i]:200,duration));
+        }
+
+        terrainTween = sequence;
+
+
     }
 
 }

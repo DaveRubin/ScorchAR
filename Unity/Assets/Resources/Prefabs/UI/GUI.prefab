@@ -2076,7 +2076,7 @@ MonoBehaviour:
   m_Text: 'TRACKER NOT DETECTED
 
 
-    Point device to game tracker'
+    Point device to game board'
 --- !u!222 &222013352373425862
 CanvasRenderer:
   m_ObjectHideFlags: 1
