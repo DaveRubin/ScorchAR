@@ -141,6 +141,7 @@ public class MainGame : MonoBehaviour {
 
             int x = i==0? 50:30;
             int y = i==0? 50:20;
+            tankGO.onKill += onTankKilled;
             float height = terrain.GetComponentInChildren<Terrain>().SampleHeight(new Vector3(x,0,y));
             tankGO.transform.localPosition = new Vector3(x,height,y);
             tankGO.transform.localScale = Vector3.one*0.5f;
@@ -201,6 +202,12 @@ public class MainGame : MonoBehaviour {
 
     public void OnTrackerDetection(bool detected) {
         Gui.ToggleTrackerDetection(detected);
+    }
+
+    public void onTankKilled(TankControl tank) {
+        Gui.ShowEndGame(tank != MyTank).AddListener(()=> {
+            SceneManager.LoadScene("Menus");
+        });
     }
 
 }

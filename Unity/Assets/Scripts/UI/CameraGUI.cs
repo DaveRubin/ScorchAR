@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI {
@@ -46,6 +47,8 @@ namespace UI {
         private ExtendedButton showPathButton;
         private Tween errorToggleTween;
 
+        private CanvasGroup endGameScreen;
+
 
         void Awake() {
             GetRelevantComponents();
@@ -63,8 +66,19 @@ namespace UI {
         private void GetRelevantComponents() {
             controls = transform.Find("Controls").GetComponent<CanvasGroup>();
             errorOverlay = transform.Find("ErrorOvelay").GetComponent<CanvasGroup>();
+            endGameScreen = transform.Find("EndGameScreen").GetComponent<CanvasGroup>();
+            endGameScreen.alpha = 0;
+            endGameScreen.gameObject.SetActive(false);
             GetControlComponents();
             DispatchInitValues();
+        }
+
+        public Button.ButtonClickedEvent ShowEndGame(bool won) {
+            endGameScreen.gameObject.SetActive(true);
+            endGameScreen.DOFade(1,1);
+            string text = won? "YOU WON":  "YOU LOST";
+            endGameScreen.transform.Find("Panel/Result").GetComponent<Text>().text = text;
+            return endGameScreen.GetComponentInChildren<Button>().onClick;
         }
 
         public void GetControlComponents() {

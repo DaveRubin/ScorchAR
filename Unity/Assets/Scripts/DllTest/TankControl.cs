@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using DllTest;
 using ScorchEngine;
 using ScorchEngine.Items;
@@ -9,6 +10,7 @@ using View;
 
 public class TankControl : MonoBehaviour {
 
+    public Action<TankControl> onKill;
     public bool Local{get;private set;}
     public Player PlayerStats;
     public float force;
@@ -230,6 +232,8 @@ public class TankControl : MonoBehaviour {
         fire.transform.position = transform.position;
         GameObject.Destroy(gameObject);
         DOVirtual.DelayedCall(2,()=>GameObject.Destroy(fire));
+        if (onKill != null )
+            onKill(this);
     }
 
     public void OnGuiShoot() {
