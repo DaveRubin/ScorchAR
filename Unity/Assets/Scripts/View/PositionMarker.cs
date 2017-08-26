@@ -7,12 +7,15 @@ namespace View {
         Tween motionTween = null;
         private Vector3 initialLocalPosition = Vector3.zero;
 
+        public bool isEnabled = false;
+
         void Awake() {
             initialLocalPosition = transform.localPosition;
             gameObject.SetActive(false);
         }
 
         public void Enable() {
+            isEnabled = true;
             ResetPosition();
             gameObject.SetActive(true);
             motionTween = transform.DOMoveY(initialLocalPosition.y - 1,0.5f).SetLoops(-1,LoopType.Yoyo);

@@ -7,7 +7,6 @@ using UI;
 using UnityEngine;
 using Utils;
 using View;
-using Vuforia;
 
 public class TankControl : MonoBehaviour {
 
@@ -75,9 +74,22 @@ public class TankControl : MonoBehaviour {
             ProjectilePath.SetPath(GetForceVector());
             updatePathDirtyFlag = false;
         }
+
         if (updatePlayer != null) {
             UpdatePlayer(updatePlayer);
             updatePlayer = null;
+        }
+
+        //check distance from camera
+        if (positionMarker.isEnabled) {
+            bool isShown = Vector3.Distance(transform.position ,Camera.main.transform.position) > 30;
+            if (isShown != positionMarker.gameObject.activeSelf) {
+                Debug.LogError("!!!!!");
+                positionMarker.gameObject.SetActive(isShown);
+            }
+            else {
+                Debug.LogError(isShown);
+            }
         }
     }
 

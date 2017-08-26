@@ -12,7 +12,7 @@ using Utils;
 
 public class MainGame : MonoBehaviour {
 
-    private bool OFFLINE_MODE = false;
+    private bool OFFLINE_MODE = true;
     private bool VUFORIA = true;
 
     private TankControl MyTank {
@@ -149,6 +149,9 @@ public class MainGame : MonoBehaviour {
             GameCore.AddPlayer(player);
         }
 
+        terrainComp = terrain.GetComponentInChildren<Terrain>();
+        terrainComp.terrainData.size = new Vector3(64, 60, 64);
+
         for (int i = 0; i < players.Count; i++) {
             Player player = players[i];
             TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
@@ -158,7 +161,6 @@ public class MainGame : MonoBehaviour {
             int x = i==0? 50:30;
             int y = i==0? 50:20;
             tankGO.onKill += onTankKilled;
-            terrainComp = terrain.GetComponentInChildren<Terrain>();
             float height = terrainComp.SampleHeight(new Vector3(x,0,y));
             tankGO.transform.localPosition = new Vector3(x,height,y);
             tankGO.transform.localScale = Vector3.one*0.5f;
@@ -166,7 +168,7 @@ public class MainGame : MonoBehaviour {
             tankGO.SetPlayer(player);
 
             tanks.Add(tankGO);
-            tanksHeight.Add(tankGO.transform.localPosition.y);
+            tanksHeight.Add(height);
         }
 
         Debug.Log(tanks.Count);
@@ -238,6 +240,7 @@ public class MainGame : MonoBehaviour {
         float duration = 0.6f;
         float from = show?0:60;
         float to = show?60:0;
+
         if (show) terrainComp.gameObject.SetActive(true);
         Sequence sequence = DOTween.Sequence();
         sequence.Insert(0,DOVirtual.Float(from,to,duration,val=> {
