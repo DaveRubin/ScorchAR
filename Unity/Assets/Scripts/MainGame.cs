@@ -108,6 +108,7 @@ public class MainGame : MonoBehaviour {
         UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, GameCore.OnPollResult);
        // GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
         MyTank.PlayerStats.ControlledTank.IsReady = false;
+        Gui.SetLocked(false);
     }
 
     /// <summary>

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 namespace UI {
     public class CameraGUI :MonoBehaviour {
 
+        private bool locked = false;
         public event Action OnShootClicked;
         public event Action<float> OnXAngleChange;
         public event Action<float> OnYAngleChange;
@@ -51,6 +52,7 @@ namespace UI {
 
 
         void Awake() {
+            locked = false;
             GetRelevantComponents();
             RegisterEvents();
             UpdateTexts();
@@ -58,6 +60,11 @@ namespace UI {
 
         void Start() {
             DispatchInitValues();
+        }
+
+        public void SetLocked(bool isLocked) {
+            locked = isLocked;
+            controls.blocksRaycasts = !isLocked;
         }
 
         /// <summary>

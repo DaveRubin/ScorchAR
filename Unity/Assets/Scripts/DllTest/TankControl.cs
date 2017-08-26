@@ -7,6 +7,7 @@ using UI;
 using UnityEngine;
 using Utils;
 using View;
+using Vuforia;
 
 public class TankControl : MonoBehaviour {
 
@@ -27,6 +28,7 @@ public class TankControl : MonoBehaviour {
     private Transform BarrelsEnd;
 
     private Player updatePlayer = null;
+    private CameraGUI gui;
 
     void Awake() {
         body = transform;
@@ -85,6 +87,7 @@ public class TankControl : MonoBehaviour {
     /// <param name="Gui"></param>
     public void LinkToGUI(CameraGUI Gui) {
         Local = true;
+        gui = Gui;
         positionMarker.Enable();
         PlayerStats.OnUpdate -= OnPLayerUpdate;
         Gui.OnForceChange += onForceChange;
@@ -237,7 +240,9 @@ public class TankControl : MonoBehaviour {
     }
 
     public void OnGuiShoot() {
+        Debug.LogWarning("OnGuiShoot");
         PlayerStats.ControlledTank.IsReady = true;
+        gui.SetLocked(true);
         Shoot();
     }
 
