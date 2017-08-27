@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using DG.Tweening;
-using Extensions;
 using ScorchEngine;
 using ScorchEngine.Config;
 using ScorchEngine.Models;
 using ScorchEngine.Server;
+using Server;
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 
 public class MainGame : MonoBehaviour {
 
-    private const bool OFFLINE_MODE = true;
+    private bool OFFLINE_MODE = false;
+    private bool VUFORIA = true;
 
     private TankControl MyTank {
         get {
@@ -21,10 +23,15 @@ public class MainGame : MonoBehaviour {
 
     public CameraGUI Gui;
     public static ScorchEngine.Game GameCore;
+    public static string gameID;
     private List<TankControl> tanks;
+    private List<float> tanksHeight;
     private int PlayerIndex;
     private Transform rootTransform;
     public static GameObject terrain;
+    private Terrain terrainComp;
+    private VuforiaWrapper vuforiaWrapper;
+    private Tween terrainTween;
 
     public static GameObject GetTerrain()
     {
@@ -32,10 +39,17 @@ public class MainGame : MonoBehaviour {
     }
 
     void Awake() {
+        if (SceneManager.GetActiveScene().name == "DLLTest") {
+            OFFLINE_MODE = true;
+        }
+        Application.targetFrameRate = 60;
         PrefabManager.Init();
         rootTransform = new GameObject().transform;
         rootTransform.gameObject.name = "Root";
-        rootTransform.localPosition = Vector3.zero;
+        //rootTransform.position = new Vector3(-25,0,-25);
+        rootTransform.position = Vector3.zero;
+        vuforiaWrapper = new VuforiaWrapper();
+        vuforiaWrapper.onStatusChange += OnTrackerDetection;
 
         if (OFFLINE_MODE) {
             MainUser.Instance.Name = "Test";
@@ -45,9 +59,19 @@ public class MainGame : MonoBehaviour {
                 Name = "GAME"
             };
             Game.OFFLINE = true;
+            PostLogin(MainUser.Instance.Index);
+        }
+        else {
+            gameID = MainUser.Instance.CurrentGame.Id;
+            PostLogin(MainUser.Instance.Index);
         }
 
-        PostLogin(MainUser.Instance.Index);
+    }
+
+    void OnDestroy() {
+        UnityServerWrapper.Instance.RemovePlayerFromGame(gameID,PlayerIndex,()=> {
+            Debug.LogError("Exiting");
+        });
     }
 
     /// <summary>
@@ -61,11 +85,29 @@ public class MainGame : MonoBehaviour {
         CreateTerrain();
         InitializePlayers();
         //CreateMockTerrain();
-
         InitializeGUI();
 
         //after all is set, start polling from server for changes
-        InvokeRepeating("Poll", 1, 0.5f);
+        GameCore.MyID = PlayerIndex;
+        InvokeRepeating("Poll", 1, 1f);
+        //OverlayControl.Instance.ToggleLoading(false);
+        if (VUFORIA)
+        {
+            vuforiaWrapper.Init();
+        }
+        else {
+            Gui.DisableErrors();
+        }
+    }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.A)) {
+            OnTrackerDetection(true);
+        }
+        if (Input.GetKeyDown(KeyCode.Z)) {
+            OnTrackerDetection(false);
+        }
+
     }
 
     private void Poll() {
@@ -75,10 +117,12 @@ public class MainGame : MonoBehaviour {
         pState.Force = MyTank.PlayerStats.ControlledTank.Force;
         pState.AngleVertical= MyTank.PlayerStats.ControlledTank.AngleVertical;
         pState.IsReady = MyTank.PlayerStats.ControlledTank.IsReady;
-        MyTank.PlayerStats.ControlledTank.IsReady = false;
         //Debug.LogFormat(pState.ToString());
         if (OFFLINE_MODE) return;
-        GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
+        UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, GameCore.OnPollResult);
+       // GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
+        MyTank.PlayerStats.ControlledTank.IsReady = false;
+        Gui.SetLocked(false);
     }
 
     /// <summary>
@@ -91,8 +135,9 @@ public class MainGame : MonoBehaviour {
         tanksRoot.SetParent(rootTransform);
         tanksRoot.localPosition = Vector3.zero;
 
-
         tanks = new List<TankControl>();
+        tanksHeight  = new List<float>();
+
         //Add players in game,
         //for each player create a tank, and initialize
         List<Player> players = new List<Player>() {
@@ -104,45 +149,32 @@ public class MainGame : MonoBehaviour {
             GameCore.AddPlayer(player);
         }
 
-        foreach (Player player in players) {
+        terrainComp = terrain.GetComponentInChildren<Terrain>();
+        terrainComp.terrainData.size = new Vector3(64, 60, 64);
+
+        for (int i = 0; i < players.Count; i++) {
+            Player player = players[i];
             TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
             tankGO.transform.SetParent(tanksRoot);
             //tankGO.transform.localPosition = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
-            int x = 50;
-            int y = 50;
-            float height = terrain.GetComponentInChildren<Terrain>().SampleHeight(new Vector3(x,0,y));
+
+            int x = i==0? 50:30;
+            int y = i==0? 50:20;
+            tankGO.onKill += onTankKilled;
+            float height = terrainComp.SampleHeight(new Vector3(x,0,y));
             tankGO.transform.localPosition = new Vector3(x,height,y);
-            tankGO.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
+            tankGO.transform.localScale = Vector3.one*0.5f;
 
             tankGO.SetPlayer(player);
 
             tanks.Add(tankGO);
+            tanksHeight.Add(height);
         }
 
-        Debug.Log(tanks);
+        Debug.Log(tanks.Count);
 
 //tank = GameObject.Find("Tank").GetComponent<TankControl>();
 //tank.SetPlayer(GameCore.self);
-    }
-
-    /// <summary>
-    /// Create mock terrain
-    /// TODO - should be replaced with Amitai's terrain object which will derive its topology from the game object
-    /// </summary>
-    public void CreateMockTerrain() {
-
-        Transform terrainRoot= new GameObject().transform;
-        terrainRoot.gameObject.name = "Terrain";
-        terrainRoot.SetParent(rootTransform);
-        terrainRoot.localPosition = Vector3.zero;
-
-        for (int x = 0; x < GameCore.Terrain.SizeX; x++) {
-            for (int z = 0; z < GameCore.Terrain.SizeZ; z++) {
-                GameObject go = PrefabManager.InstantiatePrefab("Cube");
-                go.transform.SetParent(terrainRoot);
-                go.transform.localPosition = new Vector3(x, 0, z);
-            }
-        }
     }
 
     /// <summary>
@@ -152,12 +184,12 @@ public class MainGame : MonoBehaviour {
     public void CreateTerrain() {
 
         Transform terrainRoot= new GameObject().transform;
-        terrainRoot.gameObject.name = "Terrain";
-        terrainRoot.SetParent(rootTransform);
-        terrainRoot.localPosition = Vector3.zero;
 
         terrain = PrefabManager.InstantiatePrefab("Terrain");
         terrain.transform.SetParent(terrainRoot);
+        terrainRoot.gameObject.name = "Terrain";
+        terrainRoot.SetParent(rootTransform);
+        terrainRoot.localPosition = Vector3.zero;
     }
 
     /// <summary>
@@ -179,12 +211,53 @@ public class MainGame : MonoBehaviour {
     /// </summary>
     public void InitializeGUI() {
         Gui = GameObject.Find("GUI").GetComponent<CameraGUI>();
+        Debug.LogFormat("Player index {0}",PlayerIndex);
         TankControl tc = tanks[PlayerIndex];
         tc.LinkToGUI(Gui);
     }
 
     public void OnTurnStarted(int playerIndex) {
         Debug.LogFormat("Player #{0} turn ", playerIndex);
+    }
+
+    public void OnTrackerDetection(bool detected) {
+        Debug.Log(detected);
+        ToggleMapHeight(detected);
+        Gui.ToggleTrackerDetection(detected);
+    }
+
+    public void onTankKilled(TankControl tank) {
+        Gui.ShowEndGame(tank != MyTank).AddListener(()=> {
+            SceneManager.LoadScene("Menus");
+        });
+    }
+
+    public void ToggleMapHeight(bool show) {
+
+        if (terrainTween != null)
+            terrainTween.Kill();
+
+        float duration = 0.6f;
+        float from = show?0:60;
+        float to = show?60:0;
+
+        if (show) terrainComp.gameObject.SetActive(true);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Insert(0,DOVirtual.Float(from,to,duration,val=> {
+            terrainComp.terrainData.size = new Vector3(64, val, 64);
+        }));
+        sequence.InsertCallback(duration,()=> {
+            if (!show)  terrainComp.gameObject.SetActive(false);
+        });
+
+        for (int i = 0; i < tanks.Count; i++) {
+            TankControl tank = tanks[i];
+            sequence.Insert(0,tank.transform.DOLocalMoveY(show?tanksHeight[i]:200,duration));
+        }
+
+        terrainTween = sequence;
+
+
     }
 
 }

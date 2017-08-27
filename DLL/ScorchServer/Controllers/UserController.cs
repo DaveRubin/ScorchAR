@@ -9,42 +9,40 @@ namespace ScorchServer.Controllers
 {
     using MongoDB.Driver;
 
+    using ScorchEngine.Models;
+    using ScorchEngine.Server;
+
     using ScorchServer.Db;
     using ScorchServer.Models;
 
     public class UserController : ApiController
     {
-        private readonly UserRepository r_UserRepository = new UserRepository();
+        private readonly UserRepository userRepository = new UserRepository();
+
+        private readonly object createLockObject = new object();
 
 
-      /*  // GET: api/User
-        public IEnumerable<User> Get()
+        [Route(ServerRoutes.CreateUserUrl)]
+        [HttpPost]
+        public PlayerInfo CreateUer([FromBody] string name)
         {
-           // return r_UserRepository.Users.AsQueryable().ToEnumerable();
-        }*/
+            PlayerInfo newUser;
+            lock (createLockObject)
+            {
+                string id = userRepository.GetNumberOfUsers().ToString();
+                newUser = new PlayerInfo() { Id = id, Name = name };
+                userRepository.Insert(newUser);
+            }
 
-        // GET: api/User/dfsafds
-        public User Get(string i_Id)
-        {
-            return r_UserRepository.Find(i_Id);
+            return newUser;
         }
 
-        // POST: api/User
-        public void Post([FromBody] User i_User)
+        [Route(ServerRoutes.UpdateUserNameUrl)]
+        [HttpPost]
+        public PlayerInfo UpdateUserName([FromBody] PlayerInfo playerInfo)
         {
-            r_UserRepository.Insert(i_User);
-        }
-
-        // PUT: api/User/5
-        public void Put(string i_Id, [FromBody] User i_User)
-        {
-            r_UserRepository.Update(i_User);
-        }
-
-        // DELETE: api/User/5
-        public void Delete(string i_Id)
-        {
-            r_UserRepository.Delete(i_Id);
+            userRepository.Update(playerInfo);
+            return playerInfo;
         }
     }
 }

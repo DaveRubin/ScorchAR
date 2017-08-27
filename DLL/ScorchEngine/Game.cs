@@ -30,6 +30,7 @@ namespace ScorchEngine
         private Terrain m_terrain;
         private Coordinate m_environmentForces;
         private Timer m_turnTimer;
+        public int MyID { get; set; }
 
         private Coordinate currentTankPosition = new Coordinate();// ONLY FOR DEBUG !
 
@@ -86,12 +87,12 @@ namespace ScorchEngine
 
         public void Poll(string gameID,PlayerState myState)
         {
-             ServerWrapper.GetState(gameID,myState,OnPollResult);
+            MyID = myState.Id;
+            ServerWrapper.GetState(gameID,myState,OnPollResult);
         }
 
-        private void OnPollResult(List<PlayerState> list)
+        public void OnPollResult(List<PlayerState> list)
         {
-
             ProcessPoll(list);
             OnStateUpdate?.Invoke(list);
         }
@@ -103,8 +104,7 @@ namespace ScorchEngine
 
             foreach (PlayerState state in updatesList)
             {
-                Log(state.ToString());
-                m_players[state.Id].Process(state);
+                if (state.Id != MyID) m_players[state.Id].Process(state);
             }
         }
 

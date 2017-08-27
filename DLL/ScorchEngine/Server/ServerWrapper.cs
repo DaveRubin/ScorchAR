@@ -45,8 +45,18 @@ namespace ScorchEngine.Server
         /// </summary>
         /// <param name="i_CallBack"></param>
         public static void GetGames(Action<List<GameInfo>> i_CallBack) {
-            i_CallBack(client.GetGames());
+            client.GetGames(i_CallBack);
         }
 
+
+        public static void RemovePlayerFromGame(string gameId, int playerIndex)
+        {
+            client.RemovePlayerFromGame(gameId,playerIndex);
+        }
+
+        public static void ResetGames()
+        {
+            client.ResetGames();
+        }
     }
 }

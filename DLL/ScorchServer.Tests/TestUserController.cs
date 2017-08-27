@@ -7,28 +7,24 @@ namespace ScorchServer.Tests
     using System.Linq;
     using System.Net.Http;
 
+    using ScorchEngine.Models;
+
     using ScorchServer.Controllers;
     using ScorchServer.Models;
 
     [TestClass]
     public class TestUserController
     {
-        private UserController m_Controller = new UserController();
-        private User m_TestUser = new User("AAAA") { FirstName = "Dushi", LastName = "Ben-Dushon" };
-        private User m_ResultUser;
-        /* [TestMethod]
+        private UserController controller = new UserController();
+        private PlayerInfo testUser = new PlayerInfo() {Id="0",Name = "Dummy User"};
+        private PlayerInfo resultUser;
+        [TestMethod]
          public void ControllerTest()
          {
 
-             m_Controller.Post(m_TestUser);
-             m_ResultUser = m_Controller.Get(m_TestUser.Id);
-             Assert.AreEqual(m_TestUser,m_ResultUser);
-             m_TestUser.Money = 2000;
-             m_Controller.Put(m_TestUser.Id,m_TestUser);
-             m_ResultUser = m_Controller.Get(m_TestUser.Id);
-             Assert.AreEqual(m_TestUser, m_ResultUser);
-             m_Controller.Delete(m_TestUser.Id);
-             Assert.AreEqual(0, m_Controller.Get().Count());
-         }*/
+            //controller.Post(testUser);
+            //resultUser = controller.Get(testUser.Id);
+            //Debug.WriteLine(resultUser);
+         }
     }
 }

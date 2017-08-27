@@ -1,10 +1,13 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI {
     public class CameraGUI :MonoBehaviour {
 
+        private bool locked = false;
         public event Action OnShootClicked;
         public event Action<float> OnXAngleChange;
         public event Action<float> OnYAngleChange;
@@ -30,20 +33,26 @@ namespace UI {
             }
         }
 
+        CanvasGroup controls;
+        CanvasGroup errorOverlay;
+
         private Text textY;
         private Text textX;
         private Text textForce;
 
         private Scroller sliderY;
-        //private Slider sliderX;
         private Scroller sliderX;
         private Scroller sliderForce;
 
         private Button fireButton;
         private ExtendedButton showPathButton;
+        private Tween errorToggleTween;
+
+        private CanvasGroup endGameScreen;
 
 
         void Awake() {
+            locked = false;
             GetRelevantComponents();
             RegisterEvents();
             UpdateTexts();
@@ -53,31 +62,50 @@ namespace UI {
             DispatchInitValues();
         }
 
+        public void SetLocked(bool isLocked) {
+            locked = isLocked;
+            controls.blocksRaycasts = !isLocked;
+        }
+
         /// <summary>
         /// Get components from children
         /// </summary>
         private void GetRelevantComponents() {
-            fireButton = transform.Find("FireButton").GetComponent<Button>();
-            showPathButton = transform.Find("ShowPathButton").GetComponent<ExtendedButton>();
-//            sliderForce = transform.Find("SliderForce").GetComponent<Slider>();
-            sliderForce = transform.Find("ScrollerForce").GetComponent<Scroller>();
-//            sliderX = transform.Find("SliderX").GetComponent<Slider>();
-            sliderX = transform.Find("ScrollerX").GetComponent<Scroller>();
-            sliderY = transform.Find("ScrollerY").GetComponent<Scroller>();
-//            sliderY = transform.Find("SliderY").GetComponent<Slider>();
-            textY = transform.Find("AnglesY").GetComponent<Text>();
-            textX = transform.Find("AnglesX").GetComponent<Text>();
-            textForce = transform.Find("Force").GetComponent<Text>();
+            controls = transform.Find("Controls").GetComponent<CanvasGroup>();
+            errorOverlay = transform.Find("ErrorOvelay").GetComponent<CanvasGroup>();
+            endGameScreen = transform.Find("EndGameScreen").GetComponent<CanvasGroup>();
+            endGameScreen.alpha = 0;
+            endGameScreen.gameObject.SetActive(false);
+            GetControlComponents();
             DispatchInitValues();
+        }
+
+        public Button.ButtonClickedEvent ShowEndGame(bool won) {
+            endGameScreen.gameObject.SetActive(true);
+            endGameScreen.DOFade(1,1);
+            string text = won? "YOU WON":  "YOU LOST";
+            endGameScreen.transform.Find("Panel/Result").GetComponent<Text>().text = text;
+            return endGameScreen.GetComponentInChildren<Button>().onClick;
+        }
+
+        public void GetControlComponents() {
+            fireButton = controls.transform.Find("FireButton").GetComponent<Button>();
+            showPathButton = controls.transform.Find("ShowPathButton").GetComponent<ExtendedButton>();
+            sliderForce = controls.transform.Find("ScrollerForce").GetComponent<Scroller>();
+            sliderX = controls.transform.Find("ScrollerX").GetComponent<Scroller>();
+            sliderY = controls.transform.Find("ScrollerY").GetComponent<Scroller>();
+            textY = controls.transform.Find("AnglesY").GetComponent<Text>();
+            textX = controls.transform.Find("AnglesX").GetComponent<Text>();
+            textForce = controls.transform.Find("Force").GetComponent<Text>();
         }
 
         /// <summary>
         /// register events to their handlers
         /// </summary>
         private void RegisterEvents() {
-            sliderForce.onValueChanged.AddListener(OnForceSliderChange);
-            sliderY.onValueChanged.AddListener(OnYChanged);
-            sliderX.onValueChanged.AddListener(OnXChanged);
+            sliderForce.onValueChanged += OnForceSliderChange;
+            sliderY.onValueChanged += OnYChanged;
+            sliderX.onValueChanged += OnXChanged;
             fireButton.onClick.AddListener(OnFireClicked);
             showPathButton.onPointerDown.AddListener(()=>TogglePath(true));
             showPathButton.onPointerUp.AddListener(()=>TogglePath(false));
@@ -127,6 +155,36 @@ namespace UI {
             if (OnXAngleChange != null) OnXAngleChange(XAngle);
             if (OnYAngleChange != null) OnYAngleChange(YAngle);
             if (OnForceChange != null) OnForceChange(Force);
+        }
+
+        public void DisableErrors() {
+            errorOverlay.gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// When tracked is undetected,show "TRACKER NOT DETECTED"
+        /// </summary>
+        /// <param name="detected"></param>
+        public void ToggleTrackerDetection(bool detected) {
+            if (errorToggleTween != null) errorToggleTween.Kill();
+
+            float fadeTime = 0.5f;
+            Sequence sequence = DOTween.Sequence();
+            if (detected) {
+                sequence.Insert(0,errorOverlay.DOFade(0,fadeTime));
+                sequence.Insert(0,controls.DOFade(1,fadeTime));
+                sequence.OnComplete(()=> {
+                    errorOverlay.gameObject.SetActive(false);
+                });
+            }
+            else {
+                errorOverlay.gameObject.SetActive(true);
+                sequence.Insert(0,errorOverlay.DOFade(1,fadeTime));
+                sequence.Insert(0,controls.DOFade(0,fadeTime));
+            }
+
+            errorToggleTween = sequence;
+
         }
 
     }

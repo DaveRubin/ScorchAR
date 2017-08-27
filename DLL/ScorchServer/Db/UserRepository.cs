@@ -8,57 +8,47 @@ namespace ScorchServer.Db
     using MongoDB.Bson;
     using MongoDB.Driver;
 
+    using ScorchEngine.Models;
+
     using ScorchServer.Models;
 
     public class UserRepository
     {
-        //private readonly IMongoDatabase r_Context = ScorchContext.Instance;
-       // public IMongoCollection<User> Users { get; }
+       private readonly IMongoDatabase r_Context = ScorchContext.Instance;
+       public IMongoCollection<PlayerInfo> Users { get; }
 
-        public  Dictionary<string, User> Users { get; }
+       // public  Dictionary<string, User> Users { get; }
 
         public UserRepository()
         {
-            Users =  new Dictionary<string, User>();// r_Context.GetCollection<User>(typeof(User).Name);
-            User user = new User("AAAA") { FirstName = "Dushi", LastName = "Ben-Dushon" };
-            Users.Add(user.Id,user);
+            Users = r_Context.GetCollection<PlayerInfo>(typeof(PlayerInfo).Name);
+
         }
 
-        public int GetNumberOfUsers()
+        public long GetNumberOfUsers()
         {
-            return Users.Count;
+            return Users.Count(new FilterDefinitionBuilder<PlayerInfo>().Empty);
         }
 
 
-        public User Find(string i_Id)
+        public PlayerInfo Find(string Id)
         {
-            //return Users.Find(user => user.Id.Equals(i_Id)).First();
-            return Users[i_Id];
+            return Users.Find(user => user.Id.Equals(Id)).First();
         }
 
-        public void Insert(User i_User)
+        public void Insert(PlayerInfo playerInfo)
         {
-            // Users.InsertOne(i_User);
-            if (!Users.ContainsKey(i_User.Id))
-            {
-                Users.Add(i_User.Id,i_User);
-            }
+             Users.InsertOne(playerInfo);
         }
 
-        public void Delete(string i_Id)
+        public void Delete(string Id)
         {
-            //  Users.DeleteOne(user => user.Id.Equals(i_Id));
-            if (Users.ContainsKey(i_Id))
-            {
-                Users.Remove(i_Id);
-            }
+            Users.DeleteOne(user => user.Id.Equals(Id));
         }
 
-        public void Update(User i_User)
+        public void Update(PlayerInfo playerInfo)
         {
-           // Users.ReplaceOne(user => user.Id.Equals(i_User.Id),i_User);
-            Users.Remove(i_User.Id);
-            Users.Add(i_User.Id,i_User);
+           Users.ReplaceOne(user => user.Id.Equals(playerInfo.Id), playerInfo);
         }
 
     }

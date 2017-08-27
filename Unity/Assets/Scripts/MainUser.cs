@@ -9,6 +9,7 @@ public class MainUser {
     //key used to save user name locally
     private const string KEY_NAME = "MAINUSERKEY";
     private const string KEY_INDEX = "MAINUSERKEY_IDX";
+    private const string KEY_ID = "MAINUSERKEY_ID";
     public static MainUser Instance;
     public GameInfo CurrentGame;
 
@@ -18,6 +19,7 @@ public class MainUser {
         if (PlayerPrefs.HasKey(KEY_NAME)) {
             Instance._name = PlayerPrefs.GetString(KEY_NAME);
             Instance._index = PlayerPrefs.GetInt(KEY_INDEX);
+            Instance._id= PlayerPrefs.GetString(KEY_ID);
         }
         else {
             Instance.Name = "UserXXX";
@@ -40,12 +42,33 @@ public class MainUser {
         Save();
     } }
 
+    private string _id;
+    public string Id { get{return _id;} set{
+        _id = value;
+        Save();
+    } }
+
+
     /// <summary>
     /// Saves info to local memory
     /// </summary>
     public void Save() {
         PlayerPrefs.SetString(KEY_NAME,_name);
         PlayerPrefs.SetInt(KEY_INDEX,_index);
+        PlayerPrefs.SetString(KEY_ID,_id);
+    }
+
+    public PlayerInfo GetPLayerInfo() {
+        PlayerInfo info = new PlayerInfo();
+        info.Name = MainUser.Instance.Name;
+        info.Id = MainUser.Instance.Id;
+        return info;
+    }
+
+    public void UpdateFromPlayerInfo(PlayerInfo playerInfo) {
+        _name = playerInfo.Name;
+        _id = playerInfo.Id;
+        Save();
     }
 
 

@@ -30,14 +30,34 @@ namespace ScorchServer.Controllers
         }
 
         [Route(ServerRoutes.UpdatePlayerStateUrl)]
-        [HttpPut]
+        [HttpPost]
         public List<PlayerState> UpdatePlayerStates(string id, [FromBody] PlayerState playerState)
         {
             ServerGame game = gamesRepository.GetGame(id);
             game.PlayerStates[playerState.Id].Update(playerState);
 
             gamesRepository.Update(game);
-            return game.PlayerStates.Cast<PlayerState>().ToList();
+            return game.PlayerStates.Select(ps=>ps).Where(ps => ps.IsActive).Cast<PlayerState>().ToList();
+
+        }
+
+        // ONLY FOR DEBUG
+        [Route(ServerRoutes.SetPlayerInActiveUrl)]
+        [HttpPost]
+        public void RemovePlayerFromGame(string id, int index)
+        {
+            ServerGame game = gamesRepository.GetGame(id);
+            game.PlayerStates[index].IsActive = false;
+
+            for(int i =0 ; i < game.PlayerStates.Count ; ++i)
+            {
+                if (game.PlayerStates[i].IsActive)
+                {
+                    return;
+                }
+            }
+            //TODO write to db
+            gamesRepository.RemoveGame(id);
         }
     }
 }

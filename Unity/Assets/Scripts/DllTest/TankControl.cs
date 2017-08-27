@@ -1,6 +1,8 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using DllTest;
 using ScorchEngine;
+using ScorchEngine.Items;
 using UI;
 using UnityEngine;
 using Utils;
@@ -8,6 +10,7 @@ using View;
 
 public class TankControl : MonoBehaviour {
 
+    public Action<TankControl> onKill;
     public bool Local{get;private set;}
     public Player PlayerStats;
     public float force;
@@ -22,6 +25,9 @@ public class TankControl : MonoBehaviour {
     private Transform cameraTransform;
     private Transform Sides;
     private Transform BarrelsEnd;
+
+    private Player updatePlayer = null;
+    private CameraGUI gui;
 
     void Awake() {
         body = transform;
@@ -45,7 +51,9 @@ public class TankControl : MonoBehaviour {
     /// <param name="damage"></param>
     public void Hit(float damage) {
         //PlayerStats.ControlledTank.Health -= damage;
-        UpdateHealthBar(PlayerStats.ControlledTank.Health - (int)damage);
+        Debug.LogFormat("Hit for {0} damage, total health - {1}",damage,PlayerStats.ControlledTank.Health);
+        PlayerStats.ControlledTank.Damage(EWeaponType.Regular,(int)damage);
+        UpdateHealthBar(PlayerStats.ControlledTank.Health);
     }
 
     public void SetPlayer(Player player) {
@@ -55,12 +63,33 @@ public class TankControl : MonoBehaviour {
         player.OnUpdate += OnPLayerUpdate;
     }
 
+    void OnCollisionEnter(Collision collision) {
+// Check if collided with cube
+        Debug.LogFormat("Collided with {0} {1}", collision.gameObject.name, gameObject.name);
+    }
 
     void Update() {
         if (ProjectilePath.visible && updatePathDirtyFlag) {
             ProjectilePath.transform.position = BarrelsEnd.position;
             ProjectilePath.SetPath(GetForceVector());
             updatePathDirtyFlag = false;
+        }
+
+        if (updatePlayer != null) {
+            UpdatePlayer(updatePlayer);
+            updatePlayer = null;
+        }
+
+        //check distance from camera
+        if (positionMarker.isEnabled) {
+            bool isShown = Vector3.Distance(transform.position ,Camera.main.transform.position) > 30;
+            if (isShown != positionMarker.gameObject.activeSelf) {
+                Debug.LogError("!!!!!");
+                positionMarker.gameObject.SetActive(isShown);
+            }
+            else {
+                Debug.LogError(isShown);
+            }
         }
     }
 
@@ -70,12 +99,13 @@ public class TankControl : MonoBehaviour {
     /// <param name="Gui"></param>
     public void LinkToGUI(CameraGUI Gui) {
         Local = true;
+        gui = Gui;
         positionMarker.Enable();
         PlayerStats.OnUpdate -= OnPLayerUpdate;
         Gui.OnForceChange += onForceChange;
         Gui.OnXAngleChange += onLeftRightChanged;
         Gui.OnYAngleChange += onUpDownChanged;
-        Gui.OnShootClicked += Shoot;
+        Gui.OnShootClicked += OnGuiShoot;
         Gui.OnShowPath += OnShowPathToggle;
     }
 
@@ -83,7 +113,7 @@ public class TankControl : MonoBehaviour {
         Gui.OnForceChange -= onForceChange;
         Gui.OnXAngleChange -= onLeftRightChanged;
         Gui.OnYAngleChange -= onUpDownChanged;
-        Gui.OnShootClicked -= Shoot;
+        Gui.OnShootClicked -= OnGuiShoot;
         Gui.OnShowPath -= OnShowPathToggle;
     }
 
@@ -92,11 +122,16 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     /// <param name="updatedPlayer"></param>
     public void OnPLayerUpdate(Player updatedPlayer) {
+        Debug.Log("OnPlayer update....");
+        updatePlayer = updatedPlayer;
+    }
+
+    private void UpdatePlayer(Player updatedPlayer) {
         onLeftRightChanged(updatedPlayer.ControlledTank.AngleHorizontal);
         onUpDownChanged(updatedPlayer.ControlledTank.AngleVertical);
         onForceChange(updatedPlayer.ControlledTank.Force);
-        UpdateHealthBar(updatedPlayer.ControlledTank.Health);
-
+        //UpdateHealthBar(updatedPlayer.ControlledTank.Health);
+        Debug.LogErrorFormat("Player {0} got updated",PlayerStats.ID);
         if (updatedPlayer.ControlledTank.IsReady) Shoot();
     }
 
@@ -143,7 +178,9 @@ public class TankControl : MonoBehaviour {
     /// Shoot projectile
     /// </summary>
     public void Shoot() {
-        if (PlayerStats.ControlledTank.IsReady) return;
+        //if (PlayerStats.ControlledTank.IsReady)  {
+        Debug.Log("AAAAA");
+        print("A");
         // set up projectile type
         GameObject bullet = PrefabManager.InstantiatePrefab("Projectile");
         //...
@@ -153,7 +190,6 @@ public class TankControl : MonoBehaviour {
         Vector3 forceVector = GetForceVector();
         Debug.LogFormat("Shooting with force {0}",force);
         bullet.GetComponent<ProjectileControl>().SetForce(UpDwn,forceVector);
-        PlayerStats.ControlledTank.IsReady = true;
     }
 
     public Vector3 GetForceVector() {
@@ -175,8 +211,6 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     /// <param name="tankHealth"></param>
     public void UpdateHealthBar(int tankHealth) {
-        Debug.Log("Update health bar width" + tankHealth);
-
         float normalizedValue = ((float)tankHealth / 100) * 2;
         HealthMask.sizeDelta = new Vector2(normalizedValue,0.3f);
         if (normalizedValue <=0 ) {
@@ -211,7 +245,17 @@ public class TankControl : MonoBehaviour {
         //Create explosion
         GameObject fire  = PrefabManager.InstantiatePrefab("ExplosionFX");
         fire.transform.position = transform.position;
+        GameObject.Destroy(gameObject);
         DOVirtual.DelayedCall(2,()=>GameObject.Destroy(fire));
+        if (onKill != null )
+            onKill(this);
+    }
+
+    public void OnGuiShoot() {
+        Debug.LogWarning("OnGuiShoot");
+        PlayerStats.ControlledTank.IsReady = true;
+        gui.SetLocked(true);
+        Shoot();
     }
 
 

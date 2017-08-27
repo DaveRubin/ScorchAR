@@ -10,7 +10,7 @@ public class MenusScene : MonoBehaviour {
     private GameObject settings;
     private GameObject lobby;
     private EScreenType _current = EScreenType.Lobby;
-    private Dictionary<EScreenType, GameObject> menusTypeMap;
+    private Dictionary<EScreenType, ScreenBase> menusTypeMap;
     private static MenusScene instance;
 
     public EScreenType Current {
@@ -23,6 +23,10 @@ public class MenusScene : MonoBehaviour {
         }
     }
 
+    public static Transform EnterStartPos;
+    public static Transform EnterEndPos;
+    public static Transform ExitEndPos;
+
     public static void BackToMain() {
         instance.Current = EScreenType.MainMenu;
     }
@@ -30,18 +34,19 @@ public class MenusScene : MonoBehaviour {
     /// <summary>
     /// Initialize
     /// </summary>
-    void Awake() {
+    void Start() {
+        EnterStartPos = transform.Find("EnterStartPos");
+        EnterEndPos = transform.Find("EnterEndPos");
+        ExitEndPos = transform.Find("ExitEndPos");
         ScorchEngine.Game.debugLog += s => Debug.LogError(s);
-        //Debug.LogError("before Test()");
-        //ServerWrapper.Test();
-        //Debug.LogError("After Test()");
         _current = EScreenType.Lobby;
         if (instance == null) {
             instance = this;
-            menusTypeMap = new Dictionary<EScreenType, GameObject>() {
-                {EScreenType.MainMenu,transform.Find("Main Menu").gameObject},
-                {EScreenType.Lobby,transform.Find("Lobby").gameObject},
-                {EScreenType.Settings,transform.Find("Settings").gameObject},
+            menusTypeMap = new Dictionary<EScreenType, ScreenBase>() {
+                {EScreenType.MainMenu,transform.Find("Main Menu").GetComponent<ScreenBase>()},
+                {EScreenType.Lobby,transform.Find("Lobby").GetComponent<ScreenBase>()},
+                {EScreenType.Settings,transform.Find("Settings").GetComponent<ScreenBase>()},
+                {EScreenType.CreateGame,transform.Find("CreateGame").GetComponent<ScreenBase>()},
             };
             Current = EScreenType.MainMenu;
             UpdateItemsVisibility();
@@ -64,9 +69,11 @@ public class MenusScene : MonoBehaviour {
     /// Set the current menu item true and turn off all the others
     /// </summary>
     private void UpdateItemsVisibility() {
-        foreach (KeyValuePair<EScreenType, GameObject> pair in menusTypeMap) {
+        foreach (KeyValuePair<EScreenType, ScreenBase> pair in menusTypeMap) {
             bool isCurrent = pair.Key == Current;
-            pair.Value.SetActive(isCurrent);
+            if (isCurrent) pair.Value.Enter();
+            else pair.Value.Exit();
+            //pair.Value.gameObject.SetActive(isCurrent);
         }
     }
 
