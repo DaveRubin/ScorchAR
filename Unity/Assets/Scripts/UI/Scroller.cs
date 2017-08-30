@@ -10,6 +10,7 @@ namespace UI {
         public bool loop = true;
         public float min = 0;
         public float max = 360;
+        public float pixelsToUnits = 1; // how many pixel
 
         private List<Transform> transforms = new List<Transform>();
         float singleWidth;
@@ -28,6 +29,7 @@ namespace UI {
         public void OnDrag(PointerEventData eventData)
         {
             float delta = horizontal?eventData.delta.x:eventData.delta.y;
+            delta  /= pixelsToUnits;
             value += delta;
             bool update = true;
             if (value >= max) {
@@ -45,7 +47,7 @@ namespace UI {
                 }
             }
             if (update) UpdateDials(delta);
-            Debug.LogFormat("Update on drag {0} ",value);
+            Debug.LogFormat("Update on drag {0} {1}",value,pixelsToUnits);
             if (onValueChanged != null)
                 onValueChanged.Invoke(value);
         }

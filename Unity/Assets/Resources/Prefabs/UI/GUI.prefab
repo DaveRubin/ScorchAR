@@ -898,6 +898,7 @@ MonoBehaviour:
   loop: 0
   min: 0
   max: 90
+  pixelsToUnits: 10
   value: 0
 --- !u!114 &114102368053251106
 MonoBehaviour:
@@ -1219,6 +1220,7 @@ MonoBehaviour:
   loop: 0
   min: 0
   max: 30
+  pixelsToUnits: 100
   value: 0
 --- !u!114 &114406928691392290
 MonoBehaviour:
@@ -1846,6 +1848,7 @@ MonoBehaviour:
   loop: 1
   min: 0
   max: 360
+  pixelsToUnits: 10
   value: 0
 --- !u!114 &114851952811288122
 MonoBehaviour:
