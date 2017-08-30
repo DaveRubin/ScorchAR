@@ -127,7 +127,9 @@ namespace Server
         {
             Debug.Log("get player state " + ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", gameId));
             string url = GetURL(ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", gameId));
+            Debug.Log("send player state object: " +  playerState.ToString());
             string json = JsonConvert.SerializeObject(playerState);
+            Debug.Log("send player state string: " + json);
             byte[] postData = System.Text.Encoding.ASCII.GetBytes(json.ToCharArray());
             StartCoroutine(
                 PostCoroutine(
@@ -136,7 +138,7 @@ namespace Server
                         {
                             if (www.error == null)
                             {
-                                // Debug.LogFormat("Got playerState: {0}", www.text);
+                                Debug.LogFormat("Got playerState: {0}", www.text);
                                 List<PlayerState> list = JsonConvert.DeserializeObject<List<PlayerState>>(www.text);
                                 onDoneCallback(list);
                             }

@@ -13,7 +13,7 @@ using Utils;
 public class MainGame : MonoBehaviour {
 
     private bool OFFLINE_MODE = false;
-    private bool VUFORIA = false;
+    private bool VUFORIA = true;
 
     private TankControl MyTank {
         get {
@@ -261,7 +261,13 @@ public class MainGame : MonoBehaviour {
     public void OnPollResult(List<PlayerState> result) {
         GameCore.OnPollResult(result);
         Debug.Log("---------------");
-        Debug.LogFormat("{0} {1}",result[0],result[1]);
+        string res = "";
+        for (int i = 0; i < result.Count; ++i)
+        {
+            res = res + result[i] + " ";
+        }
+        
+        Debug.LogFormat("{0}",res);
     }
 
 }
