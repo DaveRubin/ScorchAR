@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: e8940558390284a8587b05fe41eafeeb
+timeCreated: 1504124923
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - LobbyMusic: {fileID: 8300000, guid: 4720292eba02f4815917213f45b8ef2a, type: 3}
+  - BattleMusic: {fileID: 8300000, guid: d9a6991715aaa4548b3ab2ccf759ddda, type: 3}
+  - Explosion: {instanceID: 0}
+  - Scroll: {fileID: 8300000, guid: d02659dd08feb4996b3b3bbb95c07746, type: 3}
+  - AudioSource: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
