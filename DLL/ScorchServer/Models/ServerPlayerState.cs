@@ -10,7 +10,7 @@ namespace ScorchServer.Models
     public class ServerPlayerState : PlayerState
     {
         public DateTime LastUpdateTime { get; set; }
-        
+        public bool IsActive { get; set; }
 
         public ServerPlayerState(PlayerState state, DateTime updateTime)
         {
@@ -25,7 +25,7 @@ namespace ScorchServer.Models
 
         public ServerPlayerState()
         {
-
+            
         }
 
         public void Update(PlayerState state)
@@ -36,7 +36,6 @@ namespace ScorchServer.Models
             AngleVertical = state.AngleVertical;
             Force = state.Force;
             LastUpdateTime = DateTime.Now;
-            IsActive = true;
         }
 
         

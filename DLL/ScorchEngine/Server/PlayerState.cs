@@ -7,17 +7,16 @@
         public float AngleHorizontal { get; set; }
         public float AngleVertical { get; set; }
         public float Force { get; set; }
-        public bool IsActive { get; set; }
+
 
         public override string ToString()
         {
-            return string.Format("{0},{1},({2},{3}),{4},{5}",
+            return string.Format("{0},{1},({2},{3}),{4}",
                 Id,
                 IsReady,
                 AngleHorizontal,
                 AngleVertical,
-                Force,
-                IsActive);
+                Force);
         }
     }
 }
