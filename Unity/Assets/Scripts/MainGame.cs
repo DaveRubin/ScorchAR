@@ -260,8 +260,8 @@ public class MainGame : MonoBehaviour {
 
     public void OnPollResult(List<PlayerState> result) {
         GameCore.OnPollResult(result);
-        Debug.Log("---------------");
-        Debug.LogFormat("{0} {1}",result[0],result[1]);
+        //Debug.Log("---------------");
+       // Debug.LogFormat("{0} {1}",result[0],result[1]);
     }
 
 }
