@@ -6,12 +6,17 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:Unity/Assets/Resources/Materials/TerrainMaterial.mat
+  m_Name: TerrainMaterial
+  m_Shader: {fileID: 4800000, guid: c158ceb104c238944a4daf52327953f9, type: 3}
+=======
   m_Name: Material
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+>>>>>>> fe50364f758b109e69a00f638f2ec535ba4cd782:Unity/Assets/Resources/Materials/Materials/Material.mat
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -38,7 +43,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 184411e5cbfcef94d90c27171a6135d6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -71,5 +76,13 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
+<<<<<<< HEAD:Unity/Assets/Resources/Materials/TerrainMaterial.mat
+    - _BackColor: {r: 0.67058825, g: 0.9921569, b: 0.94117653, a: 1}
+    - _Color: {r: 0, g: 1, b: 0.91372555, a: 1}
+    - _Color0: {r: 0.1764706, g: 0.2784314, b: 0.77647066, a: 1}
+    - _Color1: {r: 0, g: 0, b: 0.73333335, a: 1}
+    - _Color2: {r: 0, g: 0.9176471, b: 1, a: 1}
+=======
     - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+>>>>>>> fe50364f758b109e69a00f638f2ec535ba4cd782:Unity/Assets/Resources/Materials/Materials/Material.mat
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
