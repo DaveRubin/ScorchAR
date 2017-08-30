@@ -254,14 +254,17 @@ public class MainGame : MonoBehaviour {
         }
 
         terrainTween = sequence;
-
-
     }
 
     public void OnPollResult(List<PlayerState> result) {
         GameCore.OnPollResult(result);
         Debug.Log("---------------");
-        Debug.LogFormat("{0} {1}",result[0],result[1]);
+        string s = "";
+        for (int i = 0; i < result.Count; i++) {
+            PlayerState i1 = result[i];
+            s += i1.ToString() + " - ";
+        }
+        Debug.LogFormat(s);
     }
 
 }
