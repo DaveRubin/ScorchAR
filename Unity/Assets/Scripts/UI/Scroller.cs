@@ -22,7 +22,7 @@ namespace UI {
             transforms.Add(transform.FindChild("ScrollContainer/b"));
             transforms.Add(transform.FindChild("ScrollContainer/c"));
             singleWidth = transforms[0].GetComponent<RectTransform>().sizeDelta.x;
-
+            //MusicScript musicScript = GetComponent<MusicScript>();
         }
 
         public void OnDrag(PointerEventData eventData)
