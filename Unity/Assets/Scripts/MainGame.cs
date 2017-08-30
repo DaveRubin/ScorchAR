@@ -13,7 +13,7 @@ using Utils;
 public class MainGame : MonoBehaviour {
 
     private bool OFFLINE_MODE = false;
-    private bool VUFORIA = true;
+    private bool VUFORIA = false;
 
     private TankControl MyTank {
         get {
@@ -118,8 +118,8 @@ public class MainGame : MonoBehaviour {
         pState.AngleVertical= MyTank.PlayerStats.ControlledTank.AngleVertical;
         pState.IsReady = MyTank.PlayerStats.ControlledTank.IsReady;
         //Debug.LogFormat(pState.ToString());
-        if (OFFLINE_MODE) return;
-        UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, GameCore.OnPollResult);
+        //if (OFFLINE_MODE) return;
+        UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, OnPollResult);
        // GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
         MyTank.PlayerStats.ControlledTank.IsReady = false;
         Gui.SetLocked(false);
@@ -170,8 +170,6 @@ public class MainGame : MonoBehaviour {
             tanks.Add(tankGO);
             tanksHeight.Add(height);
         }
-
-        Debug.Log(tanks.Count);
 
 //tank = GameObject.Find("Tank").GetComponent<TankControl>();
 //tank.SetPlayer(GameCore.self);
@@ -258,6 +256,12 @@ public class MainGame : MonoBehaviour {
         terrainTween = sequence;
 
 
+    }
+
+    public void OnPollResult(List<PlayerState> result) {
+        GameCore.OnPollResult(result);
+        Debug.Log("---------------");
+        Debug.LogFormat("{0} {1}",result[0],result[1]);
     }
 
 }

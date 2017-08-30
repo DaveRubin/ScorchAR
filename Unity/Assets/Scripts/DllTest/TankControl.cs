@@ -84,11 +84,11 @@ public class TankControl : MonoBehaviour {
         if (positionMarker.isEnabled) {
             bool isShown = Vector3.Distance(transform.position ,Camera.main.transform.position) > 30;
             if (isShown != positionMarker.gameObject.activeSelf) {
-                Debug.LogError("!!!!!");
+                //Debug.LogError("!!!!!");
                 positionMarker.gameObject.SetActive(isShown);
             }
             else {
-                Debug.LogError(isShown);
+                //Debug.LogError(isShown);
             }
         }
     }
