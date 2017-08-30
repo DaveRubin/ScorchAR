@@ -48,23 +48,4 @@ public class TerrainDeform : MonoBehaviour {
         TerrainGameBoard.terrainData.SetHeights(0,0,heights);
 
     }
-    /*
-    void OnGUI()
-    {
-        if(GUI.Button(new Rect(30,30,360,60),"Deform Terrain"))
-        {
-            //Generate a random crater when hitting the button
-            int xSize = TerrainGameBoard.terrainData.heightmapWidth;
-            int ySize = TerrainGameBoard.terrainData.heightmapHeight;
-            int radius = Random.Range(12, 48);
-            int depth = Random.Range(2, 5);
-            int xExplosionPos = Random.Range(3, xSize - 3);
-            int yExplosionPos = Random.Range(3, ySize - 3);
-
-            // call upon deforming function with the random parameters
-            DeformMesh(xExplosionPos, yExplosionPos, radius, depth);
-        }
-
-    }
-    */
 }
