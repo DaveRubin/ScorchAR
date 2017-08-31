@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
 namespace UI {
     public class ScreenLobby : ScreenBase {
 
-        private const bool TEST = false;
+        private const bool TEST = true;
 //        public const string SCENE_NAME = "DLLTest";
         public const string SCENE_NAME = "MainGame";
 
@@ -33,7 +33,7 @@ namespace UI {
             buttonJoin = transform.Find("ButtonJoin").GetComponent<Button>();
             content = transform.Find("MainPanel/Left/Scroll View/Viewport/Content").GetComponent<RectTransform>();
             buttonJoin.onClick.AddListener(JoinRoom);
-            transform.Find("ButtonReset").GetComponent<Button>().onClick.AddListener(Reset);
+            //transform.Find("ButtonReset").GetComponent<Button>().onClick.AddListener(ResetPressed);
             transform.Find("ButtonCreate").GetComponent<Button>().onClick.AddListener(Create);
             onEnter += UpdateLobby;
         }
@@ -85,7 +85,7 @@ namespace UI {
 
 
             content.sizeDelta = new Vector2(content.rect.width,height);
-            container.localPosition = new Vector3(0,-height/2);
+            container.localPosition = new Vector3(0,0);
             Debug.LogFormat(@"height -{0} | games.Count - {1} (-1 if null) | content.sizeDelta.ToString() -{2} | container.localPosition -{3}",
             height,
             games == null? -1:games.Count,
@@ -159,7 +159,7 @@ Players
             OnGamesFetched(listGameInfo);
         }
 
-        public void Reset() {
+        public void ResetPressed() {
             Debug.Log("ResetGames");
             UnityServerWrapper.Instance.ResetGames();
             UpdateLobby();
