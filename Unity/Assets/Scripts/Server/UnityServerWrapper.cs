@@ -226,6 +226,27 @@ namespace Server
                     postData));
         }
 
+        public void GetGame(string id, Action<GameInfo> onDoneCallback)
+        {
+            string url = ServerRoutes.GetGameApiUrl.Replace("{id}",id);
+            StartCoroutine(
+                GetCoroutine(
+                    url,
+                    www =>
+                    {
+                        if (string.IsNullOrEmpty(www.error))
+                        {
+                            GameInfo gameinfo = JsonConvert.DeserializeObject<GameInfo>(www.text);
+                            onDoneCallback(gameinfo);
+                        }
+                        else
+                        {
+                            Debug.LogFormat("Error getting game {0} {1}",id, www.error);
+                        }
+                    }));
+
+        }
+
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Private
         private string GetURL(string api)
