@@ -9,7 +9,8 @@ namespace DllTest {
         const float TIME_FACTOR = 3;
         Vector3 force = Vector3.zero;
         Transform origin;
-        private GameObject a, terrainDeformScript;
+        private GameObject a, terrain;
+        private TerrainDeform terrainDeformScript;
 
         SphereCollider hitTest;
         float x,y, terrainHeight;
@@ -18,6 +19,8 @@ namespace DllTest {
         void Awake() {
             hitTest = GetComponent<SphereCollider>();
             a = MainGame.GetTerrain();
+            terrain = MainGame.GetTerrain();
+            terrainDeformScript = terrain.GetComponent<TerrainDeform>();
         }
 
 
@@ -81,6 +84,8 @@ namespace DllTest {
                 GameObject.Destroy(fire);
                 GameObject.Destroy(radius);
             });
+            Debug.Log("explosion at: " + (int)transform.position.x + " " + (int)transform.position.z);
+            terrainDeformScript.DeformMesh((int)transform.position.x,(int)transform.position.z,10,300);
         }
     }
 }
