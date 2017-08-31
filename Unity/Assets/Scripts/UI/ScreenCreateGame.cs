@@ -76,28 +76,45 @@ namespace UI {
         }
 
         public void ShowWaitingForOpponent() {
-            GameObject waitingBase = transform.Find("WaitingForPlayer").gameObject;
-            waitingBase.SetActive(true);
-            CanvasGroup canvasGroup = waitingBase.GetComponent<CanvasGroup>();
-            canvasGroup.alpha = 0;
-            canvasGroup.DOFade(1,1);
-            Transform beatingTitle = waitingBase.transform.Find("Image");
+
+            //Animation
             float size = 0.1f;
             Sequence s = DOTween.Sequence();
+            GameObject waitingBase = transform.Find("WaitingForPlayer").gameObject;
+            CanvasGroup canvasGroup = waitingBase.GetComponent<CanvasGroup>();
+            Transform beatingTitle = waitingBase.transform.Find("Image");
+            waitingBase.SetActive(true);
+            canvasGroup.alpha = 0;
+            canvasGroup.DOFade(1,1);
             s.Append(beatingTitle.DOPunchScale(Vector3.one * size, 2, 1));
             s.AppendInterval(1);
             s.SetLoops(-1);
             beatingTween = s;
+
+            //cancel button
+            canvasGroup.GetComponentInChildren<Button>().onClick.AddListener(OnCancelPressed);
         }
 
         public void UpdateRoomTitle(GameInfo gameInfo) {
-            GameObject waitingBase = transform.Find("WaitingForPlayer").gameObject;
-            waitingBase.GetComponentInChildren<Text>().text = string.Format("GAME \"{0}\" CREATED",MainUser.Instance.CurrentGame.Name);
-
+            Text titleText = transform.Find("WaitingForPlayer/Text").GetComponent<Text>();
+            titleText.text = string.Format("GAME \"{0}\" CREATED",MainUser.Instance.CurrentGame.Name);
         }
 
         void OnDestroy() {
             if (beatingTween!= null) beatingTween.Kill();
+        }
+
+        public void OnCancelPressed() {
+            if (beatingTween!= null) beatingTween.Kill();
+            GameObject waitingBase = transform.Find("WaitingForPlayer").gameObject;
+            CanvasGroup canvasGroup = waitingBase.GetComponent<CanvasGroup>();
+            canvasGroup.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+            canvasGroup.DOFade(0,1).OnComplete(()=> {
+                waitingBase.SetActive(false);
+                CancelInvoke("WaitForGameToFill");
+                //TODO - CANCEL GAME
+                BackToLobby();
+            });
         }
     }
 }
