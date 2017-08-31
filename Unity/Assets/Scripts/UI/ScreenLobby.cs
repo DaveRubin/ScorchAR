@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
 namespace UI {
     public class ScreenLobby : ScreenBase {
 
-        private const bool TEST = true;
+        private const bool TEST = false;
 //        public const string SCENE_NAME = "DLLTest";
         public const string SCENE_NAME = "MainGame";
 
