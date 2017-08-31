@@ -37,7 +37,26 @@ namespace UI {
         public void onGameCreated(GameInfo gameInfo) {
             MainUser.Instance.CurrentGame = gameInfo;
             MainUser.Instance.Index = 0;
-            SceneManager.LoadScene(ScreenLobby.SCENE_NAME);
+            InvokeRepeating("WaitForGameToFill", 1, 1f);
+            
+        }
+
+        public void WaitForGameToFill()
+        {
+            UnityServerWrapper.Instance.GetGame(MainUser.Instance.CurrentGame.Id, onWaitForGameToFillPoll);
+           
+        }
+
+        public void onWaitForGameToFillPoll(GameInfo gameInfo)
+        {
+            MainUser.Instance.CurrentGame = gameInfo;
+            if (gameInfo.IsFull)
+            {
+                CancelInvoke("WaitForGameToFill");
+                SceneManager.LoadScene(ScreenLobby.SCENE_NAME);
+            }
+
+
         }
 
         public void BackToLobby() {
