@@ -56,10 +56,11 @@ public class MainGame : MonoBehaviour {
             MainUser.Instance.Name = "Test";
             MainUser.Instance.Index = 1;
             MainUser.Instance.CurrentGame = new GameInfo{
-                Id = "A",
+                Id = "20",
                 Name = "GAME"
             };
             Game.OFFLINE = true;
+            gameID = MainUser.Instance.CurrentGame.Id;
             PostLogin(MainUser.Instance.Index);
         }
         else {
