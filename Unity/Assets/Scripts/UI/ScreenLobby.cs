@@ -21,14 +21,23 @@ namespace UI {
         RectTransform content;
         List<LobbyItem> lobbyItems;
         LobbyItem currentGameSelected;
-        Text selectedGameInfo;
+        //Text selectedGameInfo;
         Button buttonJoin;
+
+        Image flash;
+        Transform leftPlayer;
+        Transform rightPlayer;
+        Transform vs;
+        Transform roomName;
+        Tween popTween;
+        Tween loopTween;
 
         void Awake() {
             //Test();
             base.Awake();
             PrefabManager.Init();
-            selectedGameInfo =transform.Find("MainPanel/Right/Panel/Text").GetComponent<Text>();
+            GetInfoComponents();
+            //selectedGameInfo =transform.Find("MainPanel/Right/Panel/Text").GetComponent<Text>();
             transform.Find("ButtonBack").GetComponent<Button>().onClick.AddListener(GoBack);
             buttonJoin = transform.Find("ButtonJoin").GetComponent<Button>();
             content = transform.Find("MainPanel/Left/Scroll View/Viewport/Content").GetComponent<RectTransform>();
@@ -110,21 +119,56 @@ namespace UI {
         }
 
         public void UpdateSelectedGame() {
+            if (popTween != null) popTween.Kill(true);
+            if (loopTween != null) loopTween.Kill(true);
+
             GameInfo info = currentGameSelected.Info;
-            string playersString  = string.Empty;
-            for (int i = 0; i < info.Players.Count; i++) {
-                PlayerInfo i1 = info.Players[i];
-                playersString += i1;
-                if (i != info.Players.Count-1) {
-                    playersString += ",";
-                }
-            }
-            selectedGameInfo.text = string.Format(@"Game Name :{0}
-Max Players : {1}
-Players
--------------
-{2}",
-            info.Name,info.MaxPlayers,playersString);
+            Sequence sequence = DOTween.Sequence();
+            roomName.GetComponent<Text>().text = info.Name;
+            if (info.Players.Count>0)  leftPlayer.GetComponentInChildren<Text>().text = info.Players[0].Name;
+            flash.color = Color.white;
+            vs.localScale = Vector3.zero;
+            rightPlayer.localScale = Vector3.zero;
+            leftPlayer.localScale = Vector3.zero;
+            float bounceDuration = 1;
+            sequence.Insert(0,flash.DOFade(0,0.5f));
+            sequence.Insert(0,leftPlayer.DOScale(1,bounceDuration).SetEase(Ease.OutElastic,0.2f));
+            sequence.Insert(0.25f,rightPlayer.DOScale(1,bounceDuration).SetEase(Ease.OutElastic,0.2f));
+            sequence.Insert(0.5f,vs.DOScale(1,bounceDuration).SetEase(Ease.OutElastic,0.2f));
+            sequence.AppendCallback(()=>{
+                float halfSine = 0.5f;
+                float size = 1.1f;
+                Sequence loopSequence = DOTween.Sequence();
+                loopSequence.Insert(0,leftPlayer.DOScale(size,halfSine).SetEase(Ease.InOutSine));
+                loopSequence.Insert(0.3f,vs.DOScale(size,halfSine).SetEase(Ease.InOutSine));
+                loopSequence.Insert(0.6f,rightPlayer.DOScale(size,halfSine).SetEase(Ease.InOutSine));
+                loopSequence.Insert(halfSine,leftPlayer.DOScale(1,halfSine).SetEase(Ease.InOutSine));
+                loopSequence.Insert(halfSine +0.3f,vs.DOScale(1,halfSine).SetEase(Ease.InOutSine));
+                loopSequence.Insert(halfSine +0.6f,rightPlayer.DOScale(1,halfSine).SetEase(Ease.InOutSine));
+                loopSequence.Insert(0,buttonJoin.transform.DOPunchScale(new Vector3(0.05f,0.05f,0.05f),1,2));
+                loopSequence.InsertCallback(2,()=>{});
+
+                loopSequence.SetLoops(-1);
+                loopTween = loopSequence;
+            });
+            popTween = sequence;
+
+
+
+//            string playersString  = string.Empty;
+//            for (int i = 0; i < info.Players.Count; i++) {
+//                PlayerInfo i1 = info.Players[i];
+//                playersString += i1;
+//                if (i != info.Players.Count-1) {
+//                    playersString += ",";
+//                }
+//            }
+//            selectedGameInfo.text = string.Format(@"Game Name :{0}
+//Max Players : {1}
+//Players
+//-------------
+//{2}",
+//            info.Name,info.MaxPlayers,playersString);
         }
 
         public void JoinRoom() {
@@ -191,6 +235,15 @@ Players
 
         public void onGameCreated(GameInfo gameInfo) {
 
+        }
+
+        public void GetInfoComponents() {
+            Transform panel = transform.Find("MainPanel/Right/Panel");
+            flash = panel.Find("Flash").GetComponent<Image>();
+            leftPlayer = panel.Find("P1");
+            rightPlayer = panel.Find("P2");
+            vs = panel.Find("VS");
+            roomName = panel.Find("RoomName");
         }
 
     }
