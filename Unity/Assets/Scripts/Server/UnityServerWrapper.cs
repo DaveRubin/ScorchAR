@@ -44,7 +44,7 @@ namespace Server
                     url, 
                     www =>
                         {
-                            if (www.error == null)
+                            if (string.IsNullOrEmpty(www.error))
                             {
                                 List<GameInfo> list = JsonConvert.DeserializeObject<List<GameInfo>>(www.text);
                                 onDoneCallback(list);
@@ -68,7 +68,7 @@ namespace Server
                     url, 
                     www =>
                         {
-                            if (www.error == null)
+                            if (string.IsNullOrEmpty(www.error))
                             {
                                 Debug.LogFormat("Got {0}", www.text);
                                 onDoneCallback();
@@ -110,7 +110,7 @@ namespace Server
                     url, 
                     www =>
                         {
-                            if (www.error == null)
+                            if (string.IsNullOrEmpty(www.error))
                             {
                                 Debug.LogFormat("Got {0}", www.text);
                                 onDoneCallback(int.Parse(www.text));
@@ -134,7 +134,7 @@ namespace Server
                     url, 
                     www =>
                         {
-                            if (www.error == null)
+                            if (string.IsNullOrEmpty(www.error))
                             {
                                 // Debug.LogFormat("Got playerState: {0}", www.text);
                                 List<PlayerState> list = JsonConvert.DeserializeObject<List<PlayerState>>(www.text);
@@ -160,7 +160,7 @@ namespace Server
                     url, 
                     www =>
                         {
-                            if (www.error == null)
+                            if (string.IsNullOrEmpty(www.error))
                             {
                                 Debug.LogFormat("Got {0}", www.text);
                                 JsonConvert.DeserializeObject<GameInfo>(www.text);
@@ -168,7 +168,7 @@ namespace Server
                             }
                             else
                             {
-                                Debug.LogError("Error");
+                                OnError(www);
                             }
                         }, 
                     postData));
@@ -186,7 +186,7 @@ namespace Server
                     url,
                     www =>
                     {
-                        if (www.error == null)
+                        if (string.IsNullOrEmpty(www.error))
                         {
                             Debug.LogFormat("Got {0}", www.text);
                             JsonConvert.DeserializeObject<GameInfo>(www.text);
@@ -212,7 +212,7 @@ namespace Server
                     url,
                     www =>
                     {
-                        if (www.error == null)
+                        if (string.IsNullOrEmpty(www.error))
                         {
                             Debug.LogFormat("Got {0}", www.text);
                             JsonConvert.DeserializeObject<GameInfo>(www.text);
@@ -247,6 +247,10 @@ namespace Server
             WWW www = new WWW(url, postData, headers);
             yield return www;
             onDoneCallback(www);
+        }
+
+        public void OnError(WWW www10) {
+            Debug.LogErrorFormat("GOT ERROR ON {0} ,WITH TEXT : {1} :",www10.url,www10.error);
         }
     }
 }

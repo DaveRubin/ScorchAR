@@ -31,10 +31,10 @@ public class TankControl : MonoBehaviour {
 
     void Awake() {
         body = transform;
-        Sides = transform.FindChild("Top");
-        UpDwn = transform.FindChild("Top/Barrel");
-        BarrelsEnd = transform.FindChild("Top/Barrel/Tip");
-        ProjectilePath = transform.FindChild("Path").GetComponent<PathTracer>();
+        Sides = transform.Find("Top");
+        UpDwn = transform.Find("Top/Barrel");
+        BarrelsEnd = transform.Find("Top/Barrel/Tip");
+        ProjectilePath = transform.Find("Path").GetComponent<PathTracer>();
         HealthMask = transform.Find("Health/Remaining").GetComponent<RectTransform>();
         transform.GetComponentInChildren<AlwaysLookAt>().SetTarget(Camera.main.transform);
         positionMarker = GetComponentInChildren<PositionMarker>();
