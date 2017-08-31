@@ -11,8 +11,6 @@ using UnityEngine.SceneManagement;
 using Utils;
 using System;
 
-using NUnit.Framework.Internal;
-
 public class MainGame : MonoBehaviour {
 
     private bool OFFLINE_MODE = false;
@@ -155,7 +153,7 @@ public class MainGame : MonoBehaviour {
         terrainComp = terrain.GetComponentInChildren<Terrain>();
         terrainComp.terrainData.size = new Vector3(64, 60, 64);
         int seed = int.Parse(gameID);
-        Randomizer randomizer = new Randomizer(seed);
+        System.Random randomizer = new System.Random(seed);
         int i = randomizer.Next(0, 1);
         Vector2 v = initTank(players[i], seed, tanksRoot, randomizer,new Vector2(-1f,-1f));
         i = Math.Abs(i - 1);
@@ -165,7 +163,7 @@ public class MainGame : MonoBehaviour {
         //tank.SetPlayer(GameCore.self);
     }
 
-    private Vector2 initTank(Player player, int seed, Transform tanksRoot, Randomizer randomizer , Vector2 v)
+    private Vector2 initTank(Player player, int seed, Transform tanksRoot, System.Random randomizer , Vector2 v)
     {
         TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
         tankGO.transform.SetParent(tanksRoot);
