@@ -125,6 +125,7 @@
     <Compile Include="Assets\Scripts\Extensions\Vector3Extension.cs" />
     <Compile Include="Assets\Scripts\MainGame.cs" />
     <Compile Include="Assets\Scripts\MainUser.cs" />
+    <Compile Include="Assets\Scripts\MusicScript.cs" />
     <Compile Include="Assets\Scripts\PanelManager.cs" />
     <Compile Include="Assets\Scripts\ResizePanel.cs" />
     <Compile Include="Assets\Scripts\ScrollDetailTexture.cs" />

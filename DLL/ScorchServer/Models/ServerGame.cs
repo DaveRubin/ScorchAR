@@ -14,6 +14,8 @@ namespace ScorchServer.Models
         public List<ServerPlayerState> PlayerStates { get; set; }
         public DateTime LastUpdateTime { get; set; }
 
+      
+
         public ServerGame(GameInfo gameInfo)
         {
             Id = gameInfo.Id;
