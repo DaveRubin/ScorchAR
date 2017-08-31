@@ -152,23 +152,6 @@ namespace UI {
                 loopTween = loopSequence;
             });
             popTween = sequence;
-
-
-
-//            string playersString  = string.Empty;
-//            for (int i = 0; i < info.Players.Count; i++) {
-//                PlayerInfo i1 = info.Players[i];
-//                playersString += i1;
-//                if (i != info.Players.Count-1) {
-//                    playersString += ",";
-//                }
-//            }
-//            selectedGameInfo.text = string.Format(@"Game Name :{0}
-//Max Players : {1}
-//Players
-//-------------
-//{2}",
-//            info.Name,info.MaxPlayers,playersString);
         }
 
         public void JoinRoom() {
