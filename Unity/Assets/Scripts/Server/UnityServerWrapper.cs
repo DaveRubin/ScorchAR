@@ -112,7 +112,7 @@ namespace Server
                         {
                             if (string.IsNullOrEmpty(www.error))
                             {
-                                Debug.LogFormat("Got {0}", www.text);
+                                //Debug.LogFormat("Got {0}", www.text);
                                 onDoneCallback(int.Parse(www.text));
                             }
                             else
@@ -162,7 +162,7 @@ namespace Server
                         {
                             if (string.IsNullOrEmpty(www.error))
                             {
-                                Debug.LogFormat("Got {0}", www.text);
+                                //Debug.LogFormat("Got {0}", www.text);
                                 JsonConvert.DeserializeObject<GameInfo>(www.text);
                                 onDoneCallback(JsonConvert.DeserializeObject<GameInfo>(www.text));
                             }
@@ -188,7 +188,7 @@ namespace Server
                     {
                         if (string.IsNullOrEmpty(www.error))
                         {
-                            Debug.LogFormat("Got {0}", www.text);
+                           // Debug.LogFormat("Got {0}", www.text);
                             JsonConvert.DeserializeObject<GameInfo>(www.text);
                             onDoneCallback(JsonConvert.DeserializeObject<PlayerInfo>(www.text));
                         }
@@ -214,7 +214,7 @@ namespace Server
                     {
                         if (string.IsNullOrEmpty(www.error))
                         {
-                            Debug.LogFormat("Got {0}", www.text);
+                            //Debug.LogFormat("Got {0}", www.text);
                             JsonConvert.DeserializeObject<GameInfo>(www.text);
                             onDoneCallback(JsonConvert.DeserializeObject<PlayerInfo>(www.text));
                         }

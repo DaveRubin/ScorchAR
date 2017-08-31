@@ -9,6 +9,9 @@ using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
+using System;
+
+using NUnit.Framework.Internal;
 
 public class MainGame : MonoBehaviour {
 
@@ -151,28 +154,47 @@ public class MainGame : MonoBehaviour {
 
         terrainComp = terrain.GetComponentInChildren<Terrain>();
         terrainComp.terrainData.size = new Vector3(64, 60, 64);
+        int seed = int.Parse(gameID);
+        Randomizer randomizer = new Randomizer(seed);
+        int i = randomizer.Next(0, 1);
+        Vector2 v = initTank(players[i], seed, tanksRoot, randomizer,new Vector2(-1f,-1f));
+        i = Math.Abs(i - 1);
+        initTank(players[i], seed + randomizer.Next(5, 13), tanksRoot, randomizer ,v);
 
-        for (int i = 0; i < players.Count; i++) {
-            Player player = players[i];
-            TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
-            tankGO.transform.SetParent(tanksRoot);
-            //tankGO.transform.localPosition = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
+        //tank = GameObject.Find("Tank").GetComponent<TankControl>();
+        //tank.SetPlayer(GameCore.self);
+    }
 
-            int x = i==0? 50:30;
-            int y = i==0? 50:20;
-            tankGO.onKill += onTankKilled;
-            float height = terrainComp.SampleHeight(new Vector3(x,0,y));
-            tankGO.transform.localPosition = new Vector3(x,height,y);
-            tankGO.transform.localScale = Vector3.one*0.5f;
+    private Vector2 initTank(Player player, int seed, Transform tanksRoot, Randomizer randomizer , Vector2 v)
+    {
+        TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
+        tankGO.transform.SetParent(tanksRoot);
+        //tankGO.transform.localPosition = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
 
-            tankGO.SetPlayer(player);
+        int x = (seed + randomizer.Next(9, 22)) % 42 + 7;
+        int y = (seed + randomizer.Next(3, 17)) % 42 + 7;
+        if (!v.x.Equals(-1f) || !v.y.Equals(-1f))
+        {
+            if ( Math.Abs(x - v.x) < 20) 
+            {
+                x = (x + randomizer.Next(18, 25)) % 42 + 7;
+            }
 
-            tanks.Add(tankGO);
-            tanksHeight.Add(height);
+            if (Math.Abs(y - v.y) < 20)
+            {
+                y = (y + randomizer.Next(18, 25)) % 42 + 7;
+            }
         }
+        tankGO.onKill += onTankKilled;
+        float height = terrainComp.SampleHeight(new Vector3(x, 0, y));
+        tankGO.transform.localPosition = new Vector3(x, height, y);
+        tankGO.transform.localScale = Vector3.one * 0.5f;
 
-//tank = GameObject.Find("Tank").GetComponent<TankControl>();
-//tank.SetPlayer(GameCore.self);
+        tankGO.SetPlayer(player);
+
+        tanks.Add(tankGO);
+        tanksHeight.Add(height);
+        return  new Vector2(x,y);
     }
 
     /// <summary>
