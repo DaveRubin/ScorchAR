@@ -62,7 +62,7 @@ namespace ScorchServer.Controllers
         [HttpGet]
         public IEnumerable<GameInfo> Get()
         {
-            return gamesRepository.GetGames();
+            return gamesRepository.GetGames().Select(game => game).Where(game => !game.IsFull);
         }
 
         [Route(ServerRoutes.GetGameApiUrl)]

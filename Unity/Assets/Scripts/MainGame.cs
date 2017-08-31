@@ -226,6 +226,7 @@ public class MainGame : MonoBehaviour {
 
     public void onTankKilled(TankControl tank) {
         Gui.ShowEndGame(tank != MyTank).AddListener(()=> {
+            ServerWrapper.RemovePlayerFromGame(gameID,PlayerIndex);
             SceneManager.LoadScene("Menus");
         });
     }

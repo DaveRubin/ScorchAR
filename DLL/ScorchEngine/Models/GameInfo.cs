@@ -16,6 +16,8 @@ namespace ScorchEngine.Models
 
         public int MaxPlayers { get; set; }
 
+        public bool IsFull { get; set; }
+
         public List<PlayerInfo> Players { get; set; }
 
         public GameInfo()
@@ -28,7 +30,8 @@ namespace ScorchEngine.Models
             return $@"Name:{Name}
 Id:{Id}
 MaxPlayers:{MaxPlayers}
-NumberOfPlayers:{Players.Count}";
+NumberOfPlayers:{Players.Count}
+IsFull:{IsFull}";
         }
 
         public override bool Equals(object obj)
@@ -52,6 +55,10 @@ NumberOfPlayers:{Players.Count}";
                 Players.Add(playerInfo);
                 playerIndex = Players.Count - 1;
                 result = true;
+            }
+            if (Players.Count == MaxPlayers)
+            {
+                IsFull = true;
             }
                return result;
         }
