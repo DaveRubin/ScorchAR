@@ -19,9 +19,9 @@ namespace UI {
         public Action<float> onValueChanged;
         void Awake() {
             //onValueChanged = new ScrollerEvent();
-            transforms.Add(transform.FindChild("ScrollContainer/a"));
-            transforms.Add(transform.FindChild("ScrollContainer/b"));
-            transforms.Add(transform.FindChild("ScrollContainer/c"));
+            transforms.Add(transform.Find("ScrollContainer/a"));
+            transforms.Add(transform.Find("ScrollContainer/b"));
+            transforms.Add(transform.Find("ScrollContainer/c"));
             singleWidth = transforms[0].GetComponent<RectTransform>().sizeDelta.x;
             //MusicScript musicScript = GetComponent<MusicScript>();
         }
