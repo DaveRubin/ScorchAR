@@ -74,7 +74,6 @@
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel3.shader" />
      <None Include="Assets\Vuforia\Shaders\VideoBackground.shader" />
      <None Include="Assets\license_3rdpartynotice.txt" />
-     <None Include="Assets\Resources\Materials\shaders\TerrainShader.shader" />
      <None Include="Assets\Vuforia\Editor\WebcamProfiles\profiles.xml" />
      <None Include="Assets\Vuforia\Shaders\DepthMask.shader" />
      <None Include="Assets\Resources\Materials\shaders\OutlineDiffuse.shader" />
@@ -84,6 +83,7 @@
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel2.shader" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
+     <None Include="Assets\Resources\Materials\shaders\TerrainShader.shader" />
      <None Include="Assets\Vuforia\Shaders\ClippingMask.shader" />
      <None Include="Assets\Vuforia\Shaders\BrightTexture.shader" />
      <None Include="Assets\Demigiant\DOTween\DOTween46.xml" />
