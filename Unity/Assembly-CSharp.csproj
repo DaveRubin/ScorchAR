@@ -157,9 +157,10 @@
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel3.shader" />
      <None Include="Assets\Vuforia\Shaders\VideoBackground.shader" />
      <None Include="Assets\license_3rdpartynotice.txt" />
-     <None Include="Assets\Resources\Materials\TerrainShader.shader" />
+     <None Include="Assets\Resources\Materials\shaders\TerrainShader.shader" />
      <None Include="Assets\Vuforia\Editor\WebcamProfiles\profiles.xml" />
      <None Include="Assets\Vuforia\Shaders\DepthMask.shader" />
+     <None Include="Assets\Resources\Materials\shaders\OutlineDiffuse.shader" />
      <None Include="Assets\StreamingAssets\QCAR\Image_Target.xml" />
      <None Include="Assets\Engine\Debug\RestSharp.xml" />
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel7.shader" />
