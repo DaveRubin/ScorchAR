@@ -228,7 +228,8 @@ namespace Server
 
         public void GetGame(string id, Action<GameInfo> onDoneCallback)
         {
-            string url = ServerRoutes.GetGameApiUrl.Replace("{id}",id);
+            string urlHash = ServerRoutes.GetGameApiUrl.Replace("{id}",id);
+            string url = GetURL(urlHash);
             StartCoroutine(
                 GetCoroutine(
                     url,
@@ -236,6 +237,7 @@ namespace Server
                     {
                         if (string.IsNullOrEmpty(www.error))
                         {
+                            Debug.LogError(www.text);
                             GameInfo gameinfo = JsonConvert.DeserializeObject<GameInfo>(www.text);
                             onDoneCallback(gameinfo);
                         }
@@ -244,7 +246,26 @@ namespace Server
                             Debug.LogFormat("Error getting game {0} {1}",id, www.error);
                         }
                     }));
+        }
 
+        public void CancelGame(string id, Action onDoneCallback)
+        {
+            string urlHash = ServerRoutes.CancelGame.Replace("{id}", id);
+            string url = GetURL(urlHash);
+            StartCoroutine(
+                GetCoroutine(
+                    url,
+                    www =>
+                    {
+                        if (string.IsNullOrEmpty(www.error))
+                        {
+                            onDoneCallback();
+                        }
+                        else
+                        {
+                            Debug.LogFormat("Error getting game {0} {1}", id, www.error);
+                        }
+                    }));
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////

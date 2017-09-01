@@ -138,6 +138,7 @@
     <Compile Include="Assets\Scripts\UI\EScreenType.cs" />
     <Compile Include="Assets\Scripts\UI\ExtendedButton.cs" />
     <Compile Include="Assets\Scripts\UI\LobbyItem.cs" />
+    <Compile Include="Assets\Scripts\UI\LongPressButton.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\Scripts\UI\MenusScene.cs" />
     <Compile Include="Assets\Scripts\UI\OverlayControl.cs" />

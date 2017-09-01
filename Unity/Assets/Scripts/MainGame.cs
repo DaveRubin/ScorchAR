@@ -13,8 +13,8 @@ using System;
 
 public class MainGame : MonoBehaviour {
 
-    private bool OFFLINE_MODE = true;
-    private bool VUFORIA = false;
+    private bool OFFLINE_MODE = false;
+    private bool VUFORIA = true;
 
     private TankControl MyTank {
         get {
@@ -120,8 +120,9 @@ public class MainGame : MonoBehaviour {
         pState.AngleVertical= MyTank.PlayerStats.ControlledTank.AngleVertical;
         pState.IsReady = MyTank.PlayerStats.ControlledTank.IsReady;
         //Debug.LogFormat(pState.ToString());
-        //if (OFFLINE_MODE) return;
-        UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, OnPollResult);
+        if (!OFFLINE_MODE) {
+            UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, OnPollResult);
+        }
        // GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
         MyTank.PlayerStats.ControlledTank.IsReady = false;
         Gui.SetLocked(false);
@@ -170,24 +171,25 @@ public class MainGame : MonoBehaviour {
         tankGO.transform.SetParent(tanksRoot);
         //tankGO.transform.localPosition = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
 
-        int x = (seed + randomizer.Next(9, 22)) % 42 + 7;
-        int y = (seed + randomizer.Next(3, 17)) % 42 + 7;
+        int x = (seed + randomizer.Next(9, 22)) % 100;
+        int y = (seed + randomizer.Next(3, 17)) % 100;
         if (!v.x.Equals(-1f) || !v.y.Equals(-1f))
         {
-            if ( Math.Abs(x - v.x) < 20) 
+            if ( Math.Abs(x - v.x) < 35) 
             {
-                x = (x + randomizer.Next(18, 25)) % 42 + 7;
+                x = (x + randomizer.Next(32, 38)) % 100;
             }
 
-            if (Math.Abs(y - v.y) < 20)
+            if (Math.Abs(y - v.y) < 25)
             {
-                y = (y + randomizer.Next(18, 25)) % 42 + 7;
+                y = (y + randomizer.Next(22, 28)) % 100;
             }
         }
         tankGO.onKill += onTankKilled;
+        tankGO.onHit += onTankHit;
         float height = terrainComp.SampleHeight(new Vector3(x, 0, y));
         tankGO.transform.localPosition = new Vector3(x, height, y);
-        tankGO.transform.localScale = Vector3.one * 0.5f;
+        tankGO.transform.localScale = Vector3.one * 0.75f;
 
         tankGO.SetPlayer(player);
 
@@ -244,12 +246,20 @@ public class MainGame : MonoBehaviour {
         ToggleMapHeight(detected);
         Gui.ToggleTrackerDetection(detected);
     }
-
+    
     public void onTankKilled(TankControl tank) {
         Gui.ShowEndGame(tank != MyTank).AddListener(()=> {
             ServerWrapper.RemovePlayerFromGame(gameID,PlayerIndex);
             SceneManager.LoadScene("Menus");
         });
+    }
+
+    public void onTankHit(TankControl tank)
+    {
+        if (tank == MyTank)
+        {
+            //TODO overlay
+        }
     }
 
     public void ToggleMapHeight(bool show) {

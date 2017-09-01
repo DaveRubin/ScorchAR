@@ -85,5 +85,12 @@ namespace ScorchServer.Controllers
         {
             gamesRepository.Reset();
         }
+
+        [Route(ServerRoutes.CancelGame)]
+        [HttpGet]
+        public void CancelGame(string id)
+        {
+            gamesRepository.RemoveGame(id);
+        }
     }
 }
