@@ -15,10 +15,10 @@ namespace UI {
         private int clicks = 0;
 
         public void OnPointerDown(PointerEventData eventData) {
+            base.OnPointerDown(eventData);
             clicks = 0;
             clicks++;
             continuesClick.Invoke();
-            Debug.Log("Click");
             //held = false;
             Debug.Log("OnPointerDown");
             InvokeRepeating("RapidClick", rapidHoldTime, rapidDuration);
@@ -26,23 +26,25 @@ namespace UI {
         }
 
         public void OnPointerUp(PointerEventData eventData) {
+            base.OnPointerUp(eventData);
             CancelInvoke();
         }
 
         public void OnPointerExit(PointerEventData eventData) {
+            base.OnPointerExit(eventData);
             CancelInvoke();
         }
 
         void RapidClick() {
             clicks++;
-            //Debug.Log("Rapid Click" + clicks);
+            Debug.Log("Rapid Click" + clicks);
             continuesClick.Invoke();
         }
 
         void SuperRapidClick() {
             clicks++;
             CancelInvoke("RapidClick");
-            //Debug.Log("Super Click" + clicks);
+            Debug.Log("Super Click" + clicks);
             continuesClick.Invoke();
         }
 

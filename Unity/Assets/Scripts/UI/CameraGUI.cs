@@ -7,6 +7,12 @@ using UnityEngine.UI;
 namespace UI {
     public class CameraGUI :MonoBehaviour {
 
+        private const int MIN_VERTICAL = 0;
+        private const int MAX_VERTICAL = 90;
+
+        private const int MIN_FORCE = 0;
+        private const int MAX_FORCE = 30;
+
         private float angleHorizontal = 0;
         private float angleVertical = 0;
         private float force = 0;
@@ -18,14 +24,6 @@ namespace UI {
         public event Action<float> OnForceChange;
         public event Action<bool> OnShowPath;
 
-        public float Force {
-            get {
-                if (sliderForce  == null)  return float.MinValue;
-                else return sliderForce.value;
-            }
-        }
-
-
         CanvasGroup controls;
         CanvasGroup errorOverlay;
 
@@ -33,22 +31,23 @@ namespace UI {
         private Text textX;
         private Text textForce;
 
-        private Scroller sliderY;
-        private Scroller sliderX;
-        private Scroller sliderForce;
-
         private Button fireButton;
         private ExtendedButton showPathButton;
         private Tween errorToggleTween;
 
-        private LongPressButton up;
-        private LongPressButton left;
-        private LongPressButton right;
-        private LongPressButton down;
+        private LongPressButton angleUp;
+        private LongPressButton angleLeft;
+        private LongPressButton angleRight;
+        private LongPressButton angleDown;
+
+        private LongPressButton forceUp;
+        private LongPressButton forceDown;
+
 
         private CanvasGroup endGameScreen;
 
         public int angleTick = 1;
+        public int forceTick= 1;
 
 
         void Awake() {
@@ -91,35 +90,34 @@ namespace UI {
         public void GetControlComponents() {
             fireButton = controls.transform.Find("FireButton").GetComponent<Button>();
             showPathButton = controls.transform.Find("ShowPathButton").GetComponent<ExtendedButton>();
-            sliderForce = controls.transform.Find("ScrollerForce").GetComponent<Scroller>();
-            sliderX = controls.transform.Find("ScrollerX").GetComponent<Scroller>();
-            sliderY = controls.transform.Find("ScrollerY").GetComponent<Scroller>();
             textY = controls.transform.Find("AnglesY").GetComponent<Text>();
             textX = controls.transform.Find("AnglesX").GetComponent<Text>();
             textForce = controls.transform.Find("Force").GetComponent<Text>();
 
-            up = controls.transform.Find("AngleControl/Up").GetComponent<LongPressButton>();
-            left = controls.transform.Find("AngleControl/Left").GetComponent<LongPressButton>();
-            right = controls.transform.Find("AngleControl/Right").GetComponent<LongPressButton>();
-            down = controls.transform.Find("AngleControl/Down").GetComponent<LongPressButton>();
+            angleUp = controls.transform.Find("AngleControl/Up").GetComponent<LongPressButton>();
+            angleLeft = controls.transform.Find("AngleControl/Left").GetComponent<LongPressButton>();
+            angleRight = controls.transform.Find("AngleControl/Right").GetComponent<LongPressButton>();
+            angleDown = controls.transform.Find("AngleControl/Down").GetComponent<LongPressButton>();
+
+            forceUp = controls.transform.Find("ForceControl/Up").GetComponent<LongPressButton>();
+            forceDown = controls.transform.Find("ForceControl/Down").GetComponent<LongPressButton>();
         }
 
         /// <summary>
         /// register events to their handlers
         /// </summary>
         private void RegisterEvents() {
-            sliderForce.onValueChanged += OnForceSliderChange;
-            sliderY.onValueChanged += OnYChanged;
-            sliderX.onValueChanged += OnXChanged;
             fireButton.onClick.AddListener(OnFireClicked);
             showPathButton.onPointerDown.AddListener(()=>TogglePath(true));
             showPathButton.onPointerUp.AddListener(()=>TogglePath(false));
             showPathButton.onPointerExit.AddListener(()=>TogglePath(false));
 
-            up.continuesClick.AddListener(()=>AngleChanged(0,angleTick));
-            left.continuesClick.AddListener(()=>AngleChanged(-angleTick,0));
-            right.continuesClick.AddListener(()=>AngleChanged(angleTick,0));
-            down.continuesClick.AddListener(()=>AngleChanged(0,-angleTick));
+            angleUp.continuesClick.AddListener(()=>AngleChanged(0,angleTick,0));
+            angleLeft.continuesClick.AddListener(()=>AngleChanged(-angleTick,0,0));
+            angleRight.continuesClick.AddListener(()=>AngleChanged(angleTick,0,0));
+            angleDown.continuesClick.AddListener(()=>AngleChanged(0,-angleTick,0));
+            forceUp.continuesClick.AddListener(()=>AngleChanged(0,0,forceTick));
+            forceDown.continuesClick.AddListener(()=>AngleChanged(0,0,-forceTick));
         }
 
         public void TogglePath(bool val) {
@@ -155,28 +153,39 @@ namespace UI {
             UpdateTexts();
         }
 
-        public void AngleChanged(int horizontal, int vertical) {
+        public void AngleChanged(int horizontal, int vertical,int forceDelta) {
             angleHorizontal += horizontal;
             angleVertical += vertical;
-            Debug.LogFormat("A {0} {1}",angleHorizontal,angleVertical);
+            force += forceDelta;
+
+            if (angleHorizontal > 360) angleHorizontal = angleHorizontal % 360;
+            if (angleHorizontal < 0) angleHorizontal += 360;
+            angleVertical = Mathf.Clamp(angleVertical,MIN_VERTICAL,MAX_VERTICAL);
+            force = Mathf.Clamp(force,MIN_FORCE,MAX_FORCE);
+
             if (horizontal != 0 && OnXAngleChange != null) {
                 OnXAngleChange(angleHorizontal);
             }
             if (vertical != 0 && OnYAngleChange != null) {
                 OnYAngleChange(angleVertical);
             }
+            if (force != 0 && OnForceChange!= null) {
+                OnForceChange(force);
+            }
+            UpdateTexts();
         }
 
         private void UpdateTexts() {
-            textY.text = angleVertical.ToString();
-            textX.text = angleHorizontal.ToString();
-            textForce.text = Force.ToString();
+            Debug.LogFormat("A {0} {1}",angleHorizontal,angleVertical);
+            textY.text = string.Format("{0}º",angleVertical);
+            textX.text = string.Format("{0}º",angleHorizontal);
+            textForce.text = force.ToString();
         }
 
         public void DispatchInitValues() {
             if (OnXAngleChange != null) OnXAngleChange(angleHorizontal);
             if (OnYAngleChange != null) OnYAngleChange(angleVertical);
-            if (OnForceChange != null) OnForceChange(Force);
+            if (OnForceChange != null) OnForceChange(force);
         }
 
         public void DisableErrors() {
