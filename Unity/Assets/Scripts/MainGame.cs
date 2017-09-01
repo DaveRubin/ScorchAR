@@ -13,7 +13,7 @@ using System;
 
 public class MainGame : MonoBehaviour {
 
-    private bool OFFLINE_MODE = true;
+    private bool OFFLINE_MODE = false;
     private bool VUFORIA = false;
 
     private TankControl MyTank {
@@ -56,10 +56,11 @@ public class MainGame : MonoBehaviour {
             MainUser.Instance.Name = "Test";
             MainUser.Instance.Index = 1;
             MainUser.Instance.CurrentGame = new GameInfo{
-                Id = "A",
+                Id = "20",
                 Name = "GAME"
             };
             Game.OFFLINE = true;
+            gameID = MainUser.Instance.CurrentGame.Id;
             PostLogin(MainUser.Instance.Index);
         }
         else {
@@ -186,7 +187,7 @@ public class MainGame : MonoBehaviour {
         tankGO.onKill += onTankKilled;
         float height = terrainComp.SampleHeight(new Vector3(x, 0, y));
         tankGO.transform.localPosition = new Vector3(x, height, y);
-        tankGO.transform.localScale = Vector3.one * 0.5f;
+        tankGO.transform.localScale = Vector3.one * 0.75f;
 
         tankGO.SetPlayer(player);
 
