@@ -64,7 +64,10 @@ namespace ScorchEngine
 	        ControlledTank.AngleVertical= state.AngleVertical;
 	        ControlledTank.Force = state.Force;
 		    ControlledTank.IsReady = state.IsReady;
-	        OnUpdate?.Invoke(this);
+	        ControlledTank.PositionX = state.PositionX;
+            ControlledTank.PositionY = state.PositionY;
+            ControlledTank.PositionZ = state.PositionZ;
+            OnUpdate?.Invoke(this);
 	    }
 	}
 }

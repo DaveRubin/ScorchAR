@@ -20,7 +20,11 @@ namespace ScorchEngine
 
 	    public bool IsReady { get; set; }
 
-		public Tank() {
+        public float PositionX { get; set; }
+        public float PositionY { get; set; }
+        public float PositionZ { get; set; }
+
+        public Tank() {
 			Position = new Coordinate();
 			AngleHorizontal = 0;
 			AngleVertical = 0;

@@ -13,7 +13,11 @@ using System;
 
 public class MainGame : MonoBehaviour {
 
+<<<<<<< HEAD
     private bool OFFLINE_MODE = true;
+=======
+    private bool OFFLINE_MODE = false;
+>>>>>>> c29af9aa3cdb3582e664603cf4c29c67d8904860
     private bool VUFORIA = false;
 
     private TankControl MyTank {
@@ -114,11 +118,15 @@ public class MainGame : MonoBehaviour {
 
     private void Poll() {
         PlayerState pState = new PlayerState();
+        Vector3 myPos= MyTank.gameObject.transform.localPosition;
         pState.Id = PlayerIndex;
         pState.AngleHorizontal = MyTank.PlayerStats.ControlledTank.AngleHorizontal;
         pState.Force = MyTank.PlayerStats.ControlledTank.Force;
         pState.AngleVertical= MyTank.PlayerStats.ControlledTank.AngleVertical;
         pState.IsReady = MyTank.PlayerStats.ControlledTank.IsReady;
+        pState.PositionX = myPos.x;
+        pState.PositionY = myPos.y;
+        pState.PositionZ = myPos.z;
         //Debug.LogFormat(pState.ToString());
         if (!OFFLINE_MODE) {
             UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, OnPollResult);
@@ -256,9 +264,10 @@ public class MainGame : MonoBehaviour {
 
     public void onTankHit(TankControl tank)
     {
+        Debug.LogError("in onTankHit MainGame");
         if (tank == MyTank)
         {
-            //TODO overlay
+            Gui.DoOnHitAnimation();
         }
     }
 

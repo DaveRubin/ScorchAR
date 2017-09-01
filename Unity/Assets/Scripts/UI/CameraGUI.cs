@@ -46,6 +46,8 @@ namespace UI {
 
         private CanvasGroup endGameScreen;
 
+        private Image hitOverlay;
+
         public int angleTick = 1;
         public int forceTick= 1;
 
@@ -75,6 +77,8 @@ namespace UI {
             endGameScreen = transform.Find("EndGameScreen").GetComponent<CanvasGroup>();
             endGameScreen.alpha = 0;
             endGameScreen.gameObject.SetActive(false);
+            hitOverlay = transform.Find("HitOverlay").GetComponent<Image>();
+            hitOverlay.gameObject.SetActive(false);
             GetControlComponents();
             DispatchInitValues();
         }
@@ -218,6 +222,12 @@ namespace UI {
 
         }
 
+        public void DoOnHitAnimation()
+        {
+            hitOverlay.gameObject.SetActive(true);
+            hitOverlay.color = Color.red;
+            hitOverlay.DOFade(0, 1.5f).OnComplete(()=> { hitOverlay.gameObject.SetActive(false); });  
+        }
 
     }
 }
