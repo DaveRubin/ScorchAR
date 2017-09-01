@@ -15,13 +15,13 @@ public class TerrainLoader : MonoBehaviour
 
     private void LoadHeightmap( string filename )
     {
-// Load heightmap.
+        // Load heightmap.
         Texture2D heightmap = ( Texture2D ) Resources.Load( "Heightmaps/" + filename );
 
-// Acquire an array of colour values.
+        // Acquire an array of colour values.
         Color[] values = heightmap.GetPixels();
 
-// Run through array and read height values.
+        // Run through array and read height values.
         int index = 0;
         for ( int z = 0; z < heightmap.height; z++ )
         {
