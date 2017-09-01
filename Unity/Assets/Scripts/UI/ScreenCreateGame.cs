@@ -46,21 +46,21 @@ namespace UI {
                 SceneManager.LoadScene(ScreenLobby.SCENE_NAME);
             }
             else {
-                InvokeRepeating("WaitForGameToFill", 1, 1f);
+                InvokeRepeating("WaitForGameToFill", 1f, 1f);
             }
 
         }
 
-        public void WaitForGameToFill()
+        private void WaitForGameToFill()
         {
             UnityServerWrapper.Instance.GetGame(MainUser.Instance.CurrentGame.Id, onWaitForGameToFillPoll);
            
         }
 
-        public void onWaitForGameToFillPoll(GameInfo gameInfo)
+        private void onWaitForGameToFillPoll(GameInfo gameInfo)
         {
             MainUser.Instance.CurrentGame = gameInfo;
-            if (gameInfo.IsFull)
+            if (gameInfo.IsGameFull())
             {
                 CancelInvoke("WaitForGameToFill");
                 OverlayControl.Instance.ToggleLoading(true).OnComplete(()=> {
@@ -105,14 +105,18 @@ namespace UI {
         }
 
         public void OnCancelPressed() {
-            if (beatingTween!= null) beatingTween.Kill();
+            UnityServerWrapper.Instance.CancelGame(MainUser.Instance.CurrentGame.Id, onCancelGame);
+        }
+
+        private void onCancelGame()
+        {
+            if (beatingTween != null) beatingTween.Kill();
             GameObject waitingBase = transform.Find("WaitingForPlayer").gameObject;
             CanvasGroup canvasGroup = waitingBase.GetComponent<CanvasGroup>();
             canvasGroup.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
-            canvasGroup.DOFade(0,1).OnComplete(()=> {
+            canvasGroup.DOFade(0, 1).OnComplete(() => {
                 waitingBase.SetActive(false);
                 CancelInvoke("WaitForGameToFill");
-                //TODO - CANCEL GAME
                 BackToLobby();
             });
         }
