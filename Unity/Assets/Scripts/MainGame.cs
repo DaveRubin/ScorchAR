@@ -185,6 +185,7 @@ public class MainGame : MonoBehaviour {
             }
         }
         tankGO.onKill += onTankKilled;
+        tankGO.onHit += onTankHit;
         float height = terrainComp.SampleHeight(new Vector3(x, 0, y));
         tankGO.transform.localPosition = new Vector3(x, height, y);
         tankGO.transform.localScale = Vector3.one * 0.75f;
@@ -244,12 +245,20 @@ public class MainGame : MonoBehaviour {
         ToggleMapHeight(detected);
         Gui.ToggleTrackerDetection(detected);
     }
-
+    
     public void onTankKilled(TankControl tank) {
         Gui.ShowEndGame(tank != MyTank).AddListener(()=> {
             ServerWrapper.RemovePlayerFromGame(gameID,PlayerIndex);
             SceneManager.LoadScene("Menus");
         });
+    }
+
+    public void onTankHit(TankControl tank)
+    {
+        if (tank == MyTank)
+        {
+            //TODO overlay
+        }
     }
 
     public void ToggleMapHeight(bool show) {

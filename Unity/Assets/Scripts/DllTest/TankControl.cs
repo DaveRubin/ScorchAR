@@ -11,6 +11,7 @@ using View;
 public class TankControl : MonoBehaviour {
 
     public Action<TankControl> onKill;
+    public Action<TankControl> onHit;
     public bool Local{get;private set;}
     public Player PlayerStats;
     public float force;
@@ -51,9 +52,15 @@ public class TankControl : MonoBehaviour {
     /// <param name="damage"></param>
     public void Hit(float damage) {
         //PlayerStats.ControlledTank.Health -= damage;
+        if (onHit != null)
+        {
+            onHit(this); 
+        }
+            
         Debug.LogFormat("Hit for {0} damage, total health - {1}",damage,PlayerStats.ControlledTank.Health);
         PlayerStats.ControlledTank.Damage(EWeaponType.Regular,(int)damage);
         UpdateHealthBar(PlayerStats.ControlledTank.Health);
+
     }
 
     public void SetPlayer(Player player) {
