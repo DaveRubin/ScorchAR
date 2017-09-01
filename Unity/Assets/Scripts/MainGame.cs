@@ -120,8 +120,9 @@ public class MainGame : MonoBehaviour {
         pState.AngleVertical= MyTank.PlayerStats.ControlledTank.AngleVertical;
         pState.IsReady = MyTank.PlayerStats.ControlledTank.IsReady;
         //Debug.LogFormat(pState.ToString());
-        //if (OFFLINE_MODE) return;
-        UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, OnPollResult);
+        if (!OFFLINE_MODE) {
+            UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, OnPollResult);
+        }
        // GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
         MyTank.PlayerStats.ControlledTank.IsReady = false;
         Gui.SetLocked(false);
