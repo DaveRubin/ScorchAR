@@ -13,7 +13,7 @@ using System;
 
 public class MainGame : MonoBehaviour {
 
-    private bool OFFLINE_MODE = false;
+    private bool OFFLINE_MODE = true;
     private bool VUFORIA = false;
 
     private TankControl MyTank {
@@ -120,7 +120,7 @@ public class MainGame : MonoBehaviour {
         pState.AngleVertical= MyTank.PlayerStats.ControlledTank.AngleVertical;
         pState.IsReady = MyTank.PlayerStats.ControlledTank.IsReady;
         //Debug.LogFormat(pState.ToString());
-        //if (OFFLINE_MODE) return;
+        if (OFFLINE_MODE) return;
         UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, OnPollResult);
        // GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
         MyTank.PlayerStats.ControlledTank.IsReady = false;

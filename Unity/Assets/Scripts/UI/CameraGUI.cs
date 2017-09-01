@@ -7,6 +7,10 @@ using UnityEngine.UI;
 namespace UI {
     public class CameraGUI :MonoBehaviour {
 
+        private float angleHorizontal = 0;
+        private float angleVertical = 0;
+        private float force = 0;
+
         private bool locked = false;
         public event Action OnShootClicked;
         public event Action<float> OnXAngleChange;
@@ -20,18 +24,7 @@ namespace UI {
                 else return sliderForce.value;
             }
         }
-        public float XAngle {
-            get {
-                if (sliderX  == null)  return float.MinValue;
-                else return sliderX.value;
-            }
-        }
-        public float YAngle{
-            get {
-                if (sliderY == null)  return float.MinValue;
-                else return sliderY.value;
-            }
-        }
+
 
         CanvasGroup controls;
         CanvasGroup errorOverlay;
@@ -48,7 +41,14 @@ namespace UI {
         private ExtendedButton showPathButton;
         private Tween errorToggleTween;
 
+        private LongPressButton up;
+        private LongPressButton left;
+        private LongPressButton right;
+        private LongPressButton down;
+
         private CanvasGroup endGameScreen;
+
+        public int angleTick = 1;
 
 
         void Awake() {
@@ -97,6 +97,11 @@ namespace UI {
             textY = controls.transform.Find("AnglesY").GetComponent<Text>();
             textX = controls.transform.Find("AnglesX").GetComponent<Text>();
             textForce = controls.transform.Find("Force").GetComponent<Text>();
+
+            up = controls.transform.Find("AngleControl/Up").GetComponent<LongPressButton>();
+            left = controls.transform.Find("AngleControl/Left").GetComponent<LongPressButton>();
+            right = controls.transform.Find("AngleControl/Right").GetComponent<LongPressButton>();
+            down = controls.transform.Find("AngleControl/Down").GetComponent<LongPressButton>();
         }
 
         /// <summary>
@@ -110,6 +115,11 @@ namespace UI {
             showPathButton.onPointerDown.AddListener(()=>TogglePath(true));
             showPathButton.onPointerUp.AddListener(()=>TogglePath(false));
             showPathButton.onPointerExit.AddListener(()=>TogglePath(false));
+
+            up.continuesClick.AddListener(()=>AngleChanged(0,angleTick));
+            left.continuesClick.AddListener(()=>AngleChanged(-angleTick,0));
+            right.continuesClick.AddListener(()=>AngleChanged(angleTick,0));
+            down.continuesClick.AddListener(()=>AngleChanged(0,-angleTick));
         }
 
         public void TogglePath(bool val) {
@@ -145,15 +155,27 @@ namespace UI {
             UpdateTexts();
         }
 
+        public void AngleChanged(int horizontal, int vertical) {
+            angleHorizontal += horizontal;
+            angleVertical += vertical;
+            Debug.LogFormat("A {0} {1}",angleHorizontal,angleVertical);
+            if (horizontal != 0 && OnXAngleChange != null) {
+                OnXAngleChange(angleHorizontal);
+            }
+            if (vertical != 0 && OnYAngleChange != null) {
+                OnYAngleChange(angleVertical);
+            }
+        }
+
         private void UpdateTexts() {
-            textY.text = YAngle.ToString();
-            textX.text = XAngle.ToString();
+            textY.text = angleVertical.ToString();
+            textX.text = angleHorizontal.ToString();
             textForce.text = Force.ToString();
         }
 
         public void DispatchInitValues() {
-            if (OnXAngleChange != null) OnXAngleChange(XAngle);
-            if (OnYAngleChange != null) OnYAngleChange(YAngle);
+            if (OnXAngleChange != null) OnXAngleChange(angleHorizontal);
+            if (OnYAngleChange != null) OnYAngleChange(angleVertical);
             if (OnForceChange != null) OnForceChange(Force);
         }
 
@@ -186,6 +208,7 @@ namespace UI {
             errorToggleTween = sequence;
 
         }
+
 
     }
 }
