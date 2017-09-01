@@ -19,6 +19,9 @@ namespace ScorchServer.Models
             AngleHorizontal = state.AngleHorizontal;
             AngleVertical = state.AngleVertical;
             Force = state.Force;
+            PositionX = state.PositionX;
+            PositionY = state.PositionY;
+            PositionZ = state.PositionZ;
             LastUpdateTime = updateTime;
             IsActive = true;
         }
@@ -35,6 +38,9 @@ namespace ScorchServer.Models
             AngleHorizontal = state.AngleHorizontal;
             AngleVertical = state.AngleVertical;
             Force = state.Force;
+            PositionX = state.PositionX;
+            PositionY = state.PositionY;
+            PositionZ = state.PositionZ;
             LastUpdateTime = DateTime.Now;
             IsActive = true;
         }
