@@ -1,5 +1,5 @@
-﻿using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 
 public class TerrainDeform : MonoBehaviour {
@@ -7,6 +7,7 @@ public class TerrainDeform : MonoBehaviour {
 	private Terrain TerrainGameBoard;
     //public Explosion explosion;
     public Object[] heightmaps; //gets image 2
+    public UnityEvent onTerrainDeformed = new UnityEvent();
 
     void Awake()
     {
@@ -57,6 +58,6 @@ public class TerrainDeform : MonoBehaviour {
 
         //SetHeights to perform change
         TerrainGameBoard.terrainData.SetHeights(0,0,heights);
-
+        onTerrainDeformed.Invoke();
     }
 }
