@@ -13,7 +13,7 @@ using System;
 
 public class MainGame : MonoBehaviour {
 
-    private bool OFFLINE_MODE = false;
+    private bool OFFLINE_MODE = true;
     private bool VUFORIA = false;
 
     private TankControl MyTank {
