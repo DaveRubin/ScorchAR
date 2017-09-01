@@ -72,7 +72,8 @@ namespace DllTest {
             GameObject fire  = PrefabManager.InstantiatePrefab("ExplosionFX");
             radius.transform.position = transform.position;
             fire.transform.position = transform.position;
-            terrainDeformScript.DeformMesh((int)transform.position.x,(int)transform.position.z,5,5000);
+            //terrainDeformScript.DeformMesh((int)transform.position.x,(int)transform.position.z,5,5000);
+            terrainDeformScript.DeformMesh(((1025/64)*42),((1025/64)*26),50,120);
 
             radius.GetComponent<Explosion>().Damage = damage;
             MeshRenderer meshRenderer = radius.GetComponent<MeshRenderer>();
