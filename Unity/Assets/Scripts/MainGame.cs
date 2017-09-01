@@ -14,7 +14,7 @@ using System;
 public class MainGame : MonoBehaviour {
 
     private bool OFFLINE_MODE = false;
-    private bool VUFORIA = true;
+    private bool VUFORIA = false;
 
     private TankControl MyTank {
         get {
@@ -255,9 +255,10 @@ public class MainGame : MonoBehaviour {
 
     public void onTankHit(TankControl tank)
     {
+        Debug.LogError("in onTankHit MainGame");
         if (tank == MyTank)
         {
-            //TODO overlay
+            Gui.DoOnHitAnimation();
         }
     }
 

@@ -125,7 +125,7 @@ namespace Server
 
         public void UpdatePlayerState(string gameId, PlayerState playerState, Action<List<PlayerState>> onDoneCallback)
         {
-            Debug.Log("get player state " + ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", gameId));
+            //Debug.Log("get player state " + ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", gameId));
             string url = GetURL(ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", gameId));
             string json = JsonConvert.SerializeObject(playerState);
             byte[] postData = System.Text.Encoding.ASCII.GetBytes(json.ToCharArray());
