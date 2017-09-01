@@ -14,7 +14,7 @@ using System;
 public class MainGame : MonoBehaviour {
 
     private bool OFFLINE_MODE = false;
-    private bool VUFORIA = false;
+    private bool VUFORIA = true;
 
     private TankControl MyTank {
         get {
@@ -170,18 +170,18 @@ public class MainGame : MonoBehaviour {
         tankGO.transform.SetParent(tanksRoot);
         //tankGO.transform.localPosition = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
 
-        int x = (seed + randomizer.Next(9, 22)) % 42 + 7;
-        int y = (seed + randomizer.Next(3, 17)) % 42 + 7;
+        int x = (seed + randomizer.Next(9, 22)) % 100;
+        int y = (seed + randomizer.Next(3, 17)) % 100;
         if (!v.x.Equals(-1f) || !v.y.Equals(-1f))
         {
-            if ( Math.Abs(x - v.x) < 20) 
+            if ( Math.Abs(x - v.x) < 35) 
             {
-                x = (x + randomizer.Next(18, 25)) % 42 + 7;
+                x = (x + randomizer.Next(32, 38)) % 100;
             }
 
-            if (Math.Abs(y - v.y) < 20)
+            if (Math.Abs(y - v.y) < 25)
             {
-                y = (y + randomizer.Next(18, 25)) % 42 + 7;
+                y = (y + randomizer.Next(22, 28)) % 100;
             }
         }
         tankGO.onKill += onTankKilled;
