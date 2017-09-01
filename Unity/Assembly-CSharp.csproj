@@ -82,6 +82,7 @@
      <Compile Include="Assets\Scripts\Server\UnityServerWrapper.cs" />
      <Compile Include="Assets\Scripts\ShowSliderValue.cs" />
      <Compile Include="Assets\Scripts\Terrain\TerrainDeform.cs" />
+     <Compile Include="Assets\Scripts\Terrain\TerrainLoader.cs" />
      <Compile Include="Assets\Scripts\TiltWindow.cs" />
      <Compile Include="Assets\Scripts\UI\CameraGUI.cs" />
      <Compile Include="Assets\Scripts\UI\EScreenType.cs" />
