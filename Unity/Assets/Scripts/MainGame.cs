@@ -13,8 +13,8 @@ using System;
 
 public class MainGame : MonoBehaviour {
 
-    private bool OFFLINE_MODE = false;
-    private bool VUFORIA = true;
+    private bool OFFLINE_MODE = true;
+    private bool VUFORIA = false;
     public const int MAP_SIZE = 64;
 
     private TankControl MyTank {
@@ -168,6 +168,19 @@ public class MainGame : MonoBehaviour {
         i = Math.Abs(i - 1);
         initTank(players[i], seed + randomizer.Next(5, 13), tanksRoot, randomizer ,v);
 
+        for (int j = 0; j < tanks.Count; j++) {
+            TankColorer colorer = tanks[j].GetComponent<TankColorer>();
+            if (j == 0) {
+                colorer.Color(new Color(0.7294118f, 0.0f, 0.0f),
+                        new Color(0.39215687f, 0.0f, 0.039215688f),
+                        Color.black);
+            }
+            else {
+                colorer.Color(new Color(0.0f, 0.44705883f, 0.7294118f),
+                        new Color(0.0f, 0.18431373f, 0.39215687f),
+                        Color.black);
+            }
+        }
         //tank = GameObject.Find("Tank").GetComponent<TankControl>();
         //tank.SetPlayer(GameCore.self);
     }
