@@ -31,6 +31,8 @@ public class TankControl : MonoBehaviour {
     private Player updatePlayer = null;
     private CameraGUI gui;
 
+    public float TWEEN_DURATION = 0.5f;
+
     void Awake() {
         body = transform;
         Sides = transform.Find("Top");
@@ -140,6 +142,7 @@ public class TankControl : MonoBehaviour {
         onLeftRightChanged(updatedPlayer.ControlledTank.AngleHorizontal);
         onUpDownChanged(updatedPlayer.ControlledTank.AngleVertical);
         onForceChange(updatedPlayer.ControlledTank.Force);
+        SimulateMotion(updatedPlayer.ControlledTank);
         //UpdateHealthBar(updatedPlayer.ControlledTank.Health);
         Debug.LogErrorFormat("Player {0} got updated",PlayerStats.ID);
         if (updatedPlayer.ControlledTank.IsReady) Shoot();
@@ -156,7 +159,7 @@ public class TankControl : MonoBehaviour {
         Vector3 yRotation = Sides.localRotation.eulerAngles;
         yRotation.y = angle;
         PlayerStats.ControlledTank.AngleHorizontal = angle;
-        Sides.DOLocalRotate(yRotation,0.5f).SetEase(Ease.Linear).OnUpdate(()=>updatePathDirtyFlag = true);
+        Sides.DOLocalRotate(yRotation,TWEEN_DURATION).SetEase(Ease.Linear).OnUpdate(()=>updatePathDirtyFlag = true);
 
     }
 
@@ -180,7 +183,7 @@ public class TankControl : MonoBehaviour {
         Vector3 zRotation = UpDwn.localRotation.eulerAngles;
         zRotation.z = angle;
         PlayerStats.ControlledTank.AngleVertical = angle;
-        UpDwn.DOLocalRotate(zRotation,0.5f).SetEase(Ease.Linear).OnUpdate(()=>updatePathDirtyFlag = true);
+        UpDwn.DOLocalRotate(zRotation,TWEEN_DURATION).SetEase(Ease.Linear).OnUpdate(()=>updatePathDirtyFlag = true);
 
     }
 
@@ -240,7 +243,7 @@ public class TankControl : MonoBehaviour {
             //test tank health
             for (int i = 0; i < 10; i++) {
                 int j = i;
-                DOVirtual.DelayedCall(j*0.5f,()=>UpdateHealthBar(100 - j*10));
+                DOVirtual.DelayedCall(j*TWEEN_DURATION,()=>UpdateHealthBar(100 - j*10));
             }
         }
     }
@@ -282,6 +285,15 @@ public class TankControl : MonoBehaviour {
         PlayerStats.ControlledTank.PositionY = newPos.y;
         PlayerStats.ControlledTank.PositionZ = newPos.z;
 
+    }
+
+    public void SimulateMotion(Tank controlledTank) {
+        Vector3 targetPosition = new Vector3(controlledTank.PositionX,controlledTank.PositionY,controlledTank.PositionZ);
+
+        DOTween.To(()=> transform.localPosition, tempVector=> {
+            tempVector.y = MainGame.terrainComp.SampleHeight(tempVector);
+            transform.localPosition = tempVector;
+        }, targetPosition, TWEEN_DURATION);
     }
 
 
