@@ -10,6 +10,8 @@ using View;
 
 public class TankControl : MonoBehaviour {
 
+    public Transform dummyCam;
+
     private const float maxSpeed = 0.1f;
     public Action<TankControl> onKill;
     public Action<TankControl> onHit;
@@ -111,6 +113,7 @@ public class TankControl : MonoBehaviour {
         Local = true;
         gui = Gui;
         positionMarker.Enable();
+        dummyCam = Camera.main.transform;
         PlayerStats.OnUpdate -= OnPLayerUpdate;
         Gui.OnForceChange += onForceChange;
         Gui.OnXAngleChange += onLeftRightChanged;
@@ -272,8 +275,14 @@ public class TankControl : MonoBehaviour {
     }
 
     public void OnMove(Vector2 moveVector) {
+        //rotate moveFactor
+        Vector3 vector = new Vector3(moveVector.x,0,moveVector.y)*maxSpeed;
+        if (dummyCam != null) {
+            vector = (moveVector.x*dummyCam.right + moveVector.y*dummyCam.forward)*maxSpeed;
+            vector.y = 0;
+        }
         //move and update position
-        Vector3 newPos = transform.localPosition + new Vector3(moveVector.x,0,moveVector.y)*maxSpeed;
+        Vector3 newPos = transform.localPosition + vector;
         //clamp positions
         newPos.z  = Mathf.Clamp(newPos.z ,0,MainGame.MAP_SIZE);
         newPos.x  = Mathf.Clamp(newPos.x ,0,MainGame.MAP_SIZE);
