@@ -35,6 +35,8 @@ public class MainGame : MonoBehaviour {
     private VuforiaWrapper vuforiaWrapper;
     private Tween terrainTween;
 
+    public const float POLL_FREQUENCY = 1;
+
     public static GameObject GetTerrain()
     {
         return terrain;
@@ -92,7 +94,7 @@ public class MainGame : MonoBehaviour {
 
         //after all is set, start polling from server for changes
         GameCore.MyID = PlayerIndex;
-        InvokeRepeating("Poll", 1, 1f);
+        InvokeRepeating("Poll", 1, POLL_FREQUENCY);
         //OverlayControl.Instance.ToggleLoading(false);
         if (VUFORIA)
         {

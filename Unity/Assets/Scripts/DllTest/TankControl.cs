@@ -293,7 +293,7 @@ public class TankControl : MonoBehaviour {
         DOTween.To(()=> transform.localPosition, tempVector=> {
             tempVector.y = MainGame.terrainComp.SampleHeight(tempVector);
             transform.localPosition = tempVector;
-        }, targetPosition, TWEEN_DURATION);
+        }, targetPosition, MainGame.POLL_FREQUENCY);
     }
 
 

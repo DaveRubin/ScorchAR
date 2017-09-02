@@ -43,6 +43,7 @@ namespace UI {
 
         private LongPressButton forceUp;
         private LongPressButton forceDown;
+        private Image joystick;
 
 
         private CanvasGroup endGameScreen;
@@ -74,6 +75,8 @@ namespace UI {
 
         public void SetLocked(bool isLocked) {
             locked = isLocked;
+            joystick.color = isLocked? new Color(1,1,1,0.2f): Color.white;
+            joystick.GetComponent<Joystick>().enabled = !isLocked;
             controls.blocksRaycasts = !isLocked;
         }
 
@@ -114,6 +117,8 @@ namespace UI {
 
             forceUp = controls.transform.Find("ForceControl/Up").GetComponent<LongPressButton>();
             forceDown = controls.transform.Find("ForceControl/Down").GetComponent<LongPressButton>();
+
+            joystick = controls.transform.Find("MobileJoystick").GetComponent<Image>();
         }
 
         /// <summary>
