@@ -13,6 +13,7 @@ using System;
 
 public class MainGame : MonoBehaviour {
 
+    public const int MAP_SIZE = 64;
     private bool OFFLINE_MODE = true;
     private bool VUFORIA = false;
 
@@ -30,7 +31,7 @@ public class MainGame : MonoBehaviour {
     private int PlayerIndex;
     private Transform rootTransform;
     public static GameObject terrain;
-    private Terrain terrainComp;
+    public static Terrain terrainComp;
     private VuforiaWrapper vuforiaWrapper;
     private Tween terrainTween;
 
@@ -114,15 +115,15 @@ public class MainGame : MonoBehaviour {
 
     private void Poll() {
         PlayerState pState = new PlayerState();
-        Vector3 myPos= MyTank.gameObject.transform.localPosition;
         pState.Id = PlayerIndex;
         pState.AngleHorizontal = MyTank.PlayerStats.ControlledTank.AngleHorizontal;
         pState.Force = MyTank.PlayerStats.ControlledTank.Force;
         pState.AngleVertical= MyTank.PlayerStats.ControlledTank.AngleVertical;
         pState.IsReady = MyTank.PlayerStats.ControlledTank.IsReady;
-        pState.PositionX = myPos.x;
-        pState.PositionY = myPos.y;
-        pState.PositionZ = myPos.z;
+        pState.PositionX = MyTank.PlayerStats.ControlledTank.PositionX;
+        pState.PositionY = MyTank.PlayerStats.ControlledTank.PositionY;
+        pState.PositionZ = MyTank.PlayerStats.ControlledTank.PositionZ;
+
         //Debug.LogFormat(pState.ToString());
         if (!OFFLINE_MODE) {
             UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, OnPollResult);
@@ -175,18 +176,18 @@ public class MainGame : MonoBehaviour {
         tankGO.transform.SetParent(tanksRoot);
         //tankGO.transform.localPosition = Vector3Extension.FromCoordinate(player.ControlledTank.Position);
 
-        int x = (seed + randomizer.Next(9, 22)) % 100;
-        int y = (seed + randomizer.Next(3, 17)) % 100;
+        int x = (seed + randomizer.Next(9, 22)) % MAP_SIZE;
+        int y = (seed + randomizer.Next(3, 17)) % MAP_SIZE;
         if (!v.x.Equals(-1f) || !v.y.Equals(-1f))
         {
             if ( Math.Abs(x - v.x) < 35) 
             {
-                x = (x + randomizer.Next(32, 38)) % 100;
+                x = (x + randomizer.Next(32, 38)) % MAP_SIZE;
             }
 
             if (Math.Abs(y - v.y) < 25)
             {
-                y = (y + randomizer.Next(22, 28)) % 100;
+                y = (y + randomizer.Next(22, 28)) % MAP_SIZE;
             }
         }
         tankGO.onKill += onTankKilled;

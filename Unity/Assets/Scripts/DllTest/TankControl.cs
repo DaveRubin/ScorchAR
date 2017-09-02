@@ -10,6 +10,7 @@ using View;
 
 public class TankControl : MonoBehaviour {
 
+    private const float maxSpeed = 0.1f;
     public Action<TankControl> onKill;
     public Action<TankControl> onHit;
     public bool Local{get;private set;}
@@ -114,6 +115,7 @@ public class TankControl : MonoBehaviour {
         Gui.OnYAngleChange += onUpDownChanged;
         Gui.OnShootClicked += OnGuiShoot;
         Gui.OnShowPath += OnShowPathToggle;
+        Gui.OnMove += OnMove;
     }
 
     public void UnlinkGUI(CameraGUI Gui) {
@@ -122,6 +124,7 @@ public class TankControl : MonoBehaviour {
         Gui.OnYAngleChange -= onUpDownChanged;
         Gui.OnShootClicked -= OnGuiShoot;
         Gui.OnShowPath -= OnShowPathToggle;
+        Gui.OnMove -= OnMove;
     }
 
     /// <summary>
@@ -263,6 +266,22 @@ public class TankControl : MonoBehaviour {
         PlayerStats.ControlledTank.IsReady = true;
         gui.SetLocked(true);
         Shoot();
+    }
+
+    public void OnMove(Vector2 moveVector) {
+        //move and update position
+        Vector3 newPos = transform.localPosition + new Vector3(moveVector.x,0,moveVector.y)*maxSpeed;
+        //clamp positions
+        newPos.z  = Mathf.Clamp(newPos.z ,0,MainGame.MAP_SIZE);
+        newPos.x  = Mathf.Clamp(newPos.x ,0,MainGame.MAP_SIZE);
+        //get height
+        newPos.y = MainGame.terrainComp.SampleHeight(newPos);
+
+        transform.localPosition = newPos;
+        PlayerStats.ControlledTank.PositionX = newPos.x;
+        PlayerStats.ControlledTank.PositionY = newPos.y;
+        PlayerStats.ControlledTank.PositionZ = newPos.z;
+
     }
 
 

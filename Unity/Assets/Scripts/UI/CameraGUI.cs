@@ -202,7 +202,7 @@ namespace UI {
         }
 
         public void DisableErrors() {
-            errorOverlay.gameObject.SetActive(false);
+            //errorOverlay.gameObject.SetActive(false);
         }
 
         /// <summary>
