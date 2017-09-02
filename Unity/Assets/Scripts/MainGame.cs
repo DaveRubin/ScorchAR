@@ -212,6 +212,7 @@ public class MainGame : MonoBehaviour {
 
         terrain = PrefabManager.InstantiatePrefab("Terrain");
         terrain.transform.SetParent(terrainRoot);
+        terrain.GetComponent<TerrainDeform>().onTerrainDeformed.AddListener(OnTerrainDeform);
         terrainRoot.gameObject.name = "Terrain";
         terrainRoot.SetParent(rootTransform);
         terrainRoot.localPosition = Vector3.zero;
@@ -299,6 +300,19 @@ public class MainGame : MonoBehaviour {
         GameCore.OnPollResult(result);
         //Debug.Log("---------------");
        // Debug.LogFormat("{0} {1}",result[0],result[1]);
+    }
+
+    public void OnTerrainDeform() {
+        //update tanks height...
+        foreach (TankControl tank in tanks) {
+            Vector3 tankPos = tank.transform.localPosition;
+            float height = terrainComp.SampleHeight(new Vector3(tankPos.x, 0, tankPos.z));
+            Debug.LogFormat("Tank {0} - old {1} new {2} ",tank.gameObject.name,tankPos.y,height);
+            if (height != tankPos.y) {
+                Debug.LogWarning("HIRTTTTTT");
+                tank.transform.DOLocalMoveY(height,1);
+            }
+        }
     }
 
 }

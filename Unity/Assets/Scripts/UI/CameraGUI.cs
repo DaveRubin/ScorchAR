@@ -13,9 +13,9 @@ namespace UI {
         private const int MIN_FORCE = 0;
         private const int MAX_FORCE = 30;
 
-        private float angleHorizontal = 140;
-        private float angleVertical = 10;
-        private float force = 10;
+        private float angleHorizontal = 132;
+        private float angleVertical = 53;
+        private float force = 20;
 
         private bool locked = false;
         public event Action OnShootClicked;
