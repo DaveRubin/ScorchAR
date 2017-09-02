@@ -85,7 +85,7 @@ namespace UI {
         public void SetLocked(bool isLocked) {
             locked = isLocked;
             joystick.color = isLocked? new Color(1,1,1,0.2f): Color.white;
-            joystick.GetComponent<Joystick>().enabled = !isLocked;
+            joystick.GetComponent<Joystick>().MovementRange = isLocked? 0:100;
             controls.blocksRaycasts = !isLocked;
         }
 
