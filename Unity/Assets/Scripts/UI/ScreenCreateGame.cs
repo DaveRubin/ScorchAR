@@ -13,7 +13,7 @@ namespace UI {
         string gameName = "";
         Tween beatingTween;
 
-        private bool SKIP_WAITING = false;
+        private bool SKIP_WAITING = true;
 
         void Awake() {
             //Test();

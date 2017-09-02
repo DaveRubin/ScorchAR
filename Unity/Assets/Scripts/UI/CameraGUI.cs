@@ -53,7 +53,7 @@ namespace UI {
 
         public int angleTick = 1;
         public int forceTick= 1;
-        public float MAX_FUEL = 200;
+        public const float MAX_FUEL = 200;
         public float fuel = 200;
 
 

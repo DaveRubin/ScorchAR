@@ -13,8 +13,8 @@ using System;
 
 public class MainGame : MonoBehaviour {
 
-    private bool OFFLINE_MODE = true;
-    private bool VUFORIA = false;
+    private bool OFFLINE_MODE = false;
+    private bool VUFORIA = true;
     public const int MAP_SIZE = 64;
 
     private TankControl MyTank {
