@@ -477,6 +477,7 @@ GameObject:
   - component: {fileID: 4972797805437840}
   - component: {fileID: 65954012117151824}
   - component: {fileID: 114253005937475202}
+  - component: {fileID: 114631885734450520}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -1801,8 +1802,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6880a2b8f50fc431e91779cb1aff4a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dummyCam: {fileID: 0}
   force: 0
   active: 1
+  TWEEN_DURATION: 0.5
 --- !u!114 &114282144420544666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1898,6 +1901,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114631885734450520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1941590264145124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e1d661dabb94dbbaa250036138f0f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114931066803169612
 MonoBehaviour:
   m_ObjectHideFlags: 1

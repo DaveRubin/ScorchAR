@@ -1,8 +1,8 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 namespace UI {
     public class CameraGUI :MonoBehaviour {
@@ -23,12 +23,14 @@ namespace UI {
         public event Action<float> OnYAngleChange;
         public event Action<float> OnForceChange;
         public event Action<bool> OnShowPath;
+        public event Action<Vector2> OnMove;
 
         CanvasGroup controls;
         CanvasGroup errorOverlay;
 
         private Text textY;
         private Text textX;
+        private Text textFuel;
         private Text textForce;
 
         private Button fireButton;
@@ -42,6 +44,7 @@ namespace UI {
 
         private LongPressButton forceUp;
         private LongPressButton forceDown;
+        private Image joystick;
 
 
         private CanvasGroup endGameScreen;
@@ -50,10 +53,13 @@ namespace UI {
 
         public int angleTick = 1;
         public int forceTick= 1;
+        public const float MAX_FUEL = 200;
+        public float fuel = 200;
 
 
         void Awake() {
             locked = false;
+            fuel = MAX_FUEL;
             GetRelevantComponents();
             RegisterEvents();
             UpdateTexts();
@@ -63,8 +69,23 @@ namespace UI {
             DispatchInitValues();
         }
 
+        void Update() {
+            Vector2 moveVec = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"),CrossPlatformInputManager.GetAxis("Vertical"));
+            if (moveVec != Vector2.zero && OnMove != null) {
+                Debug.Log(moveVec);
+                float fuelBurn = moveVec.magnitude;
+                fuel = Mathf.Clamp(fuel - fuelBurn,0,MAX_FUEL);
+                if (fuel > 0 ) {
+                    OnMove(moveVec);
+                }
+                UpdateFuelText();
+            }
+        }
+
         public void SetLocked(bool isLocked) {
             locked = isLocked;
+            joystick.color = isLocked? new Color(1,1,1,0.2f): Color.white;
+            joystick.GetComponent<Joystick>().MovementRange = isLocked? 0:100;
             controls.blocksRaycasts = !isLocked;
         }
 
@@ -97,6 +118,7 @@ namespace UI {
             textY = controls.transform.Find("AnglesY").GetComponent<Text>();
             textX = controls.transform.Find("AnglesX").GetComponent<Text>();
             textForce = controls.transform.Find("Force").GetComponent<Text>();
+            textFuel = controls.transform.Find("Fuel").GetComponent<Text>();
 
             angleUp = controls.transform.Find("AngleControl/Up").GetComponent<LongPressButton>();
             angleLeft = controls.transform.Find("AngleControl/Left").GetComponent<LongPressButton>();
@@ -105,6 +127,8 @@ namespace UI {
 
             forceUp = controls.transform.Find("ForceControl/Up").GetComponent<LongPressButton>();
             forceDown = controls.transform.Find("ForceControl/Down").GetComponent<LongPressButton>();
+
+            joystick = controls.transform.Find("MobileJoystick").GetComponent<Image>();
         }
 
         /// <summary>
@@ -184,6 +208,7 @@ namespace UI {
             textY.text = string.Format("{0}º",angleVertical);
             textX.text = string.Format("{0}º",angleHorizontal);
             textForce.text = force.ToString();
+            UpdateFuelText();
         }
 
         public void DispatchInitValues() {
@@ -193,7 +218,7 @@ namespace UI {
         }
 
         public void DisableErrors() {
-            errorOverlay.gameObject.SetActive(false);
+            //errorOverlay.gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -227,6 +252,11 @@ namespace UI {
             hitOverlay.gameObject.SetActive(true);
             hitOverlay.color = Color.red;
             hitOverlay.DOFade(0, 1.5f).OnComplete(()=> { hitOverlay.gameObject.SetActive(false); });  
+        }
+
+        public void UpdateFuelText() {
+            textFuel.text = fuel > 0 ? string.Format("FUEL : {0}%",(int)((fuel/MAX_FUEL)*100)):"No Fuel";
+
         }
 
     }

@@ -10,6 +10,9 @@ using View;
 
 public class TankControl : MonoBehaviour {
 
+    public Transform dummyCam;
+
+    private const float maxSpeed = 0.1f;
     public Action<TankControl> onKill;
     public Action<TankControl> onHit;
     public bool Local{get;private set;}
@@ -29,6 +32,8 @@ public class TankControl : MonoBehaviour {
 
     private Player updatePlayer = null;
     private CameraGUI gui;
+
+    public float TWEEN_DURATION = 0.5f;
 
     void Awake() {
         body = transform;
@@ -108,12 +113,14 @@ public class TankControl : MonoBehaviour {
         Local = true;
         gui = Gui;
         positionMarker.Enable();
+        dummyCam = Camera.main.transform;
         PlayerStats.OnUpdate -= OnPLayerUpdate;
         Gui.OnForceChange += onForceChange;
         Gui.OnXAngleChange += onLeftRightChanged;
         Gui.OnYAngleChange += onUpDownChanged;
         Gui.OnShootClicked += OnGuiShoot;
         Gui.OnShowPath += OnShowPathToggle;
+        Gui.OnMove += OnMove;
     }
 
     public void UnlinkGUI(CameraGUI Gui) {
@@ -122,6 +129,7 @@ public class TankControl : MonoBehaviour {
         Gui.OnYAngleChange -= onUpDownChanged;
         Gui.OnShootClicked -= OnGuiShoot;
         Gui.OnShowPath -= OnShowPathToggle;
+        Gui.OnMove -= OnMove;
     }
 
     /// <summary>
@@ -137,6 +145,7 @@ public class TankControl : MonoBehaviour {
         onLeftRightChanged(updatedPlayer.ControlledTank.AngleHorizontal);
         onUpDownChanged(updatedPlayer.ControlledTank.AngleVertical);
         onForceChange(updatedPlayer.ControlledTank.Force);
+        SimulateMotion(updatedPlayer.ControlledTank);
         //UpdateHealthBar(updatedPlayer.ControlledTank.Health);
         Debug.LogErrorFormat("Player {0} got updated",PlayerStats.ID);
         if (updatedPlayer.ControlledTank.IsReady) Shoot();
@@ -153,7 +162,7 @@ public class TankControl : MonoBehaviour {
         Vector3 yRotation = Sides.localRotation.eulerAngles;
         yRotation.y = angle;
         PlayerStats.ControlledTank.AngleHorizontal = angle;
-        Sides.DOLocalRotate(yRotation,0.5f).SetEase(Ease.Linear).OnUpdate(()=>updatePathDirtyFlag = true);
+        Sides.DOLocalRotate(yRotation,TWEEN_DURATION).SetEase(Ease.Linear).OnUpdate(()=>updatePathDirtyFlag = true);
 
     }
 
@@ -177,7 +186,7 @@ public class TankControl : MonoBehaviour {
         Vector3 zRotation = UpDwn.localRotation.eulerAngles;
         zRotation.z = angle;
         PlayerStats.ControlledTank.AngleVertical = angle;
-        UpDwn.DOLocalRotate(zRotation,0.5f).SetEase(Ease.Linear).OnUpdate(()=>updatePathDirtyFlag = true);
+        UpDwn.DOLocalRotate(zRotation,TWEEN_DURATION).SetEase(Ease.Linear).OnUpdate(()=>updatePathDirtyFlag = true);
 
     }
 
@@ -237,7 +246,7 @@ public class TankControl : MonoBehaviour {
             //test tank health
             for (int i = 0; i < 10; i++) {
                 int j = i;
-                DOVirtual.DelayedCall(j*0.5f,()=>UpdateHealthBar(100 - j*10));
+                DOVirtual.DelayedCall(j*TWEEN_DURATION,()=>UpdateHealthBar(100 - j*10));
             }
         }
     }
@@ -263,6 +272,37 @@ public class TankControl : MonoBehaviour {
         PlayerStats.ControlledTank.IsReady = true;
         gui.SetLocked(true);
         Shoot();
+    }
+
+    public void OnMove(Vector2 moveVector) {
+        //rotate moveFactor
+        Vector3 vector = new Vector3(moveVector.x,0,moveVector.y)*maxSpeed;
+        if (dummyCam != null) {
+            vector = (moveVector.x*dummyCam.right + moveVector.y*dummyCam.forward)*maxSpeed;
+            vector.y = 0;
+        }
+        //move and update position
+        Vector3 newPos = transform.localPosition + vector;
+        //clamp positions
+        newPos.z  = Mathf.Clamp(newPos.z ,0,MainGame.MAP_SIZE);
+        newPos.x  = Mathf.Clamp(newPos.x ,0,MainGame.MAP_SIZE);
+        //get height
+        newPos.y = MainGame.terrainComp.SampleHeight(newPos);
+
+        transform.localPosition = newPos;
+        PlayerStats.ControlledTank.PositionX = newPos.x;
+        PlayerStats.ControlledTank.PositionY = newPos.y;
+        PlayerStats.ControlledTank.PositionZ = newPos.z;
+
+    }
+
+    public void SimulateMotion(Tank controlledTank) {
+        Vector3 targetPosition = new Vector3(controlledTank.PositionX,controlledTank.PositionY,controlledTank.PositionZ);
+
+        DOTween.To(()=> transform.localPosition, tempVector=> {
+            tempVector.y = MainGame.terrainComp.SampleHeight(tempVector);
+            transform.localPosition = tempVector;
+        }, targetPosition, MainGame.POLL_FREQUENCY);
     }
 
 

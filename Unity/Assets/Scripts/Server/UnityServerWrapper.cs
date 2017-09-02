@@ -268,6 +268,27 @@ namespace Server
                     }));
         }
 
+        // should be used only once ( let say winning player) other players should poll on get game until the round property is increased
+        public void NextRound(string id, Action<GameInfo> onDoneCallback)
+        {
+            string urlHash = ServerRoutes.NextRound.Replace("{id}", id);
+            string url = GetURL(urlHash);
+            StartCoroutine(
+                GetCoroutine(
+                    url,
+                    www =>
+                    {
+                        if (string.IsNullOrEmpty(www.error))
+                        {
+                            onDoneCallback(JsonConvert.DeserializeObject<GameInfo>(www.text));
+                        }
+                        else
+                        {
+                            Debug.LogFormat("Error calling move to next round game {0} {1}", id, www.error);
+                        }
+                    }));
+        }
+
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Private
         private string GetURL(string api)
