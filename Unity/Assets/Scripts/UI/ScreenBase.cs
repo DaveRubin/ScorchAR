@@ -32,7 +32,13 @@ namespace UI {
             return sequence;
         }
 
-        protected void GoBack() {
+        void Update() {
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                GoBack();
+            }
+        }
+
+        protected virtual void GoBack() {
             MenusScene.GoTo(EScreenType.MainMenu);
         }
 
