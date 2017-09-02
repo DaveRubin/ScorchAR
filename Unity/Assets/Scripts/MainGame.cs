@@ -13,9 +13,9 @@ using System;
 
 public class MainGame : MonoBehaviour {
 
-    public const int MAP_SIZE = 64;
     private bool OFFLINE_MODE = true;
     private bool VUFORIA = false;
+    public const int MAP_SIZE = 64;
 
     private TankControl MyTank {
         get {
