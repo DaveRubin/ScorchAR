@@ -22,11 +22,13 @@ namespace ScorchServer.Models
             Name = gameInfo.Name;
             MaxPlayers = gameInfo.MaxPlayers;
             Players = gameInfo.Players;
+            Round = gameInfo.Round;
             PlayerStates = new List<ServerPlayerState>();
             for (int i = 0; i < MaxPlayers; ++i)
             {
                 PlayerStates.Add( new ServerPlayerState());
             }
+            PlayerPositions = gameInfo.PlayerPositions;
             LastUpdateTime = DateTime.Now;
         }
 
@@ -36,7 +38,9 @@ namespace ScorchServer.Models
             Name = gameInfo.Name;
             MaxPlayers = gameInfo.MaxPlayers;
             Players = gameInfo.Players;
+            PlayerPositions = gameInfo.PlayerPositions;
             LastUpdateTime = DateTime.Now;
+            Round = gameInfo.Round;
         }
     }
 }
