@@ -1,8 +1,8 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 namespace UI {
     public class CameraGUI :MonoBehaviour {
@@ -23,6 +23,7 @@ namespace UI {
         public event Action<float> OnYAngleChange;
         public event Action<float> OnForceChange;
         public event Action<bool> OnShowPath;
+        public event Action<Vector2> OnMove;
 
         CanvasGroup controls;
         CanvasGroup errorOverlay;
@@ -61,6 +62,14 @@ namespace UI {
 
         void Start() {
             DispatchInitValues();
+        }
+
+        void Update() {
+            Vector2 moveVec = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"),CrossPlatformInputManager.GetAxis("Vertical"));
+            if (moveVec != Vector2.zero && OnMove != null) {
+                Debug.Log(moveVec);
+                OnMove(moveVec);
+            }
         }
 
         public void SetLocked(bool isLocked) {
