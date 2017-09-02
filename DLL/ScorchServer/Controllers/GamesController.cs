@@ -92,5 +92,15 @@ namespace ScorchServer.Controllers
         {
             gamesRepository.RemoveGame(id);
         }
+
+        [Route(ServerRoutes.NextRound)]
+        [HttpGet]
+        public GameInfo NextRound(string id)
+        {
+            GameInfo game = gamesRepository.GetGame(id);
+            game.CreatePositionsForPlayers();
+            return game;
+        }
+        
     }
 }
