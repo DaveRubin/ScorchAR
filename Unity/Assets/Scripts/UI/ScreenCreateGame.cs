@@ -12,6 +12,7 @@ namespace UI {
         Button createButton;
         string gameName = "";
         Tween beatingTween;
+        bool waiting = false;
 
         private bool SKIP_WAITING = false;
 
@@ -51,6 +52,15 @@ namespace UI {
 
         }
 
+        override protected void GoBack() {
+            if (waiting ) {
+                OnCancelPressed();
+            }
+            else {
+                base.GoBack();
+            }
+        }
+
         private void WaitForGameToFill()
         {
             UnityServerWrapper.Instance.GetGame(MainUser.Instance.CurrentGame.Id, onWaitForGameToFillPoll);
@@ -76,7 +86,7 @@ namespace UI {
         }
 
         public void ShowWaitingForOpponent() {
-
+            waiting = true;
             //Animation
             float size = 0.1f;
             Sequence s = DOTween.Sequence();
@@ -117,6 +127,7 @@ namespace UI {
             canvasGroup.DOFade(0, 1).OnComplete(() => {
                 waitingBase.SetActive(false);
                 CancelInvoke("WaitForGameToFill");
+                waiting = false;
                 BackToLobby();
             });
         }
