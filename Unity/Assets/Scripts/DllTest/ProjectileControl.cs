@@ -73,8 +73,7 @@ namespace DllTest {
             radius.transform.position = transform.position;
             fire.transform.position = transform.position;
             //terrainDeformScript.DeformMesh((int)transform.position.x,(int)transform.position.z,5,5000);
-            terrainDeformScript.DeformMesh(((1025/64)*42),((1025/64)*26),50,120);
-            terrainDeformScript.DeformMesh((int)transform.position.x,(int)transform.position.z,40,2);
+            terrainDeformScript.DeformMesh((int)transform.position.x,(int)transform.position.z,10,1);
 
 
             radius.GetComponent<Explosion>().Damage = damage;

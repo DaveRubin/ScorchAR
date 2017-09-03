@@ -41,4 +41,8 @@ public class TerrainLoader : MonoBehaviour
     private Terrain    m_terrain      = null;
     private float[ , ] m_heightValues = null;
     private int        m_resolution   = 0;
+
+    public void Reload() {
+        LoadHeightmap( "hm" );
+    }
 }
