@@ -52,6 +52,7 @@ public class TankControl : MonoBehaviour {
     }
 
     public void ResetTank() {
+        gameObject.SetActive(true);
         PlayerStats.ControlledTank.PositionX = 0;
         PlayerStats.ControlledTank.PositionY = 0;
         PlayerStats.ControlledTank.PositionZ = 0;
@@ -272,7 +273,7 @@ public class TankControl : MonoBehaviour {
         //Create explosion
         GameObject fire  = PrefabManager.InstantiatePrefab("ExplosionFX");
         fire.transform.position = transform.position;
-        GameObject.Destroy(gameObject);
+        gameObject.SetActive(false);
         DOVirtual.DelayedCall(2,()=>GameObject.Destroy(fire));
         if (onKill != null )
             onKill(this);
