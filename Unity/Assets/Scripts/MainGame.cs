@@ -34,7 +34,7 @@ public class MainGame : MonoBehaviour
     public static string gameID;
     private List<TankControl> tanks;
     private List<float> tanksHeight;
-    private int PlayerIndex;
+    public static int PlayerIndex;
     private Transform rootTransform;
     public static GameObject terrain;
     public static Terrain terrainComp;

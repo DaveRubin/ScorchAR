@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Server;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
@@ -165,6 +167,7 @@ namespace UI {
         /// register events to their handlers
         /// </summary>
         private void RegisterEvents() {
+            controls.transform.Find("ExitButton").GetComponent<Button>().onClick.AddListener(()=>ToggleExitPopup(true));
             fireButton.onClick.AddListener(OnFireClicked);
             showPathButton.onPointerDown.AddListener(()=>TogglePath(true));
             showPathButton.onPointerUp.AddListener(()=>TogglePath(false));
@@ -286,6 +289,25 @@ namespace UI {
 
         public void UpdateFuelText() {
             textFuel.text = fuel > 0 ? string.Format("FUEL : {0}%", (int)((fuel / MAX_FUEL) * 100)):"No Fuel";
+        }
+
+        public void ToggleExitPopup(bool val) {
+            Transform exitPopup = controls.transform.Find("ExitPopup");
+            exitPopup.gameObject.SetActive(val);
+            if (val) {
+                exitPopup.Find("Exit").GetComponent<Button>().onClick.AddListener(()=>RemovePlayer());
+                exitPopup.Find("Back").GetComponent<Button>().onClick.AddListener(()=>ToggleExitPopup(false));
+            }
+            else {
+                exitPopup.Find("Exit").GetComponent<Button>().onClick.RemoveAllListeners();
+                exitPopup.Find("Back").GetComponent<Button>().onClick.RemoveAllListeners();
+            }
+        }
+
+        public void RemovePlayer() {
+            UnityServerWrapper.Instance.RemovePlayerFromGame(MainGame.gameID,MainGame.PlayerIndex, () => {
+                SceneManager.LoadScene("Menus");
+            });
         }
 
 
