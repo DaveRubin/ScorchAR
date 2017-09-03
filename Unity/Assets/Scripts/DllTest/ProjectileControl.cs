@@ -81,7 +81,7 @@ namespace DllTest {
             radius.transform.localScale = Vector3.zero;
 
             Sequence sequence = DOTween.Sequence();
-            sequence.Insert(0,radius.transform.DOScale(3,0.5f));
+            sequence.Insert(0,radius.transform.DOScale(5,0.5f));
             sequence.Insert(0.8f,meshRenderer.material.DOFade(0,1));
             sequence.OnComplete(()=>{
                 GameObject.Destroy(fire);

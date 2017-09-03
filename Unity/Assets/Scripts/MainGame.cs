@@ -25,6 +25,9 @@ public class MainGame : MonoBehaviour
             return tanks[PlayerIndex];
         }
     }
+    private int scoreP1 = 0;
+    private int scoreP2 = 0;
+    public const int MAX_SCORE = 3;
 
     public CameraGUI Gui;
     public static ScorchEngine.Game GameCore;
@@ -253,9 +256,27 @@ public class MainGame : MonoBehaviour
     }
     
     public void onTankKilled(TankControl tank) {
-        Gui.ShowEndGame(tank != MyTank).AddListener(()=> {
-            UnityServerWrapper.Instance.RemovePlayerFromGame(gameID,PlayerIndex, () => { SceneManager.LoadScene("Menus"); });
-        });
+        //set score
+        if (tank == tanks[0]) {
+            scoreP1++;
+        }
+        else {
+            scoreP2++;
+        }
+
+        if (scoreP1 != MAX_SCORE && scoreP2 != MAX_SCORE) {
+            Gui.ShowEndRound(tank != MyTank,scoreP1,scoreP2,tanks,()=> {
+                ResetGame();
+            });
+        }
+        else {
+            Gui.ShowEndGame(tank != MyTank).AddListener(()=> {
+                UnityServerWrapper.Instance.RemovePlayerFromGame(gameID,PlayerIndex, () => { 
+					SceneManager.LoadScene("Menus"); 
+				});
+            });
+        }
+
     }
 
     public void onTankHit(TankControl tank)

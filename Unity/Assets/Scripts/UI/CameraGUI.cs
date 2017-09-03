@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,6 +49,7 @@ namespace UI {
 
 
         private CanvasGroup endGameScreen;
+        private CanvasGroup endRoundScreen;
 
         private Image hitOverlay;
 
@@ -106,7 +108,8 @@ namespace UI {
             controls = transform.Find("Controls").GetComponent<CanvasGroup>();
             errorOverlay = transform.Find("ErrorOvelay").GetComponent<CanvasGroup>();
             endGameScreen = transform.Find("EndGameScreen").GetComponent<CanvasGroup>();
-            endGameScreen.alpha = 0;
+            endRoundScreen = transform.Find("EndRoundScreen").GetComponent<CanvasGroup>();
+            endRoundScreen.alpha = endGameScreen.alpha = 0;
             endGameScreen.gameObject.SetActive(false);
             hitOverlay = transform.Find("HitOverlay").GetComponent<Image>();
             hitOverlay.gameObject.SetActive(false);
@@ -120,6 +123,22 @@ namespace UI {
             string text = won? "YOU WON":  "YOU LOST";
             endGameScreen.transform.Find("Panel/Result").GetComponent<Text>().text = text;
             return endGameScreen.GetComponentInChildren<Button>().onClick;
+        }
+
+        public void ShowEndRound(bool won,int scoreP1, int scoreP2,List<TankControl> tanks,Action onComplete) {
+            endRoundScreen.gameObject.SetActive(true);
+            endRoundScreen.DOFade(1,1);
+            endRoundScreen.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+            endRoundScreen.GetComponentInChildren<Button>().onClick.AddListener(()=> {
+                endRoundScreen.DOFade(0,1).OnComplete(()=>endRoundScreen.gameObject.SetActive(false));
+                onComplete();
+            });
+            endRoundScreen.transform.Find("Panel/Result").GetComponent<Text>().text =  won? "YOU WON":  "YOU LOST";
+            endRoundScreen.transform.Find("Panel/Player1Name").GetComponent<Text>().text =  tanks[0].PlayerStats.Name;
+            endRoundScreen.transform.Find("Panel/Player2Name").GetComponent<Text>().text =  tanks[1].PlayerStats.Name;
+            endRoundScreen.transform.Find("Panel/Player1Score").GetComponent<Text>().text =  scoreP1.ToString();
+            endRoundScreen.transform.Find("Panel/Player2Score").GetComponent<Text>().text =  scoreP2.ToString();
+
         }
 
         public void GetControlComponents() {
@@ -140,6 +159,8 @@ namespace UI {
 
             joystick = controls.transform.Find("MobileJoystick").GetComponent<Image>();
         }
+
+
 
         /// <summary>
         /// register events to their handlers
@@ -268,6 +289,7 @@ namespace UI {
             textFuel.text = fuel > 0 ? string.Format("FUEL : {0}%",(int)((fuel/MAX_FUEL)*100)):"No Fuel";
 
         }
+
 
 
     }
