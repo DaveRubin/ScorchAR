@@ -85,11 +85,6 @@ namespace ScorchEngine
             GenerateTerrain();
         }
 
-        public void Poll(string gameID,PlayerState myState)
-        {
-            MyID = myState.Id;
-            ServerWrapper.GetState(gameID,myState,OnPollResult);
-        }
 
         public void OnPollResult(List<PlayerState> list)
         {

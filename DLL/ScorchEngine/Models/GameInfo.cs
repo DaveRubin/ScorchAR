@@ -1,39 +1,42 @@
 using System.Collections.Generic;
 
-
 namespace ScorchEngine.Models
 {
     using System;
     using System.Diagnostics;
     using System.Runtime.InteropServices.ComTypes;
 
-
-
     public class GameInfo
     {
         public const int MAP_SIZE = 60;
+
         public string Name { get; set; }
 
         public string Id { get; set; }
 
         public int MaxPlayers { get; set; }
 
-        public int Round { get; set; }
+        public int Rounds { get; set; }
 
         public bool IsFull { get; set; }
 
         public List<PlayerInfo> Players { get; set; }
 
-        public List<Point> PlayerPositions { get; set; }
+        public List<Point>[] PlayerPositions { get; set; }
 
-        public GameInfo()
+        public GameInfo() { }
+
+        public GameInfo(int rounds)
         {
+            Rounds = rounds;
             Players = new List<PlayerInfo>();
-            PlayerPositions = new List<Point>();
-            PlayerPositions.Add(new Point());
-            PlayerPositions.Add(new Point());
-            Round = 0;
-            CreatePositionsForPlayers();
+            PlayerPositions = new List<Point>[rounds];
+            Random random = new Random();
+            for (int i = 0; i < rounds; ++i)
+            {
+                PlayerPositions[i] = new List<Point>();
+                CreatePositionsForPlayers(i, random);
+            }
         }
 
         public override string ToString()
@@ -58,37 +61,36 @@ IsFull:{IsFull}";
             return Id.GetHashCode();
         }
 
-        public bool AddPlayer(PlayerInfo playerInfo,ref int playerIndex)
+        public bool AddPlayer(PlayerInfo playerInfo, ref int playerIndex)
         {
             bool result = false;
             if (Players.Count < MaxPlayers)
             {
                 Players.Add(playerInfo);
                 playerIndex = Players.Count - 1;
-                 
-                
+
                 result = true;
             }
+
             if (Players.Count == MaxPlayers)
             {
                 IsFull = true;
             }
-               return result;
+
+            return result;
         }
 
-
-        public void CreatePositionsForPlayers()
+        public void CreatePositionsForPlayers(int i, Random random)
         {
             Point firstPlayerPosition = new Point();
-            Random random = new Random();
+
             firstPlayerPosition.X = random.Next(10, 55);
             firstPlayerPosition.Y = random.Next(10, 55);
-            PlayerPositions[0] = firstPlayerPosition;
+            PlayerPositions[i].Add(firstPlayerPosition);
             Point secondplayerPosition = new Point();
-            secondplayerPosition.X = Math.Min(Math.Max((firstPlayerPosition.X+ random.Next(15,25)) % MAP_SIZE,10),55);
+            secondplayerPosition.X = Math.Min(Math.Max((firstPlayerPosition.X + random.Next(15, 25)) % MAP_SIZE, 10), 55);
             secondplayerPosition.Y = Math.Min(Math.Max((firstPlayerPosition.Y + random.Next(10, 20)) % MAP_SIZE, 10), 55);
-            PlayerPositions[1] = secondplayerPosition;
-            ++Round;
+            PlayerPositions[i].Add(secondplayerPosition);
         }
 
         public void RemovePlayer(PlayerInfo playerInfo)

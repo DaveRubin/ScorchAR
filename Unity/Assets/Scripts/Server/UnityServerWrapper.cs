@@ -148,9 +148,9 @@ namespace Server
                     postData));
         }
 
-        public void CreateGame(string name, int maxPlayers, PlayerInfo playerInfo, Action<GameInfo> onDoneCallback)
+        public void CreateGame(string name, int maxPlayers, int rounds, PlayerInfo playerInfo, Action<GameInfo> onDoneCallback)
         {
-            string urlHash = ServerRoutes.CreateGameUrl + "?name=" + name + "&maxPlayers=" + maxPlayers;
+            string urlHash = ServerRoutes.CreateGameUrl + "?name=" + name + "&maxPlayers=" + maxPlayers + "&rounds=" + rounds;
             Debug.Log("creating GAME " + urlHash);
             string url = GetURL(urlHash);
             string json = JsonConvert.SerializeObject(playerInfo);
@@ -264,27 +264,6 @@ namespace Server
                         else
                         {
                             Debug.LogFormat("Error getting game {0} {1}", id, www.error);
-                        }
-                    }));
-        }
-
-        // should be used only once ( let say winning player) other players should poll on get game until the round property is increased
-        public void NextRound(string id, Action<GameInfo> onDoneCallback)
-        {
-            string urlHash = ServerRoutes.NextRound.Replace("{id}", id);
-            string url = GetURL(urlHash);
-            StartCoroutine(
-                GetCoroutine(
-                    url,
-                    www =>
-                    {
-                        if (string.IsNullOrEmpty(www.error))
-                        {
-                            onDoneCallback(JsonConvert.DeserializeObject<GameInfo>(www.text));
-                        }
-                        else
-                        {
-                            Debug.LogFormat("Error calling move to next round game {0} {1}", id, www.error);
                         }
                     }));
         }

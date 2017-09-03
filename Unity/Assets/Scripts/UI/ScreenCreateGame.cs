@@ -35,7 +35,7 @@ namespace UI {
 
         public void CreateGame() {
             ShowWaitingForOpponent();
-            UnityServerWrapper.Instance.CreateGame(gameName,2,MainUser.Instance.GetPLayerInfo(),onGameCreated);
+            UnityServerWrapper.Instance.CreateGame(gameName,2,3,MainUser.Instance.GetPLayerInfo(),onGameCreated);
         }
 
         public void onGameCreated(GameInfo gameInfo) {
