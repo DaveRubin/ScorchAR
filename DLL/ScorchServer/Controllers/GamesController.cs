@@ -29,6 +29,7 @@ namespace ScorchServer.Controllers
         {
             string name = string.Empty;
             int maxPlayers = 0;
+            int rounds = 0;
             string gameId;
             lock (createLockObject)
             {
@@ -46,12 +47,15 @@ namespace ScorchServer.Controllers
                     case "maxPlayers":
                         maxPlayers = int.Parse(parameter.Value);
                         break;
+                    case "rounds":
+                        rounds = int.Parse(parameter.Value);
+                        break;
                     default:
                         break;
                 }
             }
 
-            GameInfo createdGameContext = new GameInfo { Id = gameId, MaxPlayers = maxPlayers, Name = name };
+            GameInfo createdGameContext = new GameInfo(rounds) { Id = gameId, MaxPlayers = maxPlayers, Name = name};
             int playerIndex = -1;
             createdGameContext.AddPlayer(playerInfo, ref playerIndex);
             gamesRepository.AddGame(createdGameContext);
@@ -91,15 +95,6 @@ namespace ScorchServer.Controllers
         public void CancelGame(string id)
         {
             gamesRepository.RemoveGame(id);
-        }
-
-        [Route(ServerRoutes.NextRound)]
-        [HttpGet]
-        public GameInfo NextRound(string id)
-        {
-            GameInfo game = gamesRepository.GetGame(id);
-            game.CreatePositionsForPlayers();
-            return game;
         }
         
     }

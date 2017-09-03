@@ -41,6 +41,8 @@ public class MainGame : MonoBehaviour
     private VuforiaWrapper vuforiaWrapper;
     private Tween terrainTween;
 
+    private int currentRound = 0;
+
     public const float POLL_FREQUENCY = 1;
 
     public static GameObject GetTerrain()
@@ -188,8 +190,8 @@ public class MainGame : MonoBehaviour
         {
             TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
             tankGO.transform.SetParent(tanksRoot);
-            float x = MainUser.Instance.CurrentGame.PlayerPositions[i].X;
-            float y = MainUser.Instance.CurrentGame.PlayerPositions[i].Y;
+            float x = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].X;
+            float y = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].Y;
             tankGO.onKill += onTankKilled;
             tankGO.onHit += onTankHit;
             float height = terrainComp.SampleHeight(new Vector3(x, 0, y));
@@ -269,8 +271,9 @@ public class MainGame : MonoBehaviour
         }
         else {
             Gui.ShowEndGame(tank != MyTank).AddListener(()=> {
-                ServerWrapper.RemovePlayerFromGame(gameID,PlayerIndex);
-                SceneManager.LoadScene("Menus");
+                UnityServerWrapper.Instance.RemovePlayerFromGame(gameID,PlayerIndex, () => { 
+					SceneManager.LoadScene("Menus"); 
+				});
             });
         }
 

@@ -24,7 +24,6 @@ namespace ScorchEngine.Server
         public const string UpdateUserNameUrl = "api/User/UpdateName";
 
         public const string CancelGame = "api/games/{id}/cancel";
-        public const string NextRound = "api/games/{id}/nextRound";
 
         public const string ServerBaseUri = "http://scorchar.azurewebsites.net";
 

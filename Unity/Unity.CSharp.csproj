@@ -138,6 +138,7 @@
     <Compile Include="Assets\Scripts\ScrollDetailTexture.cs" />
     <Compile Include="Assets\Scripts\Server\UnityServerWrapper.cs" />
     <Compile Include="Assets\Scripts\ShowSliderValue.cs" />
+    <Compile Include="Assets\Scripts\Terrain\DestructibleObject.cs" />
     <Compile Include="Assets\Scripts\Terrain\TerrainDeform.cs" />
     <Compile Include="Assets\Scripts\Terrain\TerrainLoader.cs" />
     <Compile Include="Assets\Scripts\TiltWindow.cs" />
@@ -158,9 +159,12 @@
     <Compile Include="Assets\Scripts\UI\ScrollerEvent.cs" />
     <Compile Include="Assets\Scripts\Utils\PrefabManager.cs" />
     <Compile Include="Assets\Scripts\Utils\SpriteFadeWiggle.cs" />
+    <Compile Include="Assets\Scripts\Utils\TankColorer.cs" />
     <Compile Include="Assets\Scripts\View\AlwaysLookAt.cs" />
     <Compile Include="Assets\Scripts\View\PathTracer.cs" />
     <Compile Include="Assets\Scripts\View\PositionMarker.cs" />
+    <Compile Include="Assets\TornadoBanditsStudio\Low Poly Free Pack\Scripts\TBS_CameraMovement.cs" />
+    <Compile Include="Assets\TornadoBanditsStudio\Low Poly Free Pack\Water\TBS_Water.cs" />
     <Compile Include="Assets\UnityPackages\JsonNetSample\JsonNetSample.cs" />
     <Compile Include="Assets\Vuforia\Scripts\BackgroundPlaneBehaviour.cs" />
     <Compile Include="Assets\Vuforia\Scripts\CloudRecoBehaviour.cs" />

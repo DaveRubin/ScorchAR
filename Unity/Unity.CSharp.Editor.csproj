@@ -171,6 +171,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Retro Pixel\Editor\RetroPixelEditor.cs" />
+    <Compile Include="Assets\TornadoBanditsStudio\Editor\TBS_EditorInitializer.cs" />
+    <Compile Include="Assets\TornadoBanditsStudio\Editor\TBS_PresentationWindow.cs" />
     <Compile Include="Assets\Vuforia\Editor\Scripts\ComponentFactoryStarter\ComponentFactoryStarter.cs" />
     <Compile Include="Assets\Vuforia\Editor\Scripts\ExtensionImport.cs" />
     <Compile Include="Assets\Vuforia\Editor\Scripts\PostProcessBuildPlayer.cs" />
