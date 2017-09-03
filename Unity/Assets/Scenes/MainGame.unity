@@ -545,10 +545,6 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 142906185}
-    - target: {fileID: 1219236957342310, guid: 52417ee35f93c4be8b4fe4666cefba82, type: 2}
-      propertyPath: m_Name
-      value: ExitButton
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52417ee35f93c4be8b4fe4666cefba82, type: 2}
   m_IsPrefabParent: 0
