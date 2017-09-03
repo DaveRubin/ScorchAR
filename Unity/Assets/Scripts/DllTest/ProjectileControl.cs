@@ -67,7 +67,9 @@ namespace DllTest {
 
         public void Explode() {
             float damage = 25;
-            GameObject.Destroy(this.gameObject);
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<SphereCollider>().enabled = false;
+            enabled = false;
             GameObject radius = PrefabManager.InstantiatePrefab("ExplosionRadius");
             GameObject fire  = PrefabManager.InstantiatePrefab("ExplosionFX");
             radius.transform.position = transform.position;
@@ -81,13 +83,17 @@ namespace DllTest {
             radius.transform.localScale = Vector3.zero;
 
             Sequence sequence = DOTween.Sequence();
-            sequence.Insert(0,radius.transform.DOScale(5,0.5f));
+            sequence.Insert(0,radius.transform.DOScale(6,0.5f));
             sequence.Insert(0.8f,meshRenderer.material.DOFade(0,1));
             sequence.OnComplete(()=>{
                 GameObject.Destroy(fire);
                 GameObject.Destroy(radius);
             });
+            sequence.InsertCallback(5,()=>{
+                GameObject.Destroy(gameObject);
+            });
             Debug.Log("explosion at: " + (int)transform.position.x + " " + (int)transform.position.z);
+
         }
     }
 }
