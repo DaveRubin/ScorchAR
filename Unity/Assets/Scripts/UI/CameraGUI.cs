@@ -84,7 +84,6 @@ namespace UI {
         void Update() {
             Vector2 moveVec = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"),CrossPlatformInputManager.GetAxis("Vertical"));
             if (moveVec != Vector2.zero && OnMove != null) {
-                Debug.Log(moveVec);
                 float fuelBurn = moveVec.magnitude;
                 fuel = Mathf.Clamp(fuel - fuelBurn,0,MAX_FUEL);
                 if (fuel > 0 ) {
@@ -286,8 +285,7 @@ namespace UI {
         }
 
         public void UpdateFuelText() {
-            textFuel.text = fuel > 0 ? string.Format("FUEL : {0}%",(int)((fuel/MAX_FUEL)*100)):"No Fuel";
-
+            textFuel.text = fuel > 0 ? string.Format("FUEL : {0}%", (int)((fuel / MAX_FUEL) * 100)):"No Fuel";
         }
 
 

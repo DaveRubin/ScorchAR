@@ -17,7 +17,7 @@ public class MainGame : MonoBehaviour
     public const float TANK_SCALE = 1f;
     public const int MAP_SIZE = 64;
 
-    private bool OFFLINE_MODE = true;
+    private bool OFFLINE_MODE = false;
     private bool VUFORIA = false;
 
     private TankControl MyTank {
@@ -115,7 +115,8 @@ public class MainGame : MonoBehaviour
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.A)) {
-            ResetGame();
+            //ResetGame();
+            onTankKilled(tanks[1]);
         }
 
     }
@@ -265,6 +266,7 @@ public class MainGame : MonoBehaviour
         }
 
         if (scoreP1 != MAX_SCORE && scoreP2 != MAX_SCORE) {
+            currentRound++;
             Gui.ShowEndRound(tank != MyTank,scoreP1,scoreP2,tanks,()=> {
                 ResetGame();
             });
@@ -344,6 +346,15 @@ public class MainGame : MonoBehaviour
         }
         //set positions
         Gui.ResetGUI();
+        List<Point>[] a = MainUser.Instance.CurrentGame.PlayerPositions;
+        for (int i = 0; i < tanks.Count; i++) {
+            TankControl control = tanks[i];
+            float x = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].X;
+            float y = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].Y;
+            float height = terrainComp.SampleHeight(new Vector3(x, 0, y));
+            control.transform.localPosition = new Vector3(x, height, y);
+            control.transform.localScale = Vector3.one * TANK_SCALE;
+        }
     }
 
 }

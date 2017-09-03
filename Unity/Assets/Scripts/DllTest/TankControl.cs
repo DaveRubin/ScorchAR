@@ -159,7 +159,7 @@ public class TankControl : MonoBehaviour {
         onForceChange(updatedPlayer.ControlledTank.Force);
         SimulateMotion(updatedPlayer.ControlledTank);
         //UpdateHealthBar(updatedPlayer.ControlledTank.Health);
-        Debug.LogErrorFormat("Player {0} got updated",PlayerStats.ID);
+        //Debug.LogErrorFormat("Player {0} got updated",PlayerStats.ID);
         if (updatedPlayer.ControlledTank.IsReady) Shoot();
     }
 

@@ -14,7 +14,9 @@ namespace UI {
         Tween beatingTween;
         bool waiting = false;
 
-        private bool SKIP_WAITING = false;
+        private bool SKIP_WAITING = true;
+        public const int MAX_ROUNDS = 5;
+        public const int MAX_PLAYERS = 2;
 
         void Awake() {
             //Test();
@@ -35,7 +37,7 @@ namespace UI {
 
         public void CreateGame() {
             ShowWaitingForOpponent();
-            UnityServerWrapper.Instance.CreateGame(gameName,2,3,MainUser.Instance.GetPLayerInfo(),onGameCreated);
+            UnityServerWrapper.Instance.CreateGame(gameName,MAX_PLAYERS,MAX_ROUNDS,MainUser.Instance.GetPLayerInfo(),onGameCreated);
         }
 
         public void onGameCreated(GameInfo gameInfo) {
