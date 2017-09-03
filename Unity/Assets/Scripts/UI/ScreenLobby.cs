@@ -14,7 +14,6 @@ using Newtonsoft.Json.Linq;
 namespace UI {
     public class ScreenLobby : ScreenBase {
 
-        private const bool TEST = false;
 //        public const string SCENE_NAME = "DLLTest";
         public const string SCENE_NAME = "MainGame";
 
@@ -44,11 +43,16 @@ namespace UI {
             buttonJoin.onClick.AddListener(JoinRoom);
             //transform.Find("ButtonReset").GetComponent<Button>().onClick.AddListener(ResetPressed);
             transform.Find("ButtonCreate").GetComponent<Button>().onClick.AddListener(Create);
-            onEnter += UpdateLobby;
+            onEnter += StartGetGamesPoll;
         }
 
         void Start() {
-            UpdateLobby();
+            StartGetGamesPoll();
+        }
+
+        void StartGetGamesPoll()
+        {
+            InvokeRepeating("UpdateLobby",0f,5f);
         }
 
         /// <summary>
@@ -193,20 +197,9 @@ namespace UI {
         }
 
         public void UpdateLobby() {
-            if (TEST) {
-                TestDummyGames();
-            }
-            else {
-                UnityServerWrapper.Instance.GetGames(OnGamesFetched);
-            }
+            UnityServerWrapper.Instance.GetGames(OnGamesFetched);
         }
 
-        public void Test() {
-            string s = "[{\"PlayerStates\":[{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0},{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0}],\"Name\":\"Game0 \",\"Id\":\"id0\",\"MaxPlayers\":2,\"Players\":[]},{\"PlayerStates\":[{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0},{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0}],\"Name\":\"Game0 \",\"Id\":\"id0\",\"MaxPlayers\":2,\"Players\":[]}]";
-            //string s = "{\"PlayerStates\":[{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0},{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0}],\"Name\":\"Game0 \",\"Id\":\"id0\",\"MaxPlayers\":2,\"Players\":[]},{\"PlayerStates\":[{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0},{\"LastUpdateTime\":\"0001-01-01T00:00:00\",\"Id\":0,\"IsReady\":false,\"AngleHorizontal\":0.0,\"AngleVertical\":0.0,\"Force\":0.0}],\"Name\":\"Game0 \",\"Id\":\"id0\",\"MaxPlayers\":2,\"Players\":[]}";
-            var c = JsonConvert.DeserializeObject<List<GameInfo>>(s);
-            Debug.Log(c);
-        }
 
         public void Create() {
             MenusScene.GoTo(EScreenType.CreateGame);
