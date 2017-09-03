@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 
 public class TerrainDeform : MonoBehaviour {
-    private const float FACTOR = 1025/64;
+    private const float FACTOR = 256/64;
 	private Terrain TerrainGameBoard;
     //public Explosion explosion;
     public Object[] heightmaps; //gets image 2

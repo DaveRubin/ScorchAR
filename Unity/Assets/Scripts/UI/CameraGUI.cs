@@ -65,6 +65,16 @@ namespace UI {
             UpdateTexts();
         }
 
+
+        public void ResetGUI() {
+            fuel = MAX_FUEL;
+            angleVertical = 0;
+            angleHorizontal = 0;
+            force = 5;
+            SetLocked(false);
+            UpdateTexts();
+        }
+
         void Start() {
             DispatchInitValues();
         }
@@ -258,6 +268,7 @@ namespace UI {
             textFuel.text = fuel > 0 ? string.Format("FUEL : {0}%",(int)((fuel/MAX_FUEL)*100)):"No Fuel";
 
         }
+
 
     }
 }

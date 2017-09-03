@@ -51,6 +51,17 @@ public class TankControl : MonoBehaviour {
         ProjectilePath.SetVisible(false);
     }
 
+    public void ResetTank() {
+        PlayerStats.ControlledTank.PositionX = 0;
+        PlayerStats.ControlledTank.PositionY = 0;
+        PlayerStats.ControlledTank.PositionZ = 0;
+        PlayerStats.ControlledTank.AngleHorizontal = 0;
+        PlayerStats.ControlledTank.AngleVertical = 0;
+        PlayerStats.ControlledTank.Force= 0;
+        PlayerStats.ControlledTank.Damage(EWeaponType.Regular,PlayerStats.ControlledTank.Health - 100);
+        UpdateHealthBar(PlayerStats.ControlledTank.Health );
+    }
+
     /// <summary>
     /// When gets hit remove damage
     /// </summary>

@@ -16,7 +16,8 @@ public class MainGame : MonoBehaviour
 
     public const float TANK_SCALE = 1f;
     public const int MAP_SIZE = 64;
-    private bool OFFLINE_MODE = false;
+
+    private bool OFFLINE_MODE = true;
     private bool VUFORIA = false;
 
     private TankControl MyTank {
@@ -109,10 +110,7 @@ public class MainGame : MonoBehaviour
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.A)) {
-            OnTrackerDetection(true);
-        }
-        if (Input.GetKeyDown(KeyCode.Z)) {
-            OnTrackerDetection(false);
+            ResetGame();
         }
 
     }
@@ -313,6 +311,17 @@ public class MainGame : MonoBehaviour
                 tank.transform.DOLocalMoveY(height,1);
             }
         }
+    }
+
+    public void ResetGame() {
+        //reset map
+        terrain.GetComponent<TerrainLoader>().Reload();
+        //reset tanks
+        foreach (TankControl tank in tanks) {
+            tank.ResetTank();
+        }
+        //set positions
+        Gui.ResetGUI();
     }
 
 }
