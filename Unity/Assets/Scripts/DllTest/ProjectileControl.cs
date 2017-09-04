@@ -11,6 +11,7 @@ namespace DllTest {
         Transform origin;
         private GameObject a, terrain;
         private TerrainDeform terrainDeformScript;
+        private bool exploded = false;
 
         SphereCollider hitTest;
         float x,y, terrainHeight;
@@ -45,8 +46,7 @@ namespace DllTest {
             if(transform.position.y < terrainHeight){
                 Explode();
             }
-
-            if (transform.position.y < 0) {
+            else if (transform.position.y < 0) {
                 //Debug.Log("Ground");
                 Explode();
             }
@@ -66,6 +66,9 @@ namespace DllTest {
         }
 
         public void Explode() {
+            if (exploded)
+                return;
+            exploded = true;
             float damage = 25;
             GetComponent<MeshRenderer>().enabled = false;
             GetComponent<SphereCollider>().enabled = false;
