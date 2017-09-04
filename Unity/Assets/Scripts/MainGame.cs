@@ -18,7 +18,7 @@ public class MainGame : MonoBehaviour
     public const int MAP_SIZE = 64;
 
     private bool OFFLINE_MODE = false;
-    private bool VUFORIA = false;
+    private bool VUFORIA = true;
 
     private TankControl MyTank {
         get {

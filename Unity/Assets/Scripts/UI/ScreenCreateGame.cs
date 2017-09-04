@@ -14,7 +14,7 @@ namespace UI {
         Tween beatingTween;
         bool waiting = false;
 
-        private bool SKIP_WAITING = true;
+        private bool SKIP_WAITING = false;
         public const int MAX_ROUNDS = 5;
         public const int MAX_PLAYERS = 2;
 
