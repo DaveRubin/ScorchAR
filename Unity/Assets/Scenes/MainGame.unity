@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44824868, g: 0.49827576, b: 0.575583, a: 1}
+  m_IndirectSpecularColor: {r: 0.44826323, g: 0.4982882, b: 0.5755893, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -272,6 +272,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a7ad7b71a1640aa8f9504a19eac036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  treeObstacle: {fileID: 114745362314838778, guid: f809c528b8d404f628750512e7bfa557,
+    type: 2}
+  crateObstacle: {fileID: 114130952138352586, guid: 35b32465e989b43f3a95921fea093de5,
+    type: 2}
   Gui: {fileID: 0}
 --- !u!4 &163745000
 Transform:
