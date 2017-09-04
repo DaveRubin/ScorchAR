@@ -173,6 +173,7 @@
      <None Include="Assets\Vuforia\Shaders\DepthMask.shader" />
      <None Include="Assets\Resources\Materials\shaders\OutlineDiffuse.shader" />
      <None Include="Assets\StreamingAssets\QCAR\Image_Target.xml" />
+     <None Include="Assets\Engine\Debug\RestSharp.xml" />
      <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\Retro Pixel\Resources\Shaders\RetroPixel7.shader" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
@@ -207,25 +208,28 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>/Users/david/School/final project/ScorchAR/Unity/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTween43">
- <HintPath>/Users/david/School/final project/ScorchAR/Unity/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+ <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
  </Reference>
  <Reference Include="DOTween46">
- <HintPath>/Users/david/School/final project/ScorchAR/Unity/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
  </Reference>
  <Reference Include="DOTween50">
- <HintPath>/Users/david/School/final project/ScorchAR/Unity/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="RestSharp">
+ <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Engine/Debug/RestSharp.dll</HintPath>
  </Reference>
  <Reference Include="ScorchEngine">
- <HintPath>/Users/david/School/final project/ScorchAR/Unity/Assets/Engine/Debug/ScorchEngine.dll</HintPath>
+ <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Engine/Debug/ScorchEngine.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>/Users/david/School/final project/ScorchAR/Unity/Assets/UnityPackages/JsonNet/Newtonsoft.Json.dll</HintPath>
+ <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/UnityPackages/JsonNet/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="Vuforia.UnityExtensions">
- <HintPath>/Users/david/School/final project/ScorchAR/Unity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
+ <HintPath>/Users/amitaihandler/ScorchAR/Unity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
