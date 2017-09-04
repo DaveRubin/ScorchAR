@@ -222,7 +222,7 @@ PlayerSettings:
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/ido/Source/Repos/ScorchAR/Unity/GameKeyStore.keystore
+  AndroidKeystoreName: GameKeyStore.keystore
   AndroidKeyaliasName: tanksarkey
   AndroidTVCompatibility: 0
   AndroidIsGame: 1

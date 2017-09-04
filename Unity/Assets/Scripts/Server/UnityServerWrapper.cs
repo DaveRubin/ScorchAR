@@ -46,6 +46,8 @@ namespace Server
                         {
                             if (string.IsNullOrEmpty(www.error))
                             {
+
+                                Debug.LogErrorFormat("got games {0}", www.text);
                                 List<GameInfo> list = JsonConvert.DeserializeObject<List<GameInfo>>(www.text);
                                 onDoneCallback(list);
                             }
@@ -162,7 +164,7 @@ namespace Server
                         {
                             if (string.IsNullOrEmpty(www.error))
                             {
-                                //Debug.LogFormat("Got {0}", www.text);
+                                Debug.LogFormat("Got {0}", www.text);
                                 JsonConvert.DeserializeObject<GameInfo>(www.text);
                                 onDoneCallback(JsonConvert.DeserializeObject<GameInfo>(www.text));
                             }

@@ -34,6 +34,10 @@ namespace ScorchServer.Controllers
         public List<PlayerState> UpdatePlayerStates(string id, [FromBody] PlayerState playerState)
         {
             ServerGame game = gamesRepository.GetGame(id);
+            if (game.PlayerStates[playerState.Id] == null)
+            {
+                game.PlayerStates[playerState.Id] = new ServerPlayerState();
+            }
             game.PlayerStates[playerState.Id].Update(playerState);
 
             gamesRepository.Update(game);

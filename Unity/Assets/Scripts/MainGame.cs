@@ -204,15 +204,17 @@ public class MainGame : MonoBehaviour
             TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
             tankGO.transform.SetParent(tanksRoot);
             float x = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].X;
-            float y = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].Y;
+            float z = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].Y;
             tankGO.onKill += onTankKilled;
             tankGO.onHit += onTankHit;
-            float height = terrainComp.SampleHeight(new Vector3(x, 0, y));
-            tankGO.transform.localPosition = new Vector3(x, height, y);
+            float height = terrainComp.SampleHeight(new Vector3(x, 0, z));
+            tankGO.transform.localPosition = new Vector3(x, height, z);
             tankGO.transform.localScale = Vector3.one * TANK_SCALE;
 
             tankGO.SetPlayer(players[i]);
-
+            tankGO.PlayerStats.ControlledTank.PositionX = x;
+            tankGO.PlayerStats.ControlledTank.PositionY = height;
+            tankGO.PlayerStats.ControlledTank.PositionZ = z;
             tanks.Add(tankGO);
             tanksHeight.Add(height);
         }
@@ -386,10 +388,13 @@ public class MainGame : MonoBehaviour
         for (int i = 0; i < tanks.Count; i++) {
             TankControl control = tanks[i];
             float x = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].X;
-            float y = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].Y;
-            float height = terrainComp.SampleHeight(new Vector3(x, 0, y));
-            control.transform.localPosition = new Vector3(x, height, y);
+            float z = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].Y;
+            float height = terrainComp.SampleHeight(new Vector3(x, 0, z));
+            control.transform.localPosition = new Vector3(x, height, z);
             control.transform.localScale = Vector3.one * TANK_SCALE;
+            control.PlayerStats.ControlledTank.PositionX = x;
+            control.PlayerStats.ControlledTank.PositionY = height;
+            control.PlayerStats.ControlledTank.PositionZ = z;
         }
     }
 
