@@ -200,7 +200,9 @@ public class MainGame : MonoBehaviour
             tankGO.transform.localScale = Vector3.one * TANK_SCALE;
 
             tankGO.SetPlayer(players[i]);
-
+            tankGO.PlayerStats.ControlledTank.PositionX = x;
+            tankGO.PlayerStats.ControlledTank.PositionY = y;
+            tankGO.PlayerStats.ControlledTank.PositionZ = height;
             tanks.Add(tankGO);
             tanksHeight.Add(height);
         }
@@ -354,6 +356,9 @@ public class MainGame : MonoBehaviour
             float height = terrainComp.SampleHeight(new Vector3(x, 0, y));
             control.transform.localPosition = new Vector3(x, height, y);
             control.transform.localScale = Vector3.one * TANK_SCALE;
+            control.PlayerStats.ControlledTank.PositionX = x;
+            control.PlayerStats.ControlledTank.PositionY = y;
+            control.PlayerStats.ControlledTank.PositionZ = height;
         }
     }
 
