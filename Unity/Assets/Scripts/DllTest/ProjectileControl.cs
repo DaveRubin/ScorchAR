@@ -6,7 +6,7 @@ namespace DllTest {
 
     public class ProjectileControl : MonoBehaviour {
 
-        const float TIME_FACTOR = 3;
+        const float TIME_FACTOR = 0.1f;
         Vector3 force = Vector3.zero;
         Transform origin;
         private GameObject a, terrain;
@@ -51,8 +51,8 @@ namespace DllTest {
                 Explode();
             }
 
-            transform.localPosition += force*Time.deltaTime*TIME_FACTOR;
-            force.y += MainGame.GameCore.GetEnvironmetForces().Y*Time.deltaTime*TIME_FACTOR;
+            transform.localPosition += force*TIME_FACTOR;
+            force.y += MainGame.GameCore.GetEnvironmetForces().Y*TIME_FACTOR;
             // check if passed its life
         }
 
