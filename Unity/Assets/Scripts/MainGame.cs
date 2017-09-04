@@ -193,6 +193,10 @@ public class MainGame : MonoBehaviour
     public void InitializeObstacles()
     {
         Transform obstaclesRoot = new GameObject().transform;
+        obstaclesRoot.gameObject.name = "Obstacles";
+        obstaclesRoot.SetParent(rootTransform);
+        obstaclesRoot.localPosition = Vector3.zero;
+
         obstacles = new List<DestructibleObject>();
         initObstacles(obstacles, obstaclesRoot);
     }
@@ -228,6 +232,9 @@ public class MainGame : MonoBehaviour
     {
         DestructibleObject tree = Instantiate(treeObstacle, new Vector3(10,10,10), Quaternion.identity);
         DestructibleObject crate = Instantiate(crateObstacle, new Vector3(20,10,20), Quaternion.identity);
+
+        tree.transform.SetParent(obstaclesRoot);
+        crate.transform.SetParent(obstaclesRoot);
 
         obstacles.Add(tree);
         obstacles.Add(crate);
