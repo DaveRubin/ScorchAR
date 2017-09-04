@@ -92,7 +92,7 @@ namespace DllTest {
             sequence.InsertCallback(5,()=>{
                 GameObject.Destroy(gameObject);
             });
-            Debug.Log("explosion at: " + (int)transform.position.x + " " + (int)transform.position.z);
+            Debug.LogError("explosion at: " + (int)transform.position.x + " " + (int)transform.position.z);
 
         }
     }
