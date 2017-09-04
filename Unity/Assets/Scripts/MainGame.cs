@@ -20,7 +20,7 @@ public class MainGame : MonoBehaviour
     public DestructibleObject treeObstacle;
     public DestructibleObject crateObstacle;
 
-    private bool OFFLINE_MODE = true;
+    private bool OFFLINE_MODE = false;
     private bool VUFORIA = false;
 
     private TankControl MyTank {
