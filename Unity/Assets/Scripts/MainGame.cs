@@ -101,7 +101,7 @@ public class MainGame : MonoBehaviour
         InitGame();
         CreateTerrain();
         InitializePlayers();
-        //InitializeObstacles();
+        InitializeObstacles();
         //CreateMockTerrain();
         InitializeGUI();
 
@@ -198,7 +198,7 @@ public class MainGame : MonoBehaviour
         obstaclesRoot.localPosition = Vector3.zero;
 
         obstacles = new List<DestructibleObject>();
-        initObstacles(obstacles, obstaclesRoot);
+        //initObstacles(obstacles, obstaclesRoot);
     }
 
     private void initTanks(List<Player> players, Transform tanksRoot)
