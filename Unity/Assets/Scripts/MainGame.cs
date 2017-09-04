@@ -43,7 +43,7 @@ public class MainGame : MonoBehaviour
 
     private int currentRound = 0;
 
-    public const float POLL_FREQUENCY = 1;
+    public const float POLL_FREQUENCY = 0.2f;
 
     public static GameObject GetTerrain()
     {
@@ -260,10 +260,12 @@ public class MainGame : MonoBehaviour
     
     public void onTankKilled(TankControl tank) {
         //set score
-        if (tank == tanks[0]) {
+        if (tank != tanks[0]) {
+            Debug.LogError("p1 ++");
             scoreP1++;
         }
         else {
+            Debug.LogError("p2 ++");
             scoreP2++;
         }
 

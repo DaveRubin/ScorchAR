@@ -47,7 +47,7 @@ namespace Server
                             if (string.IsNullOrEmpty(www.error))
                             {
 
-                                Debug.LogErrorFormat("got games {0}", www.text);
+                                //Debug.LogErrorFormat("got games {0}", www.text);
                                 List<GameInfo> list = JsonConvert.DeserializeObject<List<GameInfo>>(www.text);
                                 onDoneCallback(list);
                             }
@@ -92,7 +92,7 @@ namespace Server
                         {
                             if (www.error != null)
                             {
-                                Debug.LogFormat("Error {0}", www.error);
+                                OnError(www);
                             }
                             else
                             {
@@ -119,7 +119,7 @@ namespace Server
                             }
                             else
                             {
-                                Debug.LogError("Error");
+                                OnError(www);
                             }
                         }, 
                     postData));
@@ -144,7 +144,7 @@ namespace Server
                             }
                             else
                             {
-                                Debug.LogError("Error");
+                                OnError(www);
                             }
                         }, 
                     postData));
@@ -196,7 +196,7 @@ namespace Server
                         }
                         else
                         {
-                            Debug.LogError("Error createting user");
+                            Debug.LogErrorFormat("Error creating user {0}", www.error);
                         }
                     },
                     postData));
@@ -222,7 +222,7 @@ namespace Server
                         }
                         else
                         {
-                            Debug.LogError("Error createting user");
+                            Debug.LogErrorFormat("Error updateing user {0}",www.error);
                         }
                     },
                     postData));
@@ -239,7 +239,7 @@ namespace Server
                     {
                         if (string.IsNullOrEmpty(www.error))
                         {
-                            Debug.LogError(www.text);
+                            //Debug.LogError(www.text);
                             GameInfo gameinfo = JsonConvert.DeserializeObject<GameInfo>(www.text);
                             onDoneCallback(gameinfo);
                         }
