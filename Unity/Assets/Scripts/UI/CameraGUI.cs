@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using ScorchEngine.Models;
 using Server;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -121,7 +122,10 @@ namespace UI {
         public Button.ButtonClickedEvent ShowEndGame(bool won) {
             endGameScreen.gameObject.SetActive(true);
             endGameScreen.DOFade(1,1);
-            string text = won? "YOU WON":  "YOU LOST";
+
+            List<PlayerInfo> playerInfos = MainUser.Instance.CurrentGame.Players;
+            PlayerInfo oppponent =  MainUser.Instance.Id != playerInfos[0].Id ? playerInfos[0]:playerInfos[1];
+            string text = string.Format("{0} WON", won?"YOU":oppponent.Name);
             endGameScreen.transform.Find("Panel/Result").GetComponent<Text>().text = text;
             return endGameScreen.GetComponentInChildren<Button>().onClick;
         }
@@ -134,9 +138,13 @@ namespace UI {
                 endRoundScreen.DOFade(0,1).OnComplete(()=>endRoundScreen.gameObject.SetActive(false));
                 onComplete();
             });
-            endRoundScreen.transform.Find("Panel/Result").GetComponent<Text>().text =  won? "YOU WON":  "YOU LOST";
-            endRoundScreen.transform.Find("Panel/Player1Name").GetComponent<Text>().text =  tanks[0].PlayerStats.Name;
-            endRoundScreen.transform.Find("Panel/Player2Name").GetComponent<Text>().text =  tanks[1].PlayerStats.Name;
+
+            List<PlayerInfo> playerInfos = MainUser.Instance.CurrentGame.Players;
+            PlayerInfo oppponent =  MainUser.Instance.Id != playerInfos[0].Id ? playerInfos[0]:playerInfos[1];
+
+            endRoundScreen.transform.Find("Panel/Result").GetComponent<Text>().text =  string.Format("{0} WON",won?"YOU":oppponent.Name);
+            endRoundScreen.transform.Find("Panel/Player1Name").GetComponent<Text>().text =  playerInfos[0].Name;
+            endRoundScreen.transform.Find("Panel/Player2Name").GetComponent<Text>().text =  playerInfos[1].Name;
             endRoundScreen.transform.Find("Panel/Player1Score").GetComponent<Text>().text =  scoreP1.ToString();
             endRoundScreen.transform.Find("Panel/Player2Score").GetComponent<Text>().text =  scoreP2.ToString();
 
