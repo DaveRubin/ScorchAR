@@ -213,7 +213,7 @@ public class TankControl : MonoBehaviour {
         // shoot it
         bullet.transform.position = BarrelsEnd.position;
         Vector3 forceVector = GetForceVector();
-        Debug.LogFormat("Shooting with force {0} and {1}",force,forceVector);
+        Debug.LogErrorFormat("Shooting with force {0} and {1} startin at {2}",force,forceVector,BarrelsEnd.position);
         bullet.GetComponent<ProjectileControl>().SetForce(UpDwn,forceVector);
     }
 
