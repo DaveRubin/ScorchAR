@@ -134,6 +134,7 @@ public class MainGame : MonoBehaviour
         pState.Force = MyTank.PlayerStats.ControlledTank.Force;
         pState.AngleVertical= MyTank.PlayerStats.ControlledTank.AngleVertical;
         pState.IsReady = MyTank.PlayerStats.ControlledTank.IsReady;
+        MyTank.PlayerStats.ControlledTank.IsReady = false;
         pState.PositionX = MyTank.PlayerStats.ControlledTank.PositionX;
         pState.PositionY = MyTank.PlayerStats.ControlledTank.PositionY;
         pState.PositionZ = MyTank.PlayerStats.ControlledTank.PositionZ;
@@ -143,7 +144,7 @@ public class MainGame : MonoBehaviour
             UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, OnPollResult);
         }
        // GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
-        MyTank.PlayerStats.ControlledTank.IsReady = false;
+        
     }
 
     /// <summary>

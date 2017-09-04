@@ -15,16 +15,15 @@ namespace ScorchServer.Tests
     [TestClass]
     public class TestUserController
     {
-        private UserController controller = new UserController();
-        private PlayerInfo testUser = new PlayerInfo() {Id="0",Name = "Dummy User"};
-        private PlayerInfo resultUser;
+        
         [TestMethod]
          public void ControllerTest()
          {
 
-            //controller.Post(testUser);
-            //resultUser = controller.Get(testUser.Id);
-            //Debug.WriteLine(resultUser);
+            DateTime now = DateTime.Now;
+            System.Threading.Thread.Sleep(1000);
+            DateTime Later = DateTime.Now;
+            Debug.WriteLine((Later - now).TotalMilliseconds);
          }
     }
 }

@@ -68,7 +68,7 @@ namespace ScorchEngine
 	        ControlledTank.Force = state.Force;
 	        if (state.IsReady)
 	        {
-                if ((now - lastReadyTime).TotalMilliseconds > 500)
+	            if ((now - lastReadyTime).TotalMilliseconds > 500)
 	            {
 	                ControlledTank.IsReady = state.IsReady;
 	                lastReadyTime = now;
@@ -78,6 +78,10 @@ namespace ScorchEngine
 	                ControlledTank.IsReady = false;
 	            }
 	        }
+	        else
+	        {
+                ControlledTank.IsReady = false;
+            }
             
 	        ControlledTank.PositionX = state.PositionX;
             ControlledTank.PositionY = state.PositionY;
