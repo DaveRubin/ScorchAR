@@ -205,10 +205,21 @@ public class MainGame : MonoBehaviour
     {
         for (int i = 0; i < players.Count; ++i)
         {
+            float x,z;
             TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
             tankGO.transform.SetParent(tanksRoot);
-            float x = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].X;
-            float z = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].Y;
+            if (i == 0)
+            {
+                x = 40;
+                z = 20;
+            }
+            else
+            {
+                x = 15;
+                z = 15;
+            }
+            //float x = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].X;
+            //float z = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].Y;
             tankGO.onKill += onTankKilled;
             tankGO.onHit += onTankHit;
             float height = terrainComp.SampleHeight(new Vector3(x, 0, z));
