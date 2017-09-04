@@ -149,7 +149,6 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     /// <param name="updatedPlayer"></param>
     public void OnPLayerUpdate(Player updatedPlayer) {
-        Debug.Log("OnPlayer update....");
         updatePlayer = updatedPlayer;
     }
 
@@ -207,8 +206,6 @@ public class TankControl : MonoBehaviour {
     /// </summary>
     public void Shoot() {
         //if (PlayerStats.ControlledTank.IsReady)  {
-        Debug.Log("AAAAA");
-        print("A");
         // set up projectile type
         GameObject bullet = PrefabManager.InstantiatePrefab("Projectile");
         //...
@@ -216,19 +213,19 @@ public class TankControl : MonoBehaviour {
         // shoot it
         bullet.transform.position = BarrelsEnd.position;
         Vector3 forceVector = GetForceVector();
-        Debug.LogFormat("Shooting with force {0}",force);
+        Debug.LogErrorFormat("Shooting with force {0} and {1} startin at {2}",force,forceVector,BarrelsEnd.position);
         bullet.GetComponent<ProjectileControl>().SetForce(UpDwn,forceVector);
     }
 
     public Vector3 GetForceVector() {
         float addition = 0;
-        float angle = UpDwn.eulerAngles.z + addition;
+        float angle = PlayerStats.ControlledTank.AngleVertical + addition;
         float fy = Mathf.Sin(angle * Mathf.Deg2Rad) * force;
         float fxMain = Mathf.Cos(angle * Mathf.Deg2Rad) * force;
 
         //separate xForce and Zforce
         float addition2 = 0;
-        float angle2 = Sides.eulerAngles.y + addition2;
+        float angle2 = PlayerStats.ControlledTank.AngleHorizontal + addition2;
         float fz = Mathf.Sin(angle2 * Mathf.Deg2Rad) * fxMain;
         float fx = Mathf.Cos(angle2 * Mathf.Deg2Rad) * fxMain;
         return new Vector3(fx, fy, -fz);
