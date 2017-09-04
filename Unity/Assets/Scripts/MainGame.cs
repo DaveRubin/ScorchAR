@@ -143,7 +143,6 @@ public class MainGame : MonoBehaviour
         }
        // GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
         MyTank.PlayerStats.ControlledTank.IsReady = false;
-        Gui.SetLocked(false);
     }
 
     /// <summary>

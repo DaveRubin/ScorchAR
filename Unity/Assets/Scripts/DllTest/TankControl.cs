@@ -280,6 +280,9 @@ public class TankControl : MonoBehaviour {
         Debug.LogWarning("OnGuiShoot");
         PlayerStats.ControlledTank.IsReady = true;
         gui.SetLocked(true);
+        DOVirtual.DelayedCall(MainGame.POLL_FREQUENCY*5,()=> {
+            gui.SetLocked(false);
+        });
         Shoot();
     }
 
