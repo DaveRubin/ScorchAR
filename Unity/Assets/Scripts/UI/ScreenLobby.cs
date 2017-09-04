@@ -167,6 +167,7 @@ namespace UI {
 
         public void AfterLogin(int index) {
             MainUser.Instance.CurrentGame = currentGameSelected.Info;
+            //TODO Not DO Hack
             MainUser.Instance.CurrentGame.Players.Add(MainUser.Instance.GetPLayerInfo());
             MainUser.Instance.Index = index;
             SceneManager.LoadScene(SCENE_NAME);
