@@ -280,11 +280,11 @@ public class TankControl : MonoBehaviour {
 
     public void OnGuiShoot() {
         Debug.LogWarning("OnGuiShoot");
-        PlayerStats.ControlledTank.IsReady = true;
         gui.SetLocked(true);
         DOVirtual.DelayedCall(SHOOT_COOLDOWN,()=> {
             gui.SetLocked(false);
         });
+        PlayerStats.ControlledTank.IsReady = true;
         Shoot();
     }
 
