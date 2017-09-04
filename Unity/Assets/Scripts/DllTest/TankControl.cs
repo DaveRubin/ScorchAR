@@ -35,6 +35,8 @@ public class TankControl : MonoBehaviour {
 
     public float TWEEN_DURATION = 0.5f;
 
+    public float SHOOT_COOLDOWN = 1.5f;
+
     void Awake() {
         body = transform;
         Sides = transform.Find("Top");
@@ -280,7 +282,7 @@ public class TankControl : MonoBehaviour {
         Debug.LogWarning("OnGuiShoot");
         PlayerStats.ControlledTank.IsReady = true;
         gui.SetLocked(true);
-        DOVirtual.DelayedCall(MainGame.POLL_FREQUENCY*5,()=> {
+        DOVirtual.DelayedCall(SHOOT_COOLDOWN,()=> {
             gui.SetLocked(false);
         });
         Shoot();
