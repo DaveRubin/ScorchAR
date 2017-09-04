@@ -24,6 +24,8 @@ namespace ScorchEngine
 	    private bool active;
 	    public int ID;
 
+	    public int lastReadyTime = 0;
+
 	    public Player(string name)
 	    {
 	        Name = name;
@@ -60,10 +62,23 @@ namespace ScorchEngine
 	    /// <param name="state"></param>
 	    public void Process(PlayerState state)
 	    {
-	        ControlledTank.AngleHorizontal = state.AngleHorizontal;
+	        int now = DateTime.Now.Millisecond;
+            ControlledTank.AngleHorizontal = state.AngleHorizontal;
 	        ControlledTank.AngleVertical= state.AngleVertical;
 	        ControlledTank.Force = state.Force;
-		    ControlledTank.IsReady = state.IsReady;
+	        if (state.IsReady)
+	        {
+	            if (now - lastReadyTime > 500)
+	            {
+	                ControlledTank.IsReady = state.IsReady;
+	                lastReadyTime = now;
+	            }
+	            else
+	            {
+	                ControlledTank.IsReady = false;
+	            }
+	        }
+            
 	        ControlledTank.PositionX = state.PositionX;
             ControlledTank.PositionY = state.PositionY;
             ControlledTank.PositionZ = state.PositionZ;

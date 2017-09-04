@@ -21,7 +21,7 @@ public class MainGame : MonoBehaviour
     public DestructibleObject crateObstacle;
     public DestructibleObject boulderObstacle;
 
-    private bool OFFLINE_MODE = true;
+    private bool OFFLINE_MODE = false;
     private bool VUFORIA = false;
 
     private TankControl MyTank {
@@ -48,7 +48,7 @@ public class MainGame : MonoBehaviour
 
     private int currentRound = 0;
 
-    public const float POLL_FREQUENCY = 1;
+    public const float POLL_FREQUENCY = 0.2f;
 
     public static GameObject GetTerrain()
     {
@@ -144,7 +144,6 @@ public class MainGame : MonoBehaviour
         }
        // GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
         MyTank.PlayerStats.ControlledTank.IsReady = false;
-        Gui.SetLocked(false);
     }
 
     /// <summary>
@@ -199,7 +198,7 @@ public class MainGame : MonoBehaviour
         obstaclesRoot.localPosition = Vector3.zero;
 
         obstacles = new List<DestructibleObject>();
-        initObstacles(obstacles, obstaclesRoot);
+        //initObstacles(obstacles, obstaclesRoot);
     }
 
     private void initTanks(List<Player> players, Transform tanksRoot)
@@ -311,10 +310,12 @@ public class MainGame : MonoBehaviour
     
     public void onTankKilled(TankControl tank) {
         //set score
-        if (tank == tanks[0]) {
+        if (tank != tanks[0]) {
+            Debug.LogError("p1 ++");
             scoreP1++;
         }
         else {
+            Debug.LogError("p2 ++");
             scoreP2++;
         }
 

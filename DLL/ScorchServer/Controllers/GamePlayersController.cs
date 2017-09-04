@@ -37,7 +37,7 @@ namespace ScorchServer.Controllers
             game.PlayerStates[playerState.Id].Update(playerState);
 
             gamesRepository.Update(game);
-            return game.PlayerStates.Cast<PlayerState>().ToList();
+            return game.PlayerStates.Select(ps=>ps).Where(ps => ps.IsActive).Cast<PlayerState>().ToList();
 
         }
 
