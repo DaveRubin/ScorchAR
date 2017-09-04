@@ -101,7 +101,7 @@ public class MainGame : MonoBehaviour
         InitGame();
         CreateTerrain();
         InitializePlayers();
-        InitializeObstacles();
+        //InitializeObstacles();
         //CreateMockTerrain();
         InitializeGUI();
 
