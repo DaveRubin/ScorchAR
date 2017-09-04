@@ -219,13 +219,13 @@ public class TankControl : MonoBehaviour {
 
     public Vector3 GetForceVector() {
         float addition = 0;
-        float angle = UpDwn.eulerAngles.z + addition;
+        float angle = PlayerStats.ControlledTank.AngleVertical + addition;
         float fy = Mathf.Sin(angle * Mathf.Deg2Rad) * force;
         float fxMain = Mathf.Cos(angle * Mathf.Deg2Rad) * force;
 
         //separate xForce and Zforce
         float addition2 = 0;
-        float angle2 = Sides.eulerAngles.y + addition2;
+        float angle2 = PlayerStats.ControlledTank.AngleHorizontal + addition2;
         float fz = Mathf.Sin(angle2 * Mathf.Deg2Rad) * fxMain;
         float fx = Mathf.Cos(angle2 * Mathf.Deg2Rad) * fxMain;
         return new Vector3(fx, fy, -fz);
