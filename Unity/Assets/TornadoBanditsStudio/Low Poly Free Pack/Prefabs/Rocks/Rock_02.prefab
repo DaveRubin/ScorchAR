@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33026322212238110}
   - component: {fileID: 23434201966662384}
   - component: {fileID: 64697177636627770}
+  - component: {fileID: 114571526641529168}
   m_Layer: 0
   m_Name: Rock_02
   m_TagString: Untagged
@@ -72,6 +73,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33026322212238110
 MeshFilter:
@@ -94,3 +96,16 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: fa4c70d1559dd9e46a2ffe5f7a5475cb, type: 3}
+--- !u!114 &114571526641529168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680265820211674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2a8037da7b0436a9c03a50cafaa55a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 20
+  explosion: {fileID: 1000013285955420, guid: f2746ecdf91f3ef4ea1bd22d8e19f9e8, type: 2}

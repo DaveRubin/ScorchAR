@@ -276,6 +276,8 @@ MonoBehaviour:
     type: 2}
   crateObstacle: {fileID: 114130952138352586, guid: 35b32465e989b43f3a95921fea093de5,
     type: 2}
+  boulderObstacle: {fileID: 114039265707435978, guid: 8f154712972a24730bd985266fee56f6,
+    type: 2}
   Gui: {fileID: 0}
 --- !u!4 &163745000
 Transform:

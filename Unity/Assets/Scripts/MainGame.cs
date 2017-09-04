@@ -19,6 +19,7 @@ public class MainGame : MonoBehaviour
 
     public DestructibleObject treeObstacle;
     public DestructibleObject crateObstacle;
+    public DestructibleObject boulderObstacle;
 
     private bool OFFLINE_MODE = true;
     private bool VUFORIA = false;
@@ -241,14 +242,21 @@ public class MainGame : MonoBehaviour
     /// </summary>
     private void initObstacles(List<DestructibleObject> obstacles, Transform obstaclesRoot)
     {
-        DestructibleObject tree = Instantiate(treeObstacle, new Vector3(10,10,10), Quaternion.identity);
-        DestructibleObject crate = Instantiate(crateObstacle, new Vector3(20,10,20), Quaternion.identity);
+        int a = 10,b = 10,c = 20 ,d = 20, e = 30, f = 30;
+        float height1 = terrainComp.SampleHeight(new Vector3(a, 0, b));
+        float height2 = terrainComp.SampleHeight(new Vector3(a, 0, b));
+        DestructibleObject tree = Instantiate(treeObstacle, new Vector3(a,height1,b), Quaternion.identity);
+        DestructibleObject crate = Instantiate(crateObstacle, new Vector3(c,height2 + 3.0f,d), Quaternion.identity);
+        DestructibleObject boulder1 = Instantiate(boulderObstacle, new Vector3(e,15.0f,f), Quaternion.identity);
+
 
         tree.transform.SetParent(obstaclesRoot);
         crate.transform.SetParent(obstaclesRoot);
+        boulder1.transform.SetParent(obstaclesRoot);
 
         obstacles.Add(tree);
         obstacles.Add(crate);
+        obstacles.Add(boulder1);
     }
 
     /// <summary>
@@ -386,7 +394,7 @@ public class MainGame : MonoBehaviour
             Vector3 obstaclePos = obstacle.transform.localPosition;
             float height = terrainComp.SampleHeight(new Vector3(obstaclePos.x, 0, obstaclePos.z));
             Debug.LogFormat("OBSTACLE {0} - old {1} new {2} ",obstacle.gameObject.name,obstaclePos.y,height);
-            if (height != obstaclePos.y) {
+            if (height != obstaclePos.y && !obstacle.name.Equals("Obstacle_Boulder") ) {
                 Debug.LogWarning("SHHHRAAAA");
                 obstacle.transform.DOLocalMoveY(height,1);
             }
