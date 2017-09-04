@@ -24,11 +24,13 @@ namespace ScorchServer.Models
             PositionZ = state.PositionZ;
             LastUpdateTime = updateTime;
             IsActive = true;
+            IsValid = false;
         }
 
         public ServerPlayerState()
         {
             IsActive = true;
+            IsValid = false;
         }
 
         public void Update(PlayerState state)
@@ -43,6 +45,7 @@ namespace ScorchServer.Models
             PositionZ = state.PositionZ;
             LastUpdateTime = DateTime.Now;
             IsActive = true;
+            IsValid = true;
         }
 
         

@@ -99,7 +99,8 @@ namespace ScorchEngine
 
             foreach (PlayerState state in updatesList)
             {
-                if (state.Id != MyID) m_players[state.Id].Process(state);
+                
+                if (state.Id != MyID && state.IsValid) m_players[state.Id].Process(state);
             }
         }
 
