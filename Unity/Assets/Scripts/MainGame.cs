@@ -345,10 +345,7 @@ public class MainGame : MonoBehaviour
 
     public void onTankHit(TankControl tank)
     {
-        if (tank == MyTank)
-        {
-            Gui.DoOnHitAnimation();
-        }
+        Gui.DoOnHitAnimation(tank == MyTank);
     }
 
     public void ToggleMapHeight(bool show) {
@@ -386,7 +383,7 @@ public class MainGame : MonoBehaviour
         if (serverStatus != (int)currentStatus) {
             currentStatus = (EGameStatus)serverStatus;
             if (currentStatus !=  EGameStatus.PLAYING) {
-                OnRoundEnded((int)currentStatus);
+                OnRoundEnded(pollResult.RoundWinnerIndex);
             }
             Debug.LogErrorFormat("CHanged status to {0}",currentStatus);
             if (statusChanged != null) statusChanged(currentStatus);

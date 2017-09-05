@@ -286,10 +286,10 @@ namespace UI {
 
         }
 
-        public void DoOnHitAnimation()
+        public void DoOnHitAnimation(bool self)
         {
             hitOverlay.gameObject.SetActive(true);
-            hitOverlay.color = Color.red;
+            hitOverlay.color = self?Color.red:Color.cyan;
             hitOverlay.DOFade(0, 1.5f).OnComplete(()=> { hitOverlay.gameObject.SetActive(false); });  
         }
 
