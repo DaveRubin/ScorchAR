@@ -395,7 +395,7 @@ public class MainGame : MonoBehaviour
             if (statusChanged != null) statusChanged(currentStatus);
         }
 
-        if (!OpponentTank.active) {
+        if (!OpponentTank.PlayerStats.ControlledTank.IsActive) {
             Gui.RemovePlayer();
         }
     }
