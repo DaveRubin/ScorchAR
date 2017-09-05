@@ -312,8 +312,8 @@ public class MainGame : MonoBehaviour
         Gui.ToggleTrackerDetection(detected);
     }
 
-    private void OnRoundEnded(int winnerIndex) {
-        if (winnerIndex == 0) {
+    private void OnRoundEnded(int loserIndex) {
+        if (loserIndex == 1) {
             Debug.LogError("p1 ++");
             scoreP1++;
         }
@@ -324,12 +324,12 @@ public class MainGame : MonoBehaviour
 
         if (scoreP1 != MAX_SCORE && scoreP2 != MAX_SCORE) {
             currentRound++;
-            Gui.ShowEndRound(tanks[winnerIndex] != MyTank,scoreP1,scoreP2,tanks,()=> {
+            Gui.ShowEndRound(tanks[loserIndex] != MyTank,scoreP1,scoreP2,tanks,()=> {
                 ResetGame();
             });
         }
         else {
-            Gui.ShowEndGame(tanks[winnerIndex] != MyTank).AddListener(()=> {
+            Gui.ShowEndGame(tanks[loserIndex] != MyTank).AddListener(()=> {
                 UnityServerWrapper.Instance.RemovePlayerFromGame(gameID,PlayerIndex, () => {
                     SceneManager.LoadScene("Menus");
                 });
