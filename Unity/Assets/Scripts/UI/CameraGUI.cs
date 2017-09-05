@@ -318,6 +318,7 @@ namespace UI {
 
         public void WaitTillStatusChange(Action onComplete) {
             endRoundScreen.GetComponentInChildren<Button>().interactable = false;
+            UnityServerWrapper.Instance.EndRound(MainUser.Instance.CurrentGame.Id);
             if (MainGame.currentStatus == EGameStatus.PLAYING) {
                 endRoundScreen.DOFade(0,1).OnComplete(()=> {
                     endRoundScreen.gameObject.SetActive(false);
