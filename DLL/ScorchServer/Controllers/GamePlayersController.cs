@@ -25,7 +25,7 @@ namespace ScorchServer.Controllers
             GameInfo game = gamesRepository.GetGame(id);
             game.AddPlayer(playerInfo, ref newPlayerIndex);
 
-            gamesRepository.Update(game);
+            //gamesRepository.Update(game);
             return newPlayerIndex;
         }
 
@@ -36,7 +36,7 @@ namespace ScorchServer.Controllers
             ServerGame game = gamesRepository.GetGame(id);
             game.PlayerStates[playerState.Id].Update(playerState);
 
-            gamesRepository.Update(game);
+            //gamesRepository.Update(game);
             return game.PlayerStates.Select(ps=>ps).Where(ps => ps.IsActive).Cast<PlayerState>().ToList();
 
         }
@@ -58,6 +58,20 @@ namespace ScorchServer.Controllers
             }
             //TODO write to db
             gamesRepository.RemoveGame(id);
+        }
+
+        [Route(ServerRoutes.GameRoundWinner)]
+        [HttpGet]
+        public void SetGameRoundWinner(string id, int index)
+        { 
+            gamesRepository.GetGame(id).RoundWinnerIndex = index;
+        }
+
+        [Route(ServerRoutes.GameEndRound)]
+        [HttpGet]
+        public void SetGameEndRound(string id)
+        {
+            gamesRepository.GetGame(id).AcknoledgeEndOfRound();
         }
     }
 }
