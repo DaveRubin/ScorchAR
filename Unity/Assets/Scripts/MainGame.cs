@@ -32,6 +32,12 @@ public class MainGame : MonoBehaviour
         }
     }
 
+    private TankControl OpponentTank {
+        get {
+            return tanks[(PlayerIndex+1)%2];
+        }
+    }
+
     private int scoreP1 = 0;
     private int scoreP2 = 0;
     public const int MAX_SCORE = 3;
@@ -387,6 +393,10 @@ public class MainGame : MonoBehaviour
             }
             Debug.LogErrorFormat("CHanged status to {0}",currentStatus);
             if (statusChanged != null) statusChanged(currentStatus);
+        }
+
+        if (!OpponentTank.active) {
+            Gui.RemovePlayer();
         }
     }
 
