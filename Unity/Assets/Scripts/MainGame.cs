@@ -17,6 +17,7 @@ public class MainGame : MonoBehaviour
     public const float TANK_SCALE = 1f;
     public const int MAP_SIZE = 64;
 
+    public static EGameStatus currentStatus = EGameStatus.PLAYING;
     public DestructibleObject treeObstacle;
     public DestructibleObject crateObstacle;
     public DestructibleObject boulderObstacle;
@@ -308,10 +309,9 @@ public class MainGame : MonoBehaviour
         ToggleMapHeight(detected);
         Gui.ToggleTrackerDetection(detected);
     }
-    
-    public void onTankKilled(TankControl tank) {
-        //set score
-        if (tank != tanks[0]) {
+
+    private void OnRoundEnded(int winnerIndex) {
+        if (winnerIndex == 0) {
             Debug.LogError("p1 ++");
             scoreP1++;
         }
@@ -322,18 +322,22 @@ public class MainGame : MonoBehaviour
 
         if (scoreP1 != MAX_SCORE && scoreP2 != MAX_SCORE) {
             currentRound++;
-            Gui.ShowEndRound(tank != MyTank,scoreP1,scoreP2,tanks,()=> {
+            Gui.ShowEndRound(tanks[winnerIndex] != MyTank,scoreP1,scoreP2,tanks,()=> {
                 ResetGame();
             });
         }
         else {
-            Gui.ShowEndGame(tank != MyTank).AddListener(()=> {
-                UnityServerWrapper.Instance.RemovePlayerFromGame(gameID,PlayerIndex, () => { 
-					SceneManager.LoadScene("Menus"); 
-				});
+            Gui.ShowEndGame(tanks[winnerIndex] != MyTank).AddListener(()=> {
+                UnityServerWrapper.Instance.RemovePlayerFromGame(gameID,PlayerIndex, () => {
+                    SceneManager.LoadScene("Menus");
+                });
             });
         }
+    }
 
+    public void onTankKilled(TankControl tank) {
+        //if its me.. then send index...
+        
     }
 
     public void onTankHit(TankControl tank)
@@ -375,8 +379,13 @@ public class MainGame : MonoBehaviour
 
     public void OnPollResult(List<PlayerState> result) {
         GameCore.OnPollResult(result);
-        //Debug.Log("---------------");
-       // Debug.LogFormat("{0} {1}",result[0],result[1]);
+        int serverStatus = -1;
+        if (serverStatus != (int)currentStatus) {
+            currentStatus = (EGameStatus)serverStatus;
+            if (currentStatus !=  EGameStatus.PLAYING) {
+                OnRoundEnded((int)currentStatus);
+            }
+        }
     }
 
     public void OnTerrainDeform() {
