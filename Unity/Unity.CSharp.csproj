@@ -128,6 +128,7 @@
     <Compile Include="Assets\Scripts\DragMe.cs" />
     <Compile Include="Assets\Scripts\DragPanel.cs" />
     <Compile Include="Assets\Scripts\DropMe.cs" />
+    <Compile Include="Assets\Scripts\EGameStatus.cs" />
     <Compile Include="Assets\Scripts\Explosion.cs" />
     <Compile Include="Assets\Scripts\Extensions\Vector3Extension.cs" />
     <Compile Include="Assets\Scripts\MainGame.cs" />
