@@ -12,7 +12,7 @@ namespace ScorchServer.Models
         public DateTime LastUpdateTime { get; set; }
         
 
-        public ServerPlayerState(PlayerState state, DateTime updateTime)
+        public ServerPlayerState(PlayerState state)
         {
             Id = state.Id;
             IsReady = state.IsReady;
@@ -22,7 +22,7 @@ namespace ScorchServer.Models
             PositionX = state.PositionX;
             PositionY = state.PositionY;
             PositionZ = state.PositionZ;
-            LastUpdateTime = updateTime;
+            LastUpdateTime = DateTime.Now;
             IsActive = true;
             IsValid = false;
         }
@@ -44,7 +44,6 @@ namespace ScorchServer.Models
             PositionY = state.PositionY;
             PositionZ = state.PositionZ;
             LastUpdateTime = DateTime.Now;
-            IsActive = true;
             IsValid = true;
         }
 

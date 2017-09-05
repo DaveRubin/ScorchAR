@@ -385,7 +385,7 @@ public class MainGame : MonoBehaviour
     public void OnPollResult(PollResult pollResult) {
         GameCore.OnPollResult(pollResult.PlayerStates);
         int serverStatus = pollResult.RoundWinnerIndex;
-        Debug.LogFormat("got server status{0}",pollResult.RoundWinnerIndex);
+        //Debug.LogFormat("got server status{0}",pollResult.RoundWinnerIndex);
         if (serverStatus != (int)currentStatus) {
             currentStatus = (EGameStatus)serverStatus;
             if (currentStatus !=  EGameStatus.PLAYING) {
@@ -394,8 +394,8 @@ public class MainGame : MonoBehaviour
             Debug.LogErrorFormat("CHanged status to {0}",currentStatus);
             if (statusChanged != null) statusChanged(currentStatus);
         }
-
-        if (!OpponentTank.active) {
+        //Debug.LogErrorFormat("op is active: {0}", OpponentTank.PlayerStats.ControlledTank.IsActive);
+        if (!OpponentTank.PlayerStats.ControlledTank.IsActive) {
             Gui.RemovePlayer();
         }
     }

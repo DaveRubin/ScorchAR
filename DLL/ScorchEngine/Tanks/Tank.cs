@@ -19,7 +19,7 @@ namespace ScorchEngine
 	    public float Force;
 
 	    public bool IsReady { get; set; }
-
+        public bool IsActive { get; set; }
         public float PositionX { get; set; }
         public float PositionY { get; set; }
         public float PositionZ { get; set; }
@@ -30,7 +30,9 @@ namespace ScorchEngine
 			AngleVertical = 0;
 		    Force = 0;
 			Health = 100;
-		}
+            IsActive = true;
+
+        }
 
 	    /// <summary>
 	    /// Take Damage from projectile hit
