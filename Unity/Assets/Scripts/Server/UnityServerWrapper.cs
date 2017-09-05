@@ -162,7 +162,7 @@ namespace Server
                     postData));
         }
 
-        public void UpdatePlayerState(string gameId, PlayerState playerState, Action<List<PlayerState>> onDoneCallback)
+        public void UpdatePlayerState(string gameId, PlayerState playerState, Action<PollResult> onDoneCallback)
         {
             //Debug.Log("get player state " + ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", gameId));
             string url = GetURL(ServerRoutes.UpdatePlayerStateUrl.Replace("{id}", gameId));
@@ -176,8 +176,8 @@ namespace Server
                             if (string.IsNullOrEmpty(www.error))
                             {
                                 // Debug.LogFormat("Got playerState: {0}", www.text);
-                                List<PlayerState> list = JsonConvert.DeserializeObject<List<PlayerState>>(www.text);
-                                onDoneCallback(list);
+                                PollResult pollResult = JsonConvert.DeserializeObject<PollResult>(www.text);
+                                onDoneCallback(pollResult);
                             }
                             else
                             {

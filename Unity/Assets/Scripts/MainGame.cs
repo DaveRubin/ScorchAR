@@ -379,9 +379,9 @@ public class MainGame : MonoBehaviour
 
     }
 
-    public void OnPollResult(List<PlayerState> result) {
-        GameCore.OnPollResult(result);
-        int serverStatus = -1;
+    public void OnPollResult(PollResult pollResult) {
+        GameCore.OnPollResult(pollResult.PlayerStates);
+        int serverStatus = pollResult.RoundWinnerIndex; 
         if (serverStatus != (int)currentStatus) {
             currentStatus = (EGameStatus)serverStatus;
             if (currentStatus !=  EGameStatus.PLAYING) {

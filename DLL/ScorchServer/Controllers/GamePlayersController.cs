@@ -31,13 +31,16 @@ namespace ScorchServer.Controllers
 
         [Route(ServerRoutes.UpdatePlayerStateUrl)]
         [HttpPost]
-        public List<PlayerState> UpdatePlayerStates(string id, [FromBody] PlayerState playerState)
+        public PollResult UpdatePlayerStates(string id, [FromBody] PlayerState playerState)
         {
             ServerGame game = gamesRepository.GetGame(id);
+            PollResult pollResult = new PollResult();
             game.PlayerStates[playerState.Id].Update(playerState);
-
+            pollResult.PlayerStates =
+                game.PlayerStates.Select(ps => ps).Where(ps => ps.IsActive).Cast<PlayerState>().ToList();
+            pollResult.RoundWinnerIndex = game.RoundWinnerIndex;
             //gamesRepository.Update(game);
-            return game.PlayerStates.Select(ps=>ps).Where(ps => ps.IsActive).Cast<PlayerState>().ToList();
+            return pollResult;
 
         }
 
