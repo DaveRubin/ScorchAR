@@ -332,6 +332,7 @@ namespace UI {
         }
 
         public void CheckGameStatus(EGameStatus status,Action onComplete) {
+            Debug.LogErrorFormat("CheckGameStatus {0}",status);
             if (status == EGameStatus.PLAYING) {
                 WaitTillStatusChange(onComplete);
             }
