@@ -24,11 +24,14 @@ namespace ScorchEngine.Models
 
         public List<Point>[] PlayerPositions { get; set; }
 
+        public int RoundWinnerIndex { get; set; }
+
         public GameInfo() { }
 
         public GameInfo(int rounds)
         {
-            Rounds = rounds;
+            RoundWinnerIndex = -1;
+             Rounds = rounds;
             Players = new List<PlayerInfo>();
             PlayerPositions = new List<Point>[rounds];
             Random random = new Random();

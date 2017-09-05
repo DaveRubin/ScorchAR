@@ -25,6 +25,9 @@ namespace ScorchEngine.Server
 
         public const string CancelGame = "api/games/{id}/cancel";
 
+        public const string GameRoundWinner = "api/games/{id}/roundWinner/{index}";
+        public const string GameEndRound = "api/games/{id}/gameEndRound";
+
         public const string ServerBaseUri = "http://scorchar.azurewebsites.net";
 
         public const string LocalBaseUri = "http://localhost:17212/";

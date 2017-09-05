@@ -83,6 +83,43 @@ namespace Server
                     postData));
         }
 
+        public void NotifiyRoundWinner(string gameID, int playerIndex)
+        {
+            string url =
+                GetURL(
+                    ServerRoutes.GameRoundWinner.Replace("{id}", gameID).Replace("{index}", playerIndex.ToString()));
+            Debug.Log("NotifiyRoundWinner" + url);
+            StartCoroutine(
+                GetCoroutine(
+                    url,
+                    www =>
+                    {
+                        if (!string.IsNullOrEmpty(www.error))
+                        {
+                            OnError(www);
+                        }
+                    }));
+        }
+
+        public void EndRound(string gameID)
+        {
+            string url =
+                GetURL(
+                    ServerRoutes.GameEndRound.Replace("{id}", gameID));
+            Debug.Log("End Round" + url);
+            StartCoroutine(
+                GetCoroutine(
+                    url,
+                    www =>
+                    {
+                        if (!string.IsNullOrEmpty(www.error))
+                        {
+                            OnError(www);
+                        }
+                    }));
+        }
+
+
         public void ResetGames()
         {
             StartCoroutine(

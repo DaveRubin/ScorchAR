@@ -14,10 +14,23 @@ namespace ScorchServer.Models
         public List<ServerPlayerState> PlayerStates { get; set; }
         public DateTime LastUpdateTime { get; set; }
 
+        private int endRoundAcknoledgments;
+
+        public void AcknoledgeEndOfRound()
+        {
+            ++endRoundAcknoledgments;
+            if (endRoundAcknoledgments == MaxPlayers)
+            {
+                endRoundAcknoledgments = 0;
+                RoundWinnerIndex = -1;
+            }
+        }
       
 
         public ServerGame(GameInfo gameInfo)
         {
+            endRoundAcknoledgments = 0;
+            RoundWinnerIndex = -1;
             Id = gameInfo.Id;
             Name = gameInfo.Name;
             MaxPlayers = gameInfo.MaxPlayers;
