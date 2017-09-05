@@ -30,7 +30,9 @@ namespace ScorchEngine
 			AngleVertical = 0;
 		    Force = 0;
 			Health = 100;
-		}
+            IsActive = true;
+
+        }
 
 	    /// <summary>
 	    /// Take Damage from projectile hit
