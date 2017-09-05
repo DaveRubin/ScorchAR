@@ -19,7 +19,7 @@ namespace ScorchEngine
 	    public float Force;
 
 	    public bool IsReady { get; set; }
-
+        public bool IsActive { get; set; }
         public float PositionX { get; set; }
         public float PositionY { get; set; }
         public float PositionZ { get; set; }

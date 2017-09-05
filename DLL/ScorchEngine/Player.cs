@@ -82,7 +82,7 @@ namespace ScorchEngine
 	        {
                 ControlledTank.IsReady = false;
             }
-            
+	        ControlledTank.IsActive = state.IsActive;
 	        ControlledTank.PositionX = state.PositionX;
             ControlledTank.PositionY = state.PositionY;
             ControlledTank.PositionZ = state.PositionZ;
