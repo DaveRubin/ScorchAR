@@ -175,7 +175,7 @@ namespace Server
                         {
                             if (string.IsNullOrEmpty(www.error))
                             {
-                                Debug.LogFormat("Got playerState: {0}", www.text);
+                               // Debug.LogFormat("Got playerState: {0}", www.text);
                                 PollResult pollResult = JsonConvert.DeserializeObject<PollResult>(www.text);
                                 onDoneCallback(pollResult);
                             }

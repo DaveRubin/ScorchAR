@@ -36,8 +36,7 @@ namespace ScorchServer.Controllers
             PollResult pollResult = new PollResult();
             game.PlayerStates[playerState.Id].Update(playerState);
             game.LastUpdateTime = DateTime.Now;
-            pollResult.PlayerStates =
-                game.PlayerStates.Select(ps => ps).Where(ps => ps.IsActive).Cast<PlayerState>().ToList();
+            pollResult.PlayerStates = game.PlayerStates.Cast<PlayerState>().ToList();
             pollResult.RoundWinnerIndex = game.RoundWinnerIndex;
             return pollResult;
 

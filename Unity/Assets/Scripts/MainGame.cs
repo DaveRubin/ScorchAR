@@ -394,7 +394,7 @@ public class MainGame : MonoBehaviour
             Debug.LogErrorFormat("CHanged status to {0}",currentStatus);
             if (statusChanged != null) statusChanged(currentStatus);
         }
-        Debug.LogErrorFormat("op is active: {0}", OpponentTank.PlayerStats.ControlledTank.IsActive);
+        //Debug.LogErrorFormat("op is active: {0}", OpponentTank.PlayerStats.ControlledTank.IsActive);
         if (!OpponentTank.PlayerStats.ControlledTank.IsActive) {
             Gui.RemovePlayer();
         }
