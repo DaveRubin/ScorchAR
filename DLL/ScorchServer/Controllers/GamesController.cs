@@ -14,6 +14,7 @@ namespace ScorchServer.Controllers
     using ScorchEngine.Server;
 
     using ScorchServer.Db;
+    using ScorchServer.Models;
 
     public class GamesController : ApiController
     {
@@ -73,7 +74,8 @@ namespace ScorchServer.Controllers
         [HttpGet]
         public GameInfo Get(string id)
         {
-            GameInfo game = gamesRepository.GetGame(id);
+            ServerGame game = gamesRepository.GetGame(id);
+            game.LastUpdateTime =DateTime.Now;
             return game;
         }
 

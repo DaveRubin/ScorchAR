@@ -73,7 +73,8 @@ namespace ScorchServer.Db
                 List<string> gamesNames = games.Keys.ToList();
                 foreach (string name in gamesNames)
                 {
-                    if (games[name].LastUpdateTime < DateTime.Now.AddMinutes(-2))
+                    
+                    if ((DateTime.Now - games[name].LastUpdateTime).TotalMilliseconds > 2000)
                     {
                         games.Remove(name);
                     }   

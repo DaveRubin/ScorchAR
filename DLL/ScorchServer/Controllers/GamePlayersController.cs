@@ -22,10 +22,9 @@ namespace ScorchServer.Controllers
         public int AddPlayer(string id, [FromBody] PlayerInfo playerInfo)
         {
             int newPlayerIndex = -1;
-            GameInfo game = gamesRepository.GetGame(id);
+            ServerGame game = gamesRepository.GetGame(id);
             game.AddPlayer(playerInfo, ref newPlayerIndex);
-
-            //gamesRepository.Update(game);
+            game.LastUpdateTime = DateTime.Now;
             return newPlayerIndex;
         }
 
@@ -36,10 +35,10 @@ namespace ScorchServer.Controllers
             ServerGame game = gamesRepository.GetGame(id);
             PollResult pollResult = new PollResult();
             game.PlayerStates[playerState.Id].Update(playerState);
+            game.LastUpdateTime = DateTime.Now;
             pollResult.PlayerStates =
                 game.PlayerStates.Select(ps => ps).Where(ps => ps.IsActive).Cast<PlayerState>().ToList();
             pollResult.RoundWinnerIndex = game.RoundWinnerIndex;
-            //gamesRepository.Update(game);
             return pollResult;
 
         }
