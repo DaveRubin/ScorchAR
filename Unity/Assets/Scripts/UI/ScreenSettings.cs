@@ -22,6 +22,7 @@ namespace UI {
 
         public void OnValueChange(bool val) {
             AudioListener.pause = !val;
+            Debug.Log("Chaned sound enabled value to: " + val);
             int muteVal = Convert.ToInt32(!val);
             PlayerPrefs.SetInt("Mute", muteVal);
             PlayerPrefs.Save();
