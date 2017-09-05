@@ -134,10 +134,8 @@ namespace UI {
             endRoundScreen.gameObject.SetActive(true);
             endRoundScreen.DOFade(1,1);
             endRoundScreen.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
-            endRoundScreen.GetComponentInChildren<Button>().onClick.AddListener(()=> {
-                endRoundScreen.DOFade(0,1).OnComplete(()=>endRoundScreen.gameObject.SetActive(false));
-                onComplete();
-            });
+            endRoundScreen.GetComponentInChildren<Button>().onClick.AddListener(()=>WaitTillStatusChange(onComplete));
+
 
             List<PlayerInfo> playerInfos = MainUser.Instance.CurrentGame.Players;
             PlayerInfo oppponent =  MainUser.Instance.Id != playerInfos[0].Id ? playerInfos[0]:playerInfos[1];
@@ -316,6 +314,27 @@ namespace UI {
             UnityServerWrapper.Instance.RemovePlayerFromGame(MainGame.gameID,MainGame.PlayerIndex, () => {
                 SceneManager.LoadScene("Menus");
             });
+        }
+
+        public void WaitTillStatusChange(Action onComplete) {
+            endRoundScreen.GetComponentInChildren<Button>().interactable = false;
+            if (MainGame.currentStatus == EGameStatus.PLAYING) {
+                endRoundScreen.DOFade(0,1).OnComplete(()=> {
+                    endRoundScreen.gameObject.SetActive(false);
+                    endRoundScreen.GetComponentInChildren<Button>().interactable = true;
+                });
+                onComplete();
+                MainGame.statusChanged = null;
+            }
+            else {
+                MainGame.statusChanged += status => CheckGameStatus(status,onComplete);
+            }
+        }
+
+        public void CheckGameStatus(EGameStatus status,Action onComplete) {
+            if (status == EGameStatus.PLAYING) {
+                WaitTillStatusChange(onComplete);
+            }
         }
 
 

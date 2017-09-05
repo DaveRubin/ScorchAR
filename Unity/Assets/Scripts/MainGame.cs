@@ -17,6 +17,7 @@ public class MainGame : MonoBehaviour
     public const float TANK_SCALE = 1f;
     public const int MAP_SIZE = 64;
 
+    public static Action<EGameStatus> statusChanged;
     public static EGameStatus currentStatus = EGameStatus.PLAYING;
     public DestructibleObject treeObstacle;
     public DestructibleObject crateObstacle;
@@ -30,6 +31,7 @@ public class MainGame : MonoBehaviour
             return tanks[PlayerIndex];
         }
     }
+
     private int scoreP1 = 0;
     private int scoreP2 = 0;
     public const int MAX_SCORE = 3;
@@ -336,13 +338,13 @@ public class MainGame : MonoBehaviour
     }
 
     public void onTankKilled(TankControl tank) {
-        //if its me.. then send index...
-        
+        //set score
+        int winnerIndex = tank == tanks[0]? 0:1;
+        UnityServerWrapper.Instance.NotifiyRoundWinner(MainUser.Instance.CurrentGame.Id,winnerIndex);
     }
 
     public void onTankHit(TankControl tank)
     {
-        Debug.LogError("in onTankHit MainGame");
         if (tank == MyTank)
         {
             Gui.DoOnHitAnimation();
@@ -385,6 +387,8 @@ public class MainGame : MonoBehaviour
             if (currentStatus !=  EGameStatus.PLAYING) {
                 OnRoundEnded((int)currentStatus);
             }
+
+            if (statusChanged != null) statusChanged(currentStatus);
         }
     }
 
