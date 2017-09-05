@@ -82,7 +82,7 @@ namespace Server
                         }, 
                     postData));
         }
-
+        // Send Once On tank kill
         public void NotifiyRoundWinner(string gameID, int playerIndex)
         {
             string url =
@@ -100,7 +100,7 @@ namespace Server
                         }
                     }));
         }
-
+        // Send once on when clicking on the ok button then disable the button
         public void EndRound(string gameID)
         {
             string url =
