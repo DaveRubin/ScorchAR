@@ -24,7 +24,7 @@ public class MainGame : MonoBehaviour
     public DestructibleObject boulderObstacle;
 
     private bool OFFLINE_MODE = false;
-    private bool VUFORIA = false;
+    private bool VUFORIA = true;
 
     private TankControl MyTank {
         get {
