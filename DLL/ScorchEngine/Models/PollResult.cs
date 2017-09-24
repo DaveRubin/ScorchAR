@@ -7,10 +7,16 @@ namespace ScorchEngine.Models
 {
     using ScorchEngine.Server;
 
+    [System.Serializable]
     public class PollResult
     {
-        public List<PlayerState> PlayerStates { get; set; }
+        public List<PlayerState> PlayerStates;
 
-        public int RoundWinnerIndex { get; set; }
+        public int RoundWinnerIndex;
+
+        public PollResult()
+        {
+            
+        }
     }
 }

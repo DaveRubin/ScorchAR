@@ -1,19 +1,26 @@
 ﻿namespace ScorchEngine.Server
 {
+    [System.Serializable]
     public class PlayerState
     {
-        public int Id { get; set; }
-        public bool IsReady { get; set; }
-        public float AngleHorizontal { get; set; }
-        public float AngleVertical { get; set; }
-        public float Force { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsValid { get; set; }
+        public int Id;
+        public bool IsReady;
+        public float AngleHorizontal;
+        public float AngleVertical;
+        public float Force;
+        public bool IsActive;
+        public bool IsValid;
 
-        public float PositionX { get; set; }
-        public float PositionY { get; set; }
-        public float PositionZ { get; set; }
+        public float PositionX;
+        public float PositionY;
+        public float PositionZ;
 
+
+        public PlayerState()
+        {
+            
+        }
+        
         public override string ToString()
         {
             return string.Format("{0},{1},({2},{3}),({4},{5},{6}),{7},{8},{9}",
