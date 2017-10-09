@@ -135,6 +135,7 @@ public class TankControl : MonoBehaviour {
         Gui.OnShootClicked += OnGuiShoot;
         Gui.OnShowPath += OnShowPathToggle;
         Gui.OnMove += OnMove;
+        Gui.OnBarrelMove += OnBarrelMove;
     }
 
     public void UnlinkGUI(CameraGUI Gui) {
@@ -144,6 +145,7 @@ public class TankControl : MonoBehaviour {
         Gui.OnShootClicked -= OnGuiShoot;
         Gui.OnShowPath -= OnShowPathToggle;
         Gui.OnMove -= OnMove;
+        Gui.OnBarrelMove -= OnBarrelMove;
     }
 
     /// <summary>
@@ -308,6 +310,12 @@ public class TankControl : MonoBehaviour {
         PlayerStats.ControlledTank.PositionY = newPos.y;
         PlayerStats.ControlledTank.PositionZ = newPos.z;
 
+    }
+
+    public void OnBarrelMove(Vector2 barrelMoveVector)
+    {
+        onLeftRightChanged(barrelMoveVector.x);
+        onUpDownChanged(barrelMoveVector.y);
     }
 
     public void SimulateMotion(Tank controlledTank) {

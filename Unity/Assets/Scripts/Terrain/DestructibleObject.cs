@@ -20,7 +20,8 @@ public class DestructibleObject : MonoBehaviour {
             health -= 5;
             if ( health <= 0 )
             {
-                Instantiate(explosion, new Vector3(this.transform.position.x,this.transform.position.y + 1.5f, this.transform.position.z), this.transform.rotation);
+                GameObject newExplosion = (GameObject)Instantiate(explosion, new Vector3(this.transform.position.x,this.transform.position.y + 1.5f, this.transform.position.z), this.transform.rotation);
+                Destroy(newExplosion,1.5f);
 
                 //GameObject destroyedObject = Instantiate(destroyedObject, this.transform.position, this.transform.rotation) as GameObject;
                 GameObject.Destroy(gameObject);

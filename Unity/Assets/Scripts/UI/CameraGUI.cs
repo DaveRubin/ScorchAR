@@ -28,6 +28,7 @@ namespace UI {
         public event Action<float> OnForceChange;
         public event Action<bool> OnShowPath;
         public event Action<Vector2> OnMove;
+        public event Action<Vector2> OnBarrelMove;
 
         CanvasGroup controls;
         CanvasGroup errorOverlay;
@@ -86,6 +87,7 @@ namespace UI {
 
         void Update() {
             Vector2 moveVec = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"),CrossPlatformInputManager.GetAxis("Vertical"));
+            Vector2 barrelMoveVec = new Vector2(CrossPlatformInputManager.GetAxis("HorizontalBarrel"),CrossPlatformInputManager.GetAxis("VerticalBarrel"));
             if (moveVec != Vector2.zero && OnMove != null) {
                 float fuelBurn = moveVec.magnitude;
                 fuel = Mathf.Clamp(fuel - fuelBurn,0,MAX_FUEL);
@@ -93,6 +95,10 @@ namespace UI {
                     OnMove(moveVec);
                 }
                 UpdateFuelText();
+            }
+            if (barrelMoveVec != Vector2.zero && OnBarrelMove != null)
+            {
+                OnBarrelMove(barrelMoveVec);
             }
         }
 
