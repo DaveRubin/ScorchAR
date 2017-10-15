@@ -23,8 +23,8 @@ public class MainGame : MonoBehaviour
     public DestructibleObject crateObstacle;
     public DestructibleObject boulderObstacle;
 
-    private bool OFFLINE_MODE = true;
-    private bool VUFORIA = false;
+    private bool OFFLINE_MODE = false;
+    private bool VUFORIA = true;
 
     private TankControl MyTank {
         get {
@@ -50,6 +50,8 @@ public class MainGame : MonoBehaviour
     private List<DestructibleObject> obstacles;
     public static int PlayerIndex;
     private Transform rootTransform;
+
+    private Transform obstaclesRoot;
     public static GameObject terrain;
     public static Terrain terrainComp;
     private VuforiaWrapper vuforiaWrapper;
@@ -148,12 +150,9 @@ public class MainGame : MonoBehaviour
         pState.PositionY = MyTank.PlayerStats.ControlledTank.PositionY;
         pState.PositionZ = MyTank.PlayerStats.ControlledTank.PositionZ;
 
-        //Debug.LogFormat(pState.ToString());
         if (!OFFLINE_MODE) {
             UnityServerWrapper.Instance.UpdatePlayerState(MainUser.Instance.CurrentGame.Id, pState, OnPollResult);
         }
-       // GameCore.Poll(MainUser.Instance.CurrentGame.Id,pState);
-        
     }
 
     /// <summary>
@@ -196,40 +195,26 @@ public class MainGame : MonoBehaviour
                         Color.black);
             }
         }
-        //tank = GameObject.Find("Tank").GetComponent<TankControl>();
-        //tank.SetPlayer(GameCore.self);
     }
 
     public void InitializeObstacles()
     {
-        Transform obstaclesRoot = new GameObject().transform;
+        obstaclesRoot = new GameObject().transform;
         obstaclesRoot.gameObject.name = "Obstacles";
         obstaclesRoot.SetParent(rootTransform);
         obstaclesRoot.localPosition = Vector3.zero;
-
-        obstacles = new List<DestructibleObject>();
-        //initObstacles(obstacles, obstaclesRoot);
+        initObstacles();
     }
 
     private void initTanks(List<Player> players, Transform tanksRoot)
     {
         for (int i = 0; i < players.Count; ++i)
         {
-            float x,z;
             TankControl tankGO = PrefabManager.InstantiatePrefab("Tank").GetComponent<TankControl>();
             tankGO.transform.SetParent(tanksRoot);
-            if (i == 0)
-            {
-                x = 40;
-                z = 20;
-            }
-            else
-            {
-                x = 15;
-                z = 15;
-            }
-            //float x = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].X;
-            //float z = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].Y;
+   
+            float x = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].X;
+            float z = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].Y;
             tankGO.onKill += onTankKilled;
             tankGO.onHit += onTankHit;
             float height = terrainComp.SampleHeight(new Vector3(x, 0, z));
@@ -249,23 +234,32 @@ public class MainGame : MonoBehaviour
     /// Create terrain
     /// TODO - need to randomize obstacle location and verify that it is not next to the tanks...
     /// </summary>
-    private void initObstacles(List<DestructibleObject> obstacles, Transform obstaclesRoot)
+    private void initObstacles()
     {
-        int a = 10,b = 10,c = 20 ,d = 20, e = 30, f = 30;
-        float height1 = terrainComp.SampleHeight(new Vector3(a, 0, b));
-        float height2 = terrainComp.SampleHeight(new Vector3(a, 0, b));
-        DestructibleObject tree = Instantiate(treeObstacle, new Vector3(a,height1,b), Quaternion.identity);
-        DestructibleObject crate = Instantiate(crateObstacle, new Vector3(c,height2 + 3.0f,d), Quaternion.identity);
-        DestructibleObject boulder1 = Instantiate(boulderObstacle, new Vector3(e,15.0f,f), Quaternion.identity);
 
-
-        tree.transform.SetParent(obstaclesRoot);
-        crate.transform.SetParent(obstaclesRoot);
-        boulder1.transform.SetParent(obstaclesRoot);
-
-        obstacles.Add(tree);
-        obstacles.Add(crate);
-        obstacles.Add(boulder1);
+        obstacles = new List<DestructibleObject>();
+        List<Point> destructableObjectsPositions = MainUser.Instance.CurrentGame.DestructableObjectPositions[currentRound];
+        DestructibleObject destructableObject;
+        for (int i = 0; i < destructableObjectsPositions.Count; ++i)
+        {
+            float x = destructableObjectsPositions[i].X;
+            float z = destructableObjectsPositions[i].Y;
+            float height = terrainComp.SampleHeight(new Vector3(x, 0, z));
+            if (i % 3 == 0)
+            {
+                destructableObject = Instantiate(treeObstacle, new Vector3(x, height, z), Quaternion.identity);
+            }
+            else if (i % 3 == 1)
+            {
+                destructableObject  = Instantiate(crateObstacle, new Vector3(x, height, z), Quaternion.identity);
+            }
+            else
+            {
+                destructableObject = Instantiate(boulderObstacle, new Vector3(x, height, z), Quaternion.identity);
+            }
+            destructableObject.transform.SetParent(obstaclesRoot);
+            obstacles.Add(destructableObject);
+        }
     }
 
     /// <summary>
@@ -433,7 +427,6 @@ public class MainGame : MonoBehaviour
         }
         //set positions
         Gui.ResetGUI();
-        List<Point>[] a = MainUser.Instance.CurrentGame.PlayerPositions;
         for (int i = 0; i < tanks.Count; i++) {
             TankControl control = tanks[i];
             float x = MainUser.Instance.CurrentGame.PlayerPositions[currentRound][i].X;
@@ -445,6 +438,16 @@ public class MainGame : MonoBehaviour
             control.PlayerStats.ControlledTank.PositionY = height;
             control.PlayerStats.ControlledTank.PositionZ = z;
         }
+        destroyObstacles();
     }
+    private void destroyObstacles()
+    {
+        foreach(DestructibleObject destructibleObject in obstacles)
+        {
+            GameObject.Destroy(destructibleObject.gameObject);
+        }
+        initObstacles();
+    }
+   
 
 }
