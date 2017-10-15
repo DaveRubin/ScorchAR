@@ -9,7 +9,7 @@ using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UI {
-    public class CameraGUI :MonoBehaviour {
+    public class CameraGUI : MonoBehaviour {
 
         private const int MIN_VERTICAL = 0;
         private const int MAX_VERTICAL = 90;
@@ -28,7 +28,6 @@ namespace UI {
         public event Action<float> OnForceChange;
         public event Action<bool> OnShowPath;
         public event Action<Vector2> OnMove;
-        public event Action<Vector2> OnBarrelMove;
 
         CanvasGroup controls;
         CanvasGroup errorOverlay;
@@ -96,9 +95,11 @@ namespace UI {
                 }
                 UpdateFuelText();
             }
-            if (barrelMoveVec != Vector2.zero && OnBarrelMove != null)
+            if (barrelMoveVec != Vector2.zero )
             {
-                OnBarrelMove(barrelMoveVec);
+                barrelMoveVec /= 100; //normalize to (-1 , 1)
+                AngleChanged(barrelMoveVec.x,barrelMoveVec.y,0);
+                //OnBarrelMove(barrelMoveVec);
             }
         }
 
@@ -226,7 +227,7 @@ namespace UI {
             UpdateTexts();
         }
 
-        public void AngleChanged(int horizontal, int vertical,int forceDelta) {
+        public void AngleChanged(float horizontal, float vertical,int forceDelta) {
             angleHorizontal += horizontal;
             angleVertical += vertical;
             force += forceDelta;
@@ -250,8 +251,8 @@ namespace UI {
 
         private void UpdateTexts() {
             Debug.LogFormat("A {0} {1}",angleHorizontal,angleVertical);
-            textY.text = string.Format("{0}º",angleVertical);
-            textX.text = string.Format("{0}º",angleHorizontal);
+            textY.text = string.Format("{0}º",angleVertical.ToString("N1"));
+            textX.text = string.Format("{0}º",angleHorizontal.ToString("N1"));
             textForce.text = force.ToString();
             UpdateFuelText();
         }
