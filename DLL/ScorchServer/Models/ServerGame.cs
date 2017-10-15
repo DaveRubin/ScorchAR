@@ -42,6 +42,7 @@ namespace ScorchServer.Models
                 PlayerStates.Add( new ServerPlayerState());
             }
             PlayerPositions = gameInfo.PlayerPositions;
+            DestructableObjectPositions = gameInfo.DestructableObjectPositions;
             LastUpdateTime = DateTime.Now;
         }
 
@@ -52,6 +53,7 @@ namespace ScorchServer.Models
             MaxPlayers = gameInfo.MaxPlayers;
             Players = gameInfo.Players;
             PlayerPositions = gameInfo.PlayerPositions;
+            DestructableObjectPositions = gameInfo.DestructableObjectPositions;
             LastUpdateTime = DateTime.Now;
             Rounds = gameInfo.Rounds;
         }
