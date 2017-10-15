@@ -251,11 +251,11 @@ public class MainGame : MonoBehaviour
             }
             else if (i % 3 == 1)
             {
-                destructableObject  = Instantiate(crateObstacle, new Vector3(x, height + 3.0f, z), Quaternion.identity);
+                destructableObject  = Instantiate(crateObstacle, new Vector3(x, height, z), Quaternion.identity);
             }
             else
             {
-                destructableObject = Instantiate(boulderObstacle, new Vector3(x, 15.0f, z), Quaternion.identity);
+                destructableObject = Instantiate(boulderObstacle, new Vector3(x, height, z), Quaternion.identity);
             }
             destructableObject.transform.SetParent(obstaclesRoot);
             obstacles.Add(destructableObject);
