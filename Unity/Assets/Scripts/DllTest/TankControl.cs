@@ -314,8 +314,10 @@ public class TankControl : MonoBehaviour {
 
     public void OnBarrelMove(Vector2 barrelMoveVector)
     {
-        onLeftRightChanged(barrelMoveVector.x);
-        onUpDownChanged(barrelMoveVector.y);
+        barrelMoveVector /= 100;
+        float upDown = Mathf.Clamp(PlayerStats.ControlledTank.AngleVertical+ barrelMoveVector.y,0,90);
+        onLeftRightChanged(PlayerStats.ControlledTank.AngleHorizontal + barrelMoveVector.x);
+        onUpDownChanged(upDown);
     }
 
     public void SimulateMotion(Tank controlledTank) {
