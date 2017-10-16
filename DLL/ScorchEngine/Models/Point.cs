@@ -5,9 +5,11 @@ using System.Text;
 
 namespace ScorchEngine.Models
 {
+    [System.Serializable]
     public class Point
     {
-        public float X { get; set; }
-        public float Y { get; set; }
+        public float X;
+
+        public float Y;
     }
 }
