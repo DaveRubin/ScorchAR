@@ -8,6 +8,7 @@ namespace ScorchServer.Models
     using ScorchEngine.Models;
     using ScorchEngine.Server;
 
+    [System.Serializable]
     public class ServerGame : GameInfo
     {
 

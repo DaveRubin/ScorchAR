@@ -6,6 +6,7 @@ namespace ScorchEngine.Models
     using System.Diagnostics;
     using System.Runtime.InteropServices.ComTypes;
 
+    [System.Serializable]
     public class GameInfo
     {
         public const int MAP_SIZE = 60;
