@@ -12,8 +12,9 @@ namespace ScorchServer.Models
     public class ServerGame : GameInfo
     {
 
-        public List<ServerPlayerState> PlayerStates { get; set; }
-        public DateTime LastUpdateTime { get; set; }
+        public List<ServerPlayerState> PlayerStates;
+
+        public DateTime LastUpdateTime;
 
         private int endRoundAcknoledgments;
 

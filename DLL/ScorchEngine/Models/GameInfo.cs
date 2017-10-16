@@ -14,23 +14,23 @@ namespace ScorchEngine.Models
         public const int MAX_NUMBER_OF_DESTRUCTABLE_OBJECTS = 10;
         public const int DESTRUCTABLE_OBJECT_MIN_DISTANCE_FROM_OTHER_OBJECTS = 5;
 
-        public string Name { get; set; }
+        public string Name;
 
-        public string Id { get; set; }
+        public string Id;
 
-        public int MaxPlayers { get; set; }
+        public int MaxPlayers;
 
-        public int Rounds { get; set; }
+        public int Rounds;
 
-        public bool IsFull { get; set; }
+        public bool IsFull;
 
-        public List<PlayerInfo> Players { get; set; }
+        public List<PlayerInfo> Players;
 
-        public List<Point>[] PlayerPositions { get; set; }
+        public List<Point>[] PlayerPositions;
 
-        public List<Point>[] DestructableObjectPositions { get; set; }
+        public List<Point>[] DestructableObjectPositions;
 
-        public int RoundWinnerIndex { get; set; }
+        public int RoundWinnerIndex;
 
         public GameInfo()
         {
